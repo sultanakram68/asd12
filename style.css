@@ -911,7 +911,7 @@ h1, h2, h3 {
 .logo-svg-base,
 .logo-svg-neon {
     font-family: 'Inter', sans-serif;
-    font-size: 130px;
+    font-size: 85px;
     font-weight: 800;
     letter-spacing: -4px;
 }
@@ -1704,11 +1704,6 @@ html[dir="rtl"] .contact-form {
         height: 130px;
     }
 
-    .logo-svg-base,
-    .logo-svg-neon {
-        font-size: 95px;
-    }
-
     .hero {
         padding-top: 6rem;
         padding-bottom: 2rem;
@@ -1799,11 +1794,6 @@ html[dir="rtl"] .contact-form {
     .logo-svg {
         width: 380px;
         height: 110px;
-    }
-
-    .logo-svg-base,
-    .logo-svg-neon {
-        font-size: 85px;
     }
 
     .section-title {
