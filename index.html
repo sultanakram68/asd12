@@ -8,8 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <!-- مكتبة العرض ثلاثي الأبعاد Spline -->
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.3/build/spline-viewer.js"></script>
+    <!-- مكتبة العرض ثلاثي الأبعاد Spline (محذوفة من هنا لتحميلها ديناميكياً) -->
     <!-- ملف التنسيق -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -55,9 +54,8 @@
     <!-- القسم الرئيسي (Hero Section) مع الـ 3D -->
     <header class="hero" id="hero">
         <!-- مشهد 3D بالخلفية -->
-        <div class="hero-3d-bg">
-            <spline-viewer url="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"></spline-viewer>
-        </div>
+        <!-- حاوية 3D (سيتم تحميلها فقط على الشاشات الكبيرة لتسريع الموبايل) -->
+        <div class="hero-3d-bg" id="hero-3d-container"></div>
         
         <div class="hero-content parallax-element" data-speed="0.03">
             <div class="glass-hero-panel reveal">

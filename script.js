@@ -486,4 +486,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ==========================================
+    // 12. Lazy Load 3D Spline Viewer (Desktop Only)
+    // ==========================================
+    if (window.innerWidth > 768) {
+        const splineContainer = document.getElementById('hero-3d-container');
+        if (splineContainer) {
+            const script = document.createElement('script');
+            script.type = 'module';
+            script.src = 'https://unpkg.com/@splinetool/viewer@1.9.3/build/spline-viewer.js';
+            document.head.appendChild(script);
+
+            const viewer = document.createElement('spline-viewer');
+            viewer.setAttribute('url', 'https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode');
+            splineContainer.appendChild(viewer);
+        }
+    }
+
 });
