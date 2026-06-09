@@ -1,118 +1,305 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // =====================
-    // Hamburger & Side Menu
-    // =====================
-    const hamburger = document.getElementById('hamburger');
-    const sideMenu = document.getElementById('side-menu');
-    const overlay = document.getElementById('overlay');
-    const closeMenu = document.getElementById('close-menu');
+    // ==========================================
+    // 1. Scroll Reveal Animations & Navbar Logic
+    // ==========================================
+    const reveals = document.querySelectorAll('.reveal');
+    const navbar = document.getElementById('navbar');
 
-    function openMenu() {
-        if(hamburger) hamburger.classList.add('active');
-        if(sideMenu) sideMenu.classList.add('active');
-        if(overlay) overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+    function checkScroll() {
+        const triggerBottom = window.innerHeight * 0.85;
 
-    function closeMenuFn() {
-        if(hamburger) hamburger.classList.remove('active');
-        if(sideMenu) sideMenu.classList.remove('active');
-        if(overlay) overlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            if (sideMenu && sideMenu.classList.contains('active')) {
-                closeMenuFn();
-            } else {
-                openMenu();
+        reveals.forEach(reveal => {
+            const revealTop = reveal.getBoundingClientRect().top;
+            if (revealTop < triggerBottom) {
+                reveal.classList.add('active');
             }
         });
-    }
 
-    if (closeMenu) closeMenu.addEventListener('click', closeMenuFn);
-    if (overlay) overlay.addEventListener('click', closeMenuFn);
-
-    document.querySelectorAll('.side-link').forEach(link => {
-        link.addEventListener('click', closeMenuFn);
-    });
-
-    // =====================
-    // Logo follows mouse
-    // =====================
-    const heroLogo = document.querySelector('.hero-logo');
-    const logoSvg = document.querySelector('.logo-svg');
-
-    if (heroLogo && logoSvg) {
-        heroLogo.addEventListener('mouseenter', () => {
-            logoSvg.style.transform = 'scale(0.85)';
-        });
-
-        heroLogo.addEventListener('mouseleave', () => {
-            logoSvg.style.transform = 'scale(1) translate(0, 0)';
-        });
-
-        heroLogo.addEventListener('mousemove', (e) => {
-            const rect = heroLogo.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            const moveX = (e.clientX - centerX) / 8;
-            const moveY = (e.clientY - centerY) / 8;
-            logoSvg.style.transform = `scale(0.85) translate(${moveX}px, ${moveY}px)`;
-        });
-
-        let touchActive = false;
-        let logoStartX = 0;
-        let logoStartY = 0;
-
-        heroLogo.addEventListener('touchstart', (e) => {
-            touchActive = true;
-            const touch = e.touches[0];
-            logoStartX = touch.clientX;
-            logoStartY = touch.clientY;
-            logoSvg.style.transition = 'none';
-            logoSvg.style.transform = 'scale(0.85)';
-        }, { passive: true });
-
-        document.addEventListener('touchmove', (e) => {
-            if (!touchActive) return;
-            const touch = e.touches[0];
-            const moveX = (touch.clientX - logoStartX) / 4;
-            const moveY = (touch.clientY - logoStartY) / 4;
-            logoSvg.style.transform = `scale(0.85) translate(${moveX}px, ${moveY}px)`;
-        }, { passive: true });
-
-        document.addEventListener('touchend', () => {
-            if (!touchActive) return;
-            touchActive = false;
-            logoSvg.style.transition = 'transform 0.4s ease-out';
-            logoSvg.style.transform = 'scale(1) translate(0, 0)';
-        });
-    }
-
-    // =====================
-    // Floating Particles
-    // =====================
-    const particlesContainer = document.getElementById('particles');
-
-    function createParticles() {
-        if (!particlesContainer) return;
-        const count = window.innerWidth < 768 ? 12 : 25;
-        for (let i = 0; i < count; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            const size = Math.random() * 6 + 2;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${Math.random() * 100}%`;
-            particle.style.animationDuration = `${Math.random() * 15 + 10}s`;
-            particle.style.animationDelay = `${Math.random() * 10}s`;
-            particle.style.opacity = Math.random() * 0.3 + 0.1;
-            particlesContainer.appendChild(particle);
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
         }
     }
 
-    createParticles();
+    window.addEventListener('scroll', checkScroll);
+    checkScroll(); // Trigger on load
+
+    // ==========================================
+    // 2. Modals & Drawers Logic (Cart, Auth, etc)
+    // ==========================================
+    function toggleModal(modalId, show) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+        if (show) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        } else {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+
+    // Auth Modal
+    document.getElementById('open-auth-btn')?.addEventListener('click', () => toggleModal('auth-modal', true));
+    document.getElementById('close-auth-modal')?.addEventListener('click', () => toggleModal('auth-modal', false));
+
+    // Cart Drawer
+    document.getElementById('open-cart-btn')?.addEventListener('click', () => toggleModal('cart-drawer', true));
+    document.getElementById('cart-overlay')?.addEventListener('click', () => toggleModal('cart-drawer', false));
+    document.getElementById('close-cart-btn')?.addEventListener('click', () => toggleModal('cart-drawer', false));
+
+    // Checkout Modal
+    document.getElementById('checkout-btn')?.addEventListener('click', () => {
+        toggleModal('cart-drawer', false);
+        toggleModal('checkout-modal', true);
+    });
+    document.getElementById('close-checkout-modal')?.addEventListener('click', () => toggleModal('checkout-modal', false));
+
+    // Success Modal
+    document.getElementById('close-success-btn')?.addEventListener('click', () => toggleModal('success-modal', false));
+
+    // ==========================================
+    // 3. User Authentication (Local Storage)
+    // ==========================================
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const authForms = document.querySelectorAll('.auth-form');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            const target = btn.getAttribute('data-tab');
+            authForms.forEach(f => {
+                if (f.id === `${target}-form`) f.classList.add('active');
+                else f.classList.remove('active');
+            });
+        });
+    });
+
+    function getUsers() { return JSON.parse(localStorage.getItem('lmixi_users')) || []; }
+    function saveUsers(users) { localStorage.setItem('lmixi_users', JSON.stringify(users)); }
+    function getCurrentUser() {
+        const email = localStorage.getItem('current_user_email');
+        if (!email) return null;
+        return getUsers().find(u => u.email === email);
+    }
+
+    function updateAuthUI() {
+        const user = getCurrentUser();
+        const loginForm = document.getElementById('login-form');
+        const regForm = document.getElementById('register-form');
+        const profileInfo = document.getElementById('profile-info');
+        const tabs = document.querySelector('.modal-tabs');
+
+        if (user) {
+            loginForm.classList.remove('active');
+            regForm.classList.remove('active');
+            if (tabs) tabs.style.display = 'none';
+            profileInfo.classList.add('active');
+            
+            document.getElementById('profile-name-display').innerText = user.name;
+            document.getElementById('profile-email-display').innerText = user.email;
+            document.getElementById('profile-phone-display').innerText = user.phone;
+        } else {
+            if (tabs) tabs.style.display = 'flex';
+            profileInfo.classList.remove('active');
+            document.querySelector('[data-tab="login"]').click(); // Reset to login tab
+        }
+    }
+
+    document.getElementById('register-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const users = getUsers();
+        const newUser = {
+            name: document.getElementById('reg-name').value,
+            email: document.getElementById('reg-email').value,
+            phone: document.getElementById('reg-phone').value,
+            password: document.getElementById('reg-password').value
+        };
+
+        if (users.find(u => u.email === newUser.email)) {
+            alert('البريد الإلكتروني مسجل مسبقاً!');
+            return;
+        }
+
+        users.push(newUser);
+        saveUsers(users);
+        localStorage.setItem('current_user_email', newUser.email);
+        updateAuthUI();
+        toggleModal('auth-modal', false);
+    });
+
+    document.getElementById('login-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const pass = document.getElementById('login-password').value;
+        const users = getUsers();
+        const user = users.find(u => u.email === email && u.password === pass);
+
+        if (user) {
+            localStorage.setItem('current_user_email', email);
+            updateAuthUI();
+            toggleModal('auth-modal', false);
+        } else {
+            alert('بيانات الدخول خاطئة!');
+        }
+    });
+
+    document.getElementById('logout-btn')?.addEventListener('click', () => {
+        localStorage.removeItem('current_user_email');
+        updateAuthUI();
+    });
+
+    updateAuthUI(); // Init auth state
+
+    // ==========================================
+    // 4. Shopping Cart Logic
+    // ==========================================
+    let cart = JSON.parse(localStorage.getItem('lmixi_cart')) || [];
+
+    function saveCart() {
+        localStorage.setItem('lmixi_cart', JSON.stringify(cart));
+        renderCart();
+    }
+
+    function renderCart() {
+        const container = document.getElementById('cart-items-container');
+        const badge = document.getElementById('cart-count');
+        const totalEl = document.getElementById('cart-total-price');
+        const checkoutFinal = document.getElementById('checkout-final-price');
+        const checkoutBtn = document.getElementById('checkout-btn');
+
+        container.innerHTML = '';
+        let total = 0;
+
+        if (cart.length === 0) {
+            container.innerHTML = '<div class="empty-cart-msg">سلتك فارغة حالياً.</div>';
+            badge.innerText = '0';
+            totalEl.innerText = '0 ل.س';
+            if (checkoutBtn) checkoutBtn.disabled = true;
+            return;
+        }
+
+        if (checkoutBtn) checkoutBtn.disabled = false;
+        let totalQty = 0;
+
+        cart.forEach((item, index) => {
+            total += item.price * item.qty;
+            totalQty += item.qty;
+
+            const div = document.createElement('div');
+            div.className = 'cart-item';
+            div.innerHTML = `
+                <div class="cart-item-info">
+                    <h4>${item.name} (x${item.qty})</h4>
+                    <span>${(item.price * item.qty).toLocaleString()} ل.س</span>
+                </div>
+                <button class="cart-item-remove" data-index="${index}">حذف</button>
+            `;
+            container.appendChild(div);
+        });
+
+        badge.innerText = totalQty;
+        const totalText = total.toLocaleString() + ' ل.س';
+        totalEl.innerText = totalText;
+        if (checkoutFinal) checkoutFinal.innerText = totalText;
+
+        // Attach remove events
+        document.querySelectorAll('.cart-item-remove').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = e.target.getAttribute('data-index');
+                cart.splice(idx, 1);
+                saveCart();
+            });
+        });
+    }
+
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const id = e.target.getAttribute('data-id');
+            const name = e.target.getAttribute('data-name');
+            const price = parseInt(e.target.getAttribute('data-price'));
+
+            const existing = cart.find(i => i.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ id, name, price, qty: 1 });
+            }
+            saveCart();
+            
+            // Visual feedback
+            const originalText = e.target.innerText;
+            e.target.innerText = 'تمت الإضافة ✓';
+            e.target.style.background = 'var(--neon-orange)';
+            e.target.style.color = '#fff';
+            
+            setTimeout(() => {
+                e.target.innerText = originalText;
+                e.target.style.background = 'transparent';
+                e.target.style.color = 'var(--neon-orange)';
+            }, 1000);
+        });
+    });
+
+    renderCart(); // Init cart
+
+    // ==========================================
+    // 5. Checkout Process
+    // ==========================================
+    document.getElementById('checkout-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const city = document.getElementById('checkout-city').value;
+        const addr = document.getElementById('checkout-address').value;
+        
+        if (!city || !addr) {
+            alert('يرجى ملء تفاصيل العنوان');
+            return;
+        }
+
+        // Trigger confetti & success
+        toggleModal('checkout-modal', false);
+        toggleModal('success-modal', true);
+        
+        // Clear cart
+        cart = [];
+        saveCart();
+    });
+
+    // ==========================================
+    // 6. Parallax Mouse Effect for Hero
+    // ==========================================
+    const heroSection = document.getElementById('hero');
+    const parallaxElements = document.querySelectorAll('.parallax-element');
+
+    if (heroSection && parallaxElements.length > 0) {
+        heroSection.addEventListener('mousemove', (e) => {
+            const x = e.clientX - window.innerWidth / 2;
+            const y = e.clientY - window.innerHeight / 2;
+
+            parallaxElements.forEach(el => {
+                const speed = parseFloat(el.getAttribute('data-speed')) || 0.05;
+                const xOffset = x * speed;
+                const yOffset = y * speed;
+                el.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+
+        heroSection.addEventListener('mouseleave', () => {
+            parallaxElements.forEach(el => {
+                el.style.transform = `translate(0px, 0px)`;
+                el.style.transition = 'transform 0.5s ease-out';
+            });
+        });
+
+        heroSection.addEventListener('mouseenter', () => {
+            parallaxElements.forEach(el => {
+                el.style.transition = 'none';
+            });
+        });
+    }
+
 });

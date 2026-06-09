@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMIXI | لوحة تحكم الإدارة</title>
+    <!-- خطوط جوجل -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- ملف التنسيق الموحد -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+    <!-- الجزيئات الخلفية -->
+    <div id="particles-bg"></div>
+
+    <div class="dashboard-layout">
+        <!-- الشريط الجانبي (Sidebar) -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <span class="logo">LMIXI</span>
+                <span class="badge admin-badge">Admin</span>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="#" class="active"><span class="icon">📊</span> لوحة القيادة</a></li>
+                <li><a href="#"><span class="icon">📦</span> إدارة المنتجات</a></li>
+                <li><a href="#"><span class="icon">👥</span> إدارة البائعين</a></li>
+                <li><a href="#"><span class="icon">🛒</span> إدارة الطلبات</a></li>
+                <li><a href="#"><span class="icon">⚙️</span> الإعدادات</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="index.html" class="btn btn-outline btn-full">العودة للمتجر</a>
+            </div>
+        </aside>
+
+        <!-- المحتوى الرئيسي (Main Content) -->
+        <main class="dashboard-content">
+            <header class="dashboard-header">
+                <div class="hamburger" id="dash-hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                    <span></span><span></span><span></span>
+                </div>
+                <h2>نظرة عامة على النظام</h2>
+                <div class="user-profile">
+                    <span class="avatar">👑</span>
+                    <span class="name">المدير العام</span>
+                </div>
+            </header>
+
+            <!-- الكروت الإحصائية -->
+            <div class="stats-grid">
+                <div class="glass-stat-card">
+                    <div class="stat-icon" style="color: #27c93f;">📦</div>
+                    <div class="stat-info">
+                        <h3>إجمالي المنتجات</h3>
+                        <strong>1,245</strong>
+                    </div>
+                </div>
+                <div class="glass-stat-card">
+                    <div class="stat-icon" style="color: #ffbd2e;">👥</div>
+                    <div class="stat-info">
+                        <h3>البائعين النشطين</h3>
+                        <strong>84</strong>
+                    </div>
+                </div>
+                <div class="glass-stat-card">
+                    <div class="stat-icon" style="color: #ff5f56;">🛒</div>
+                    <div class="stat-info">
+                        <h3>الطلبات المعلقة</h3>
+                        <strong>320</strong>
+                    </div>
+                </div>
+                <div class="glass-stat-card">
+                    <div class="stat-icon" style="color: var(--neon-orange);">💰</div>
+                    <div class="stat-info">
+                        <h3>أرباح المنصة</h3>
+                        <strong>15,000,000 ل.س</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- مساحة فارغة لمحتوى مستقبلي (جداول، رسوم بيانية) -->
+            <div class="dashboard-panel glass-card">
+                <div class="panel-header">
+                    <h3>أحدث البائعين المسجلين</h3>
+                    <button class="btn btn-outline" style="padding: 0.4rem 1rem; font-size: 0.9rem;">عرض الكل</button>
+                </div>
+                <p style="color: var(--text-muted); text-align: center; padding: 3rem 0;">هنا سيتم عرض جدول البائعين النشطين وقبول الطلبات الجديدة.</p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
