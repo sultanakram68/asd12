@@ -487,6 +487,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
+    // Navbar Search Toggle
+    // ==========================================
+    const searchToggleBtn = document.getElementById('search-toggle-btn');
+    const navSearchContainer = document.getElementById('nav-search-container');
+    const navSearchInput = document.getElementById('search-input');
+
+    if (searchToggleBtn && navSearchContainer) {
+        searchToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navSearchContainer.classList.toggle('active');
+            if (navSearchContainer.classList.contains('active')) {
+                setTimeout(() => navSearchInput?.focus(), 100);
+            }
+        });
+
+        // إغلاق البحث عند النقر خارجه
+        document.addEventListener('click', (e) => {
+            if (!navSearchContainer.contains(e.target)) {
+                navSearchContainer.classList.remove('active');
+            }
+        });
+    }
+
+    // ==========================================
     // 12. Lazy Load 3D Spline Viewer (Desktop Only)
     // ==========================================
     if (window.innerWidth > 768) {
