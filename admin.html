@@ -89,5 +89,18 @@
             </div>
         </main>
     </div>
+    <script>
+        // حماية لوحة الأدمن - فقط الإيميل المصرح له
+        (function() {
+            const ADMIN_EMAIL = 'sultanakram682@gmail.com';
+            const currentEmail = localStorage.getItem('current_user_email');
+
+            if (!currentEmail || currentEmail.toLowerCase() !== ADMIN_EMAIL) {
+                document.body.innerHTML = '';
+                alert('⛔ غير مصرح لك بالدخول إلى لوحة الإدارة.');
+                window.location.href = 'index.html';
+            }
+        })();
+    </script>
 </body>
 </html>

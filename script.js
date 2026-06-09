@@ -1,3 +1,15 @@
+// ==========================================
+// 0. Loading Screen Logic
+// ==========================================
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loading-screen');
+    if (loader) {
+        setTimeout(() => {
+            loader.classList.add('hidden');
+        }, 1500); // إبقاء شاشة التحميل قليلاً لإعطاء شعور بالفخامة
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
@@ -9,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function checkScroll() {
         const triggerBottom = window.innerHeight * 0.85;
 
+        // Scroll Reveal
         reveals.forEach(reveal => {
             const revealTop = reveal.getBoundingClientRect().top;
             if (revealTop < triggerBottom) {
@@ -16,15 +29,58 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Navbar Solid Background
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
+
+        // Animated Counters
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const counterTop = counter.getBoundingClientRect().top;
+            if (counterTop < triggerBottom && counter.innerText === '0') {
+                const target = +counter.getAttribute('data-target');
+                const increment = target / 40; // سرعة العداد
+
+                const updateCount = () => {
+                    const count = +counter.innerText.replace(/,/g, '');
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment).toLocaleString();
+                        setTimeout(updateCount, 40);
+                    } else {
+                        counter.innerText = target.toLocaleString() + (target > 10000 ? '+' : '');
+                    }
+                };
+                updateCount();
+            }
+        });
     }
 
     window.addEventListener('scroll', checkScroll);
     checkScroll(); // Trigger on load
+
+    // ==========================================
+    // 1b. Mobile Hamburger Menu
+    // ==========================================
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('mobile-open');
+        });
+
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('mobile-open');
+            });
+        });
+    }
 
     // ==========================================
     // 2. Modals & Drawers Logic (Cart, Auth, etc)
@@ -301,5 +357,65 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // ==========================================
+    // 7. Live Search Functionality
+    // ==========================================
+    const searchInput = document.getElementById('search-input');
+    const productCards = document.querySelectorAll('.product-card');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+
+            productCards.forEach(card => {
+                const productName = card.querySelector('.product-name').innerText.toLowerCase();
+                const productDesc = card.querySelector('.product-desc').innerText.toLowerCase();
+
+                if (productName.includes(searchTerm) || productDesc.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                    // إضافة أنيميشن خفيفة عند الظهور
+                    card.style.animation = 'fadeIn 0.5s ease forwards';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    // ==========================================
+    // 8. Wishlist Logic
+    // ==========================================
+    const wishlistBtns = document.querySelectorAll('.wishlist-btn');
+    wishlistBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            btn.classList.toggle('active');
+            if (btn.classList.contains('active')) {
+                // Show a quick visual feedback
+                const heart = document.createElement('span');
+                heart.innerText = '❤️';
+                heart.style.position = 'absolute';
+                heart.style.left = '50%';
+                heart.style.top = '50%';
+                heart.style.transform = 'translate(-50%, -50%)';
+                heart.style.pointerEvents = 'none';
+                heart.style.animation = 'fadeOutUp 1s ease forwards';
+                btn.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 1000);
+            }
+        });
+    });
+
+    // إضافة ستايل بسيط لحركة القلب
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes fadeOutUp {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -150%) scale(2); }
+        }
+    `;
+    document.head.appendChild(style);
 
 });
