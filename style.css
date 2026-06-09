@@ -32,7 +32,7 @@
     /* === Liquid Glass === */
     --glass: rgba(255, 255, 255, 0.04);
     --glass-strong: rgba(255, 255, 255, 0.08);
-    --glass-blur: blur(32px);
+    --glass-blur: blur(20px);
     --glass-border: rgba(255, 255, 255, 0.08);
 
     /* === Typography === */
@@ -451,51 +451,67 @@ h1, h2, h3, h4 {
 .skeleton-line.short { width: 50%; }
 
 /* =============================================
-   Search Bar — Liquid Glass
+   Search Bar — Animated Neon Glow
    ============================================= */
 .search-section {
     padding: 2rem 5% 0;
-    max-width: 700px;
+    max-width: 550px;
     margin: 0 auto;
 }
 
 .search-bar {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 0.8rem;
-    background: var(--glass);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 1px solid var(--border-orange);
+    gap: 0.6rem;
+    background: #0a0a0a;
     border-radius: var(--r-full);
     padding: 0.6rem 1.2rem;
-    transition: var(--transition);
+    margin-top: 1rem;
 }
 
-.search-bar:focus-within {
-    border-color: var(--orange);
-    box-shadow: 0 0 30px var(--orange-glow);
+/* Moving Gradient Border & Glow */
+.search-bar::before,
+.search-bar::after {
+    content: '';
+    position: absolute;
+    inset: -2.5px;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #ff00a0, #7a00ff, #00d2ff, #7a00ff, #ff00a0);
+    background-size: 200% 100%;
+    animation: neonSearchFlow 4s linear infinite;
+    z-index: -1;
+}
+
+.search-bar::after {
+    filter: blur(20px);
+    opacity: 0.75;
 }
 
 .search-bar input {
     flex: 1;
     background: none;
     border: none;
-    color: var(--text-primary);
+    color: #fff;
     font-family: var(--font-ar);
-    font-size: 1rem;
-    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    padding: 0.3rem 0;
     outline: none;
 }
 
 .search-bar input::placeholder {
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.4);
 }
 
 .search-bar .search-icon {
-    color: var(--orange);
-    font-size: 1.2rem;
-    flex-shrink: 0;
+    color: #fff;
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+@keyframes neonSearchFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
 }
 
 /* =============================================
@@ -1153,7 +1169,7 @@ h1, h2, h3, h4 {
    ============================================= */
 .reveal {
     opacity: 0;
-    transform: translateY(40px) scale(0.98);
+    transform: translateY(20px) scale(0.98);
     transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1313,17 +1329,24 @@ h1, h2, h3, h4 {
     position: fixed;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 150vw;
-    height: 150vh;
-    background: radial-gradient(circle at 50% 50%, rgba(255, 94, 0, 0.05) 0%, transparent 50%);
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 94, 0, 0.05) 0%, transparent 60%);
     pointer-events: none;
     z-index: -1;
-    animation: pulseAmbient 10s ease-in-out infinite alternate;
+}
+
+@media (min-width: 769px) {
+    .ambient-glow {
+        width: 150vw;
+        height: 150vh;
+        animation: pulseAmbient 10s ease-in-out infinite alternate;
+    }
 }
 
 @keyframes pulseAmbient {
     0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-    100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
 }
 
 /* --- Liquid Glass Hover Effect --- */
