@@ -511,21 +511,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 12. Lazy Load 3D Spline Viewer (Desktop Only)
+    // 12. Spline 3D Removed for Performance
     // ==========================================
-    if (window.innerWidth > 768) {
-        const splineContainer = document.getElementById('hero-3d-container');
-        if (splineContainer) {
-            const script = document.createElement('script');
-            script.type = 'module';
-            script.src = 'https://unpkg.com/@splinetool/viewer@1.9.3/build/spline-viewer.js';
-            document.head.appendChild(script);
-
-            const viewer = document.createElement('spline-viewer');
-            viewer.setAttribute('url', 'https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode');
-            splineContainer.appendChild(viewer);
-        }
-    }
 
     // ==========================================
     // 13. Application Logic (Cart, Auth, Search)
@@ -725,5 +712,88 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize UI
     updateCart();
     updateAuthUI();
+
+    // ==========================================
+    // 14. AI Chatbot Logic (LMIXI Assistant)
+    // ==========================================
+    const openAiBtn = document.getElementById('open-ai-btn');
+    const closeAiBtn = document.getElementById('close-ai-btn');
+    const aiChatWindow = document.getElementById('ai-chat-window');
+    const aiChatForm = document.getElementById('ai-chat-form');
+    const aiInput = document.getElementById('ai-input');
+    const aiMessages = document.getElementById('ai-chat-messages');
+
+    if(openAiBtn && aiChatWindow) {
+        openAiBtn.addEventListener('click', () => {
+            aiChatWindow.classList.add('open');
+            setTimeout(() => aiInput.focus(), 100);
+        });
+
+        closeAiBtn.addEventListener('click', () => {
+            aiChatWindow.classList.remove('open');
+        });
+
+        // Smart Mock AI Algorithm
+        function generateAIResponse(text) {
+            const query = text.toLowerCase();
+            if (query.includes('لاب') || query.includes('حاسوب') || query.includes('كمبيوتر')) {
+                return 'شراء لابتوب يعتمد على استخدامك. للعمل الثقيل والألعاب، أنصحك بمعالجات قوية وكرت شاشة منفصل. لدينا في LMIXI خيارات ممتازة مثل LMX ProBook.';
+            } else if (query.includes('ساع') || query.includes('watch')) {
+                return 'الساعات الذكية رائعة لتتبع الصحة. ساعة LMX Ultra لدينا تقدم أداء ممتازاً وعمراً طويلاً للبطارية. هل ترغب برؤيتها في المتجر؟';
+            } else if (query.includes('قارن') || query.includes('افضل') || query.includes('أفضل') || query.includes('احسن')) {
+                return 'المقارنة تعتمد على الميزانية والاستخدام (عمل، دراسة، أم ألعاب؟). حدد لي هدفك، وسأقوم بترشيح أفضل الأجهزة من تشكيلة LMIXI.';
+            } else if (query.includes('تقني') || query.includes('شرح') || query.includes('كيف') || query.includes('نصيح')) {
+                return 'في عالم التقنية، أنصحك دائماً بالاستثمار في أجهزة تدعم التحديثات المستقبلية لتدوم معك طويلاً. نحن في LMIXI نضمن لك أحدث التقنيات وأفضل خدمة ما بعد البيع.';
+            } else if (query.includes('ترجم') || query.includes('معنى')) {
+                return 'بالتأكيد، يمكنني مساعدتك بترجمة أو شرح أي مصطلح تقني معقد لتتخذ قرار شراء سليم. تفضل الكلمة!';
+            } else if (query.includes('سعر') || query.includes('بكم') || query.includes('مصاري')) {
+                return 'أسعارنا في LMIXI تنافسية جداً وتأتي مع ضمان حقيقي. يمكنك تصفح المتجر وإضافة المنتجات للسلة لرؤية التكلفة الإجمالية بدقة.';
+            } else if (query.includes('مرحبا') || query.includes('هلا') || query.includes('السلام')) {
+                return 'أهلاً بك! أنا مساعد LMIXI الذكي. يسعدني جداً الرد على أي سؤال تقني، مساعدتك في التسوق، أو تقديم نصائح عامة.';
+            } else {
+                return 'سؤال رائع! بصفتي مساعد LMIXI، أنا هنا لأقدم لك استشارات تقنية، نصائح شراء، وأسهل عليك اختيار الأجهزة. هل تبحث عن جهاز محدد اليوم؟';
+            }
+        }
+
+        function appendMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `ai-msg ${sender}`;
+            msgDiv.textContent = text;
+            aiMessages.appendChild(msgDiv);
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const indicator = document.createElement('div');
+            indicator.className = 'typing-indicator';
+            indicator.id = 'ai-typing';
+            indicator.innerHTML = '<span></span><span></span><span></span>';
+            aiMessages.appendChild(indicator);
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('ai-typing');
+            if(indicator) indicator.remove();
+        }
+
+        aiChatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = aiInput.value.trim();
+            if(!text) return;
+            
+            appendMessage(text, 'user');
+            aiInput.value = '';
+            
+            showTypingIndicator();
+            
+            // Simulate network delay
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = generateAIResponse(text);
+                appendMessage(response, 'bot');
+            }, 1500);
+        });
+    }
 
 });
