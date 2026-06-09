@@ -1,14 +1,4 @@
-// ==========================================
-// 0. Loading Screen Logic
-// ==========================================
-window.addEventListener('load', () => {
-    const loader = document.getElementById('loading-screen');
-    if (loader) {
-        setTimeout(() => {
-            loader.classList.add('hidden');
-        }, 1500); // إبقاء شاشة التحميل قليلاً لإعطاء شعور بالفخامة
-    }
-});
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
