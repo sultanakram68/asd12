@@ -418,4 +418,82 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     document.head.appendChild(style);
 
+    // ==========================================
+    // 9. Toast Notification System
+    // ==========================================
+    window.showToast = function(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        const icon = type === 'success' ? '✅' : '⚠️';
+        
+        toast.innerHTML = `
+            <span class="toast-icon">${icon}</span>
+            <span class="toast-message">${message}</span>
+        `;
+        
+        container.appendChild(toast);
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            toast.style.animation = 'fadeOutUpToast 0.4s forwards';
+            setTimeout(() => toast.remove(), 400);
+        }, 3000);
+    };
+
+    // Replace default alerts with Toasts
+    const originalAlert = window.alert;
+    window.alert = function(message) {
+        if(document.getElementById('toast-container')) {
+            showToast(message, 'success');
+        } else {
+            originalAlert(message);
+        }
+    };
+
+    // ==========================================
+    // 10. Image Error Fallback
+    // ==========================================
+    document.addEventListener('error', function(event) {
+        if (event.target.tagName.toLowerCase() === 'img') {
+            event.target.style.display = 'none';
+            // Create fallback placeholder
+            const fallback = document.createElement('div');
+            fallback.className = 'fallback-image';
+            fallback.innerHTML = 'LMIXI<br>صورة غير متوفرة';
+            event.target.parentNode.insertBefore(fallback, event.target);
+        }
+    }, true);
+
+    // ==========================================
+    // 11. Bottom Nav Logic
+    // ==========================================
+    const bottomNavCart = document.getElementById('bottom-nav-cart');
+    const bottomNavAccount = document.getElementById('bottom-nav-account');
+
+    if (bottomNavCart) {
+        bottomNavCart.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (window.openCart) window.openCart(); // Assuming openCart function exists
+            // Or fallback to checking if element exists
+            const cartDrawer = document.getElementById('cart-drawer');
+            const cartOverlay = document.getElementById('cart-overlay');
+            if(cartDrawer && cartOverlay) {
+                cartDrawer.classList.add('open');
+                cartOverlay.classList.add('active');
+            }
+        });
+    }
+
+    if (bottomNavAccount) {
+        bottomNavAccount.addEventListener('click', (e) => {
+            e.preventDefault();
+            const authModal = document.getElementById('auth-modal');
+            if(authModal) authModal.classList.add('active');
+        });
+    }
+
 });
