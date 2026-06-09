@@ -527,4 +527,203 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ==========================================
+    // 13. Application Logic (Cart, Auth, Search)
+    // ==========================================
+
+    // Toast Notification System
+    const toastContainer = document.getElementById('toast-container');
+    function showToast(message) {
+        if(!toastContainer) return;
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        toastContainer.appendChild(toast);
+        setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
+    }
+
+    // Modal Control Logic
+    const modals = {
+        cart: document.getElementById('cart-drawer'),
+        cartOverlay: document.getElementById('cart-overlay'),
+        auth: document.getElementById('auth-modal'),
+        checkout: document.getElementById('checkout-modal'),
+        success: document.getElementById('success-modal')
+    };
+
+    function openModal(modalEl) { if(modalEl) modalEl.classList.add('active', 'open'); }
+    function closeModal(modalEl) { if(modalEl) modalEl.classList.remove('active', 'open'); }
+
+    // Close buttons
+    document.getElementById('close-cart-btn')?.addEventListener('click', () => { closeModal(modals.cart); closeModal(modals.cartOverlay); });
+    document.getElementById('cart-overlay')?.addEventListener('click', () => { closeModal(modals.cart); closeModal(modals.cartOverlay); });
+    document.getElementById('close-auth-modal')?.addEventListener('click', () => closeModal(modals.auth));
+    document.getElementById('close-checkout-modal')?.addEventListener('click', () => closeModal(modals.checkout));
+    document.getElementById('close-success-btn')?.addEventListener('click', () => closeModal(modals.success));
+
+    // ---- Cart System ----
+    let cart = JSON.parse(localStorage.getItem('lmixi_cart')) || [];
+    
+    function updateCart() {
+        localStorage.setItem('lmixi_cart', JSON.stringify(cart));
+        const badge = document.getElementById('bottom-cart-count');
+        if(badge) badge.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+        const container = document.getElementById('cart-items-container');
+        const totalPriceEl = document.getElementById('cart-total-price');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        
+        if(!container) return;
+        container.innerHTML = '';
+        let total = 0;
+
+        if(cart.length === 0) {
+            container.innerHTML = '<div class="empty-cart-msg">سلتك فارغة حالياً.</div>';
+            if(checkoutBtn) checkoutBtn.disabled = true;
+            if(totalPriceEl) totalPriceEl.textContent = '0 ل.س';
+            return;
+        }
+
+        if(checkoutBtn) checkoutBtn.disabled = false;
+
+        cart.forEach((item, index) => {
+            total += item.price * item.quantity;
+            const div = document.createElement('div');
+            div.className = 'cart-item';
+            div.innerHTML = `
+                <div class="cart-item-info">
+                    <div class="cart-item-title">${item.name}</div>
+                    <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} ل.س (${item.quantity}x)</div>
+                </div>
+                <button class="cart-item-remove" data-index="${index}">🗑</button>
+            `;
+            container.appendChild(div);
+        });
+
+        if(totalPriceEl) totalPriceEl.textContent = total.toLocaleString() + ' ل.س';
+
+        document.querySelectorAll('.cart-item-remove').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = e.target.getAttribute('data-index');
+                cart.splice(idx, 1);
+                updateCart();
+                showToast('تم إزالة المنتج من السلة');
+            });
+        });
+    }
+
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const id = btn.getAttribute('data-id');
+            const name = btn.getAttribute('data-name');
+            const price = parseInt(btn.getAttribute('data-price') || 0);
+
+            const existing = cart.find(i => i.id === id);
+            if(existing) existing.quantity++;
+            else cart.push({id, name, price, quantity: 1});
+
+            updateCart();
+            showToast('تمت الإضافة إلى السلة بنجاح! 🛒');
+        });
+    });
+
+    // Checkout Logic
+    document.getElementById('checkout-btn')?.addEventListener('click', () => {
+        closeModal(modals.cart);
+        closeModal(modals.cartOverlay);
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        document.getElementById('checkout-final-price').textContent = total.toLocaleString() + ' ل.س';
+        openModal(modals.checkout);
+    });
+
+    document.getElementById('checkout-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        cart = [];
+        updateCart();
+        closeModal(modals.checkout);
+        openModal(modals.success);
+    });
+
+    // ---- Auth System ----
+    let currentUser = JSON.parse(localStorage.getItem('lmixi_user'));
+    
+    function updateAuthUI() {
+        const loginForm = document.getElementById('login-form');
+        const regForm = document.getElementById('register-form');
+        const profileInfo = document.getElementById('profile-info');
+        const tabs = document.querySelector('.modal-tabs');
+        
+        if(!loginForm) return;
+
+        if(currentUser) {
+            loginForm.classList.remove('active');
+            regForm.classList.remove('active');
+            tabs.style.display = 'none';
+            profileInfo.classList.add('active');
+            document.getElementById('profile-name-display').textContent = currentUser.name;
+            document.getElementById('profile-email-display').textContent = currentUser.email;
+            document.getElementById('profile-phone-display').textContent = currentUser.phone;
+        } else {
+            tabs.style.display = 'flex';
+            profileInfo.classList.remove('active');
+            loginForm.classList.add('active');
+        }
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            document.getElementById(e.target.getAttribute('data-tab') + '-form').classList.add('active');
+        });
+    });
+
+    document.getElementById('register-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        currentUser = {
+            name: document.getElementById('reg-name').value,
+            email: document.getElementById('reg-email').value,
+            phone: document.getElementById('reg-phone').value
+        };
+        localStorage.setItem('lmixi_user', JSON.stringify(currentUser));
+        updateAuthUI();
+        showToast('تم إنشاء الحساب بنجاح! أهلاً بك 🎉');
+    });
+
+    document.getElementById('login-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Mock Login
+        if(!currentUser) currentUser = { name: "العميل", email: document.getElementById('login-email').value, phone: "غير محدد" };
+        localStorage.setItem('lmixi_user', JSON.stringify(currentUser));
+        updateAuthUI();
+        showToast('تم تسجيل الدخول بنجاح! 🔓');
+    });
+
+    document.getElementById('logout-btn')?.addEventListener('click', () => {
+        currentUser = null;
+        localStorage.removeItem('lmixi_user');
+        updateAuthUI();
+        showToast('تم تسجيل الخروج');
+    });
+
+    // ---- Search Logic ----
+    const searchInput = document.getElementById('search-input');
+    if(searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            document.querySelectorAll('.product-card').forEach(card => {
+                const title = card.querySelector('.product-name')?.textContent.toLowerCase() || '';
+                if(title.includes(query)) card.style.display = '';
+                else card.style.display = 'none';
+            });
+            if(query.length > 0) document.getElementById('store')?.scrollIntoView({behavior: 'smooth'});
+        });
+    }
+
+    // Initialize UI
+    updateCart();
+    updateAuthUI();
+
 });
