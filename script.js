@@ -537,6 +537,190 @@ document.addEventListener('DOMContentLoaded', () => {
         checkout: document.getElementById('checkout-modal'),
         success: document.getElementById('success-modal')
     };
+            parallaxElements.forEach(el => {
+                el.style.transition = 'none';
+            });
+        });
+    }
+
+    // ==========================================
+    // 7. Live Search Functionality
+    // ==========================================
+    const searchInput = document.getElementById('search-input');
+    const productCards = document.querySelectorAll('.product-card');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+
+            productCards.forEach(card => {
+                const productName = card.querySelector('.product-name').innerText.toLowerCase();
+                const productDesc = card.querySelector('.product-desc').innerText.toLowerCase();
+
+                if (productName.includes(searchTerm) || productDesc.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                    // إضافة أنيميشن خفيفة عند الظهور
+                    card.style.animation = 'fadeIn 0.5s ease forwards';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    // ==========================================
+    // 8. Wishlist Logic
+    // ==========================================
+    const wishlistBtns = document.querySelectorAll('.wishlist-btn');
+    wishlistBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            btn.classList.toggle('active');
+            if (btn.classList.contains('active')) {
+                // Show a quick visual feedback
+                const heart = document.createElement('span');
+                heart.innerText = '❤️';
+                heart.style.position = 'absolute';
+                heart.style.left = '50%';
+                heart.style.top = '50%';
+                heart.style.transform = 'translate(-50%, -50%)';
+                heart.style.pointerEvents = 'none';
+                heart.style.animation = 'fadeOutUp 1s ease forwards';
+                btn.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 1000);
+            }
+        });
+    });
+
+    // إضافة ستايل بسيط لحركة القلب
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes fadeOutUp {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -150%) scale(2); }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // ==========================================
+    // 9. Toast Notification System
+    // ==========================================
+    window.showToast = function(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        const icon = type === 'success' ? '✅' : '⚠️';
+        
+        toast.innerHTML = `
+            <span class="toast-icon">${icon}</span>
+            <span class="toast-message">${message}</span>
+        `;
+        
+        container.appendChild(toast);
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            toast.style.animation = 'fadeOutUpToast 0.4s forwards';
+            setTimeout(() => toast.remove(), 400);
+        }, 3000);
+    };
+
+    // Replace default alerts with Toasts
+    const originalAlert = window.alert;
+    window.alert = function(message) {
+        if(document.getElementById('toast-container')) {
+            showToast(message, 'success');
+        } else {
+            originalAlert(message);
+        }
+    };
+
+    // ==========================================
+    // 10. Image Error Fallback
+    // ==========================================
+    document.addEventListener('error', function(event) {
+        if (event.target.tagName.toLowerCase() === 'img') {
+            event.target.style.display = 'none';
+            // Create fallback placeholder
+            const fallback = document.createElement('div');
+            fallback.className = 'fallback-image';
+            fallback.innerHTML = 'LMIXI<br>صورة غير متوفرة';
+            event.target.parentNode.insertBefore(fallback, event.target);
+        }
+    }, true);
+
+    // ==========================================
+    // 11. Bottom Nav Logic
+    // ==========================================
+    const bottomNavCart = document.getElementById('bottom-nav-cart');
+    const bottomNavAccount = document.getElementById('bottom-nav-account');
+
+    if (bottomNavCart) {
+        bottomNavCart.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (window.openCart) window.openCart(); // Assuming openCart function exists
+            // Or fallback to checking if element exists
+            const cartDrawer = document.getElementById('cart-drawer');
+            const cartOverlay = document.getElementById('cart-overlay');
+            if(cartDrawer && cartOverlay) {
+                cartDrawer.classList.add('open');
+                cartOverlay.classList.add('active');
+            }
+        });
+    }
+
+    if (bottomNavAccount) {
+        bottomNavAccount.addEventListener('click', (e) => {
+            e.preventDefault();
+            const authModal = document.getElementById('auth-modal');
+            if(authModal) authModal.classList.add('active');
+        });
+    }
+
+    // ==========================================
+    // Navbar Search Toggle
+    // ==========================================
+    const searchToggleBtn = document.getElementById('search-toggle-btn');
+    const navSearchContainer = document.getElementById('nav-search-container');
+    const navSearchInput = document.getElementById('search-input');
+
+    if (searchToggleBtn && navSearchContainer) {
+        searchToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navSearchContainer.classList.toggle('active');
+            if (navSearchContainer.classList.contains('active')) {
+                setTimeout(() => navSearchInput?.focus(), 100);
+            }
+        });
+
+        // إغلاق البحث عند النقر خارجه
+        document.addEventListener('click', (e) => {
+            if (!navSearchContainer.contains(e.target)) {
+                navSearchContainer.classList.remove('active');
+            }
+        });
+    }
+
+    // ==========================================
+    // 12. Spline 3D Removed for Performance
+    // ==========================================
+
+    // ==========================================
+    // 13. Application Logic (Cart, Auth, Search)
+    // ==========================================
+
+    // Modal Control Logic
+    const modals = {
+        cart: document.getElementById('cart-drawer'),
+        cartOverlay: document.getElementById('cart-overlay'),
+        auth: document.getElementById('auth-modal'),
+        checkout: document.getElementById('checkout-modal'),
+        success: document.getElementById('success-modal')
+    };
 
     function openModal(modalEl) { if(modalEl) modalEl.classList.add('active', 'open'); }
     function closeModal(modalEl) { if(modalEl) modalEl.classList.remove('active', 'open'); }
@@ -549,7 +733,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('close-success-btn')?.addEventListener('click', () => closeModal(modals.success));
 
     // ---- Cart System ----
-    let cart = JSON.parse(localStorage.getItem('lmixi_cart')) || [];
+    cart = JSON.parse(localStorage.getItem('lmixi_cart')) || [];
     
     function updateCart() {
         localStorage.setItem('lmixi_cart', JSON.stringify(cart));
@@ -646,14 +830,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if(currentUser) {
             loginForm.classList.remove('active');
             regForm.classList.remove('active');
-            tabs.style.display = 'none';
-            profileInfo.classList.add('active');
-            document.getElementById('profile-name-display').textContent = currentUser.name;
-            document.getElementById('profile-email-display').textContent = currentUser.email;
-            document.getElementById('profile-phone-display').textContent = currentUser.phone;
+            if(tabs) tabs.style.display = 'none';
+            if(profileInfo) profileInfo.classList.add('active');
+            document.getElementById('profile-name-display') && (document.getElementById('profile-name-display').textContent = currentUser.name);
+            document.getElementById('profile-email-display') && (document.getElementById('profile-email-display').textContent = currentUser.email);
+            document.getElementById('profile-phone-display') && (document.getElementById('profile-phone-display').textContent = currentUser.phone);
         } else {
-            tabs.style.display = 'flex';
-            profileInfo.classList.remove('active');
+            if(tabs) tabs.style.display = 'flex';
+            if(profileInfo) profileInfo.classList.remove('active');
             loginForm.classList.add('active');
         }
     }
@@ -681,7 +865,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('login-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
-        // Mock Login
         if(!currentUser) currentUser = { name: "العميل", email: document.getElementById('login-email').value, phone: "غير محدد" };
         localStorage.setItem('lmixi_user', JSON.stringify(currentUser));
         updateAuthUI();
@@ -696,9 +879,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ---- Search Logic ----
-    const searchInput = document.getElementById('search-input');
-    if(searchInput) {
-        searchInput.addEventListener('input', (e) => {
+    const searchInputEl = document.getElementById('search-input');
+    if(searchInputEl) {
+        searchInputEl.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
             document.querySelectorAll('.product-card').forEach(card => {
                 const title = card.querySelector('.product-name')?.textContent.toLowerCase() || '';

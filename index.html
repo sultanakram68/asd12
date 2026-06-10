@@ -54,6 +54,12 @@
                     </div>
                 </div>
 
+                <!-- زر المساعد الذكي AI -->
+                <button class="icon-btn ai-nav-btn" id="open-ai-btn" title="مساعد الذكاء الاصطناعي" style="font-weight: 800; font-family: 'Inter', sans-serif; font-size: 1.1rem; color: var(--neon-orange);">
+                    AI
+                </button>
+
+
                 <!-- زر سلة المشتريات -->
                 <button class="icon-btn cart-btn" id="open-cart-btn" title="سلة المشتريات">
                     <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none"
@@ -520,6 +526,7 @@
                 لتأكيد الشحن.</p>
             <button type="button" class="btn btn-primary btn-full" id="close-success-btn">العودة للمتجر</button>
         </div>
+    </div>
         <!-- ==============================
          تطبيق الموبايل والميزات المضافة
          ============================== -->
@@ -551,16 +558,13 @@
             </div>
         </div>
 
-        <!-- زر المساعد الذكي العائم -->
-        <button class="floating-ai-btn" id="open-ai-btn" title="مساعد LMIXI الذكي">
-            <span class="ai-icon">🤖</span>
-        </button>
+
 
         <!-- حاوية الإشعارات (Toast Notifications) -->
         <div id="toast-container" class="toast-container"></div>
 
-        <!-- زر التواصل العائم (Floating Action Button) -->
-        <a href="coming-soon.html" class="floating-contact-btn" title="تواصل معنا عبر واتساب">
+        <!-- زر التواصل العائم (Floating Action Button) - مخفي بناءً على طلب المستخدم -->
+        <a href="coming-soon.html" class="floating-contact-btn" title="تواصل معنا عبر واتساب" style="display: none;">
             <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"
                 stroke-linecap="round" stroke-linejoin="round">
                 <path
