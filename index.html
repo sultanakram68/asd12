@@ -1,606 +1,483 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LMIXI -متجر السوري </title>
-    <!-- خطوط جوجل للغة العربية (Cairo) والإنجليزية (Inter) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Inter:wght@400;700;900&display=swap"
-        rel="stylesheet">
-    <!-- مكتبة العرض ثلاثي الأبعاد Spline (محذوفة من هنا لتحميلها ديناميكياً) -->
+    <title>LMIXI - متجر المستقبل النيوني</title>
     <!-- ملف التنسيق -->
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <!-- خلفية الجزيئات المضيئة -->
-    <div id="particles-bg"></div>
+    <!-- تأثيرات الإضاءة الخلفية النيون المتحركة -->
+    <div class="ambient-glow-container">
+        <div class="glow-orb glow-orb-orange"></div>
+        <div class="glow-orb glow-orb-blue"></div>
+        <div class="glow-orb glow-orb-purple"></div>
+    </div>
 
-    <!-- تأثير الإضاءة السينمائية (Ambient Glow) -->
-    <div class="ambient-glow"></div>
-
-    <!-- شريط التنقل (Navbar) -->
-    <nav class="navbar" id="navbar">
+    <!-- شريط التنقل العلوي الزجاجي الثابت -->
+    <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">
-                <a href="#hero" class="logo-container">
-                    <span class="logo">LMIXI</span>
-                </a>
-            </div>
-
+            <a href="#" class="logo" id="logo-btn">LMIXI</a>
+            
             <ul class="nav-links">
-                <li><a href="#hero">الرئيسية</a></li>
-                <li><a href="#store">المتجر</a></li>
-                <li><a href="#contact">تواصل معنا</a></li>
+                <li><a href="#" class="nav-tab active" data-target="home-view">الرئيسية</a></li>
+                <li><a href="#" class="nav-tab" data-target="store-view">المتجر</a></li>
+                <li><a href="#" class="nav-tab" data-target="seller-view">لوحة البائع</a></li>
+                <li><a href="#" class="nav-tab" data-target="admin-view">لوحة المسؤول</a></li>
             </ul>
 
             <div class="nav-actions">
-                <!-- زر البحث القابل للتمدد -->
-                <div class="nav-search-container" id="nav-search-container">
-                    <button class="icon-btn" id="search-toggle-btn" title="بحث">
-                        <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2"
-                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                    </button>
-                    <div class="search-bar expanded-search" id="expanded-search">
-                        <input type="text" id="search-input" placeholder="ابحث عن منتج..." autocomplete="off">
-                    </div>
-                </div>
-
-                <!-- زر المساعد الذكي AI -->
-                <button class="icon-btn ai-nav-btn" id="open-ai-btn" title="مساعد الذكاء الاصطناعي" style="font-weight: 800; font-family: 'Inter', sans-serif; font-size: 1.1rem; color: var(--neon-orange);">
-                    AI
+                <!-- زر السلة -->
+                <button class="icon-btn" id="cart-toggle-btn" title="سلة المشتريات">
+                    <span>🛒</span>
+                    <span class="badge" id="cart-badge-count">0</span>
                 </button>
-
-
-                <!-- زر سلة المشتريات -->
-                <button class="icon-btn cart-btn" id="open-cart-btn" title="سلة المشتريات">
-                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                    </svg>
-                    <span class="cart-badge" id="cart-count">0</span>
+                
+                <!-- زر تسجيل الدخول -->
+                <button class="btn btn-outline" id="auth-btn">
+                    <span>👤</span>
+                    <span id="auth-btn-text">تسجيل الدخول</span>
                 </button>
-                <!-- زر الحساب (تسجيل الدخول / الملف الشخصي) -->
-                <button class="icon-btn" id="open-auth-btn" title="حسابي">
-                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                </button>
-                <!-- القائمة الجانبية للموبايل -->
-                <div class="hamburger" id="hamburger">
-                    <span></span><span></span><span></span>
-                </div>
             </div>
         </div>
     </nav>
 
-    <!-- القسم الرئيسي (Hero Section) مع الـ 3D -->
-    <header class="hero" id="hero">
-        <!-- تأثير ضوئي مبهر وخفيف (بديل الـ 3D لضمان أقصى سرعة) -->
-        <div class="hero-premium-glow"></div>
-
-        <div class="hero-content parallax-element" data-speed="0.03">
-            <div class="glass-hero-panel reveal">
-                <h1 class="hero-title">أهلاً بك في عالم <span class="neon-text">LMIXI</span></h1>
-                <p class="hero-desc">نوفر لك أحدث التقنيات والإكسسوارات الفاخرة، بتجربة تسوق سابقة لعصرها مع خدمة توصيل
-                    مضمونة.</p>
-                <div class="hero-buttons">
-                    <a href="#store" class="btn btn-primary btn-glow">تصفح المنتجات</a>
+    <!-- ==============================================
+         الواجهة الرئيسية (Home View)
+         ============================================== -->
+    <main id="home-view" class="view active-view">
+        <section class="hero">
+            <div class="hero-wrapper">
+                <div class="hero-info">
+                    <div class="hero-badge">مرحباً بك في عصر الـ Liquid Glass</div>
+                    <h1 class="hero-title">تسوّق أحدث <br><span class="neon-text">الأجهزة الفاخرة</span> بنقرة واحدة</h1>
+                    <p class="hero-desc">متجر LMIXI يمنحك تجربة بصرية استثنائية مع سرعة فائقة وضمان حقيقي لجميع الأجهزة الذكية والإكسسوارات الفاخرة.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" onclick="switchView('store-view')">ابدأ التسوق الآن</button>
+                        <button class="btn btn-outline" onclick="switchView('seller-view')">كن بائعاً معنا 🏪</button>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="hero-graphic parallax-element" data-speed="-0.04">
-            <div class="glass-card main-glass-card reveal delay-2">
-                <div class="glass-card-header">
-                    <div class="dot red"></div>
-                    <div class="dot yellow"></div>
-                    <div class="dot green"></div>
-                </div>
-                <h3 style="color:var(--neon-orange); margin-bottom: 0.5rem; font-family:var(--font-en);">LMIXI AI</h3>
-                <div class="skeleton-line" style="width: 100%;"></div>
-                <div class="skeleton-line" style="width: 70%;"></div>
-                <div class="skeleton-line short"></div>
-            </div>
-        </div>
-    </header>
-
-
-
-    <!-- قسم الفئات (Categories) -->
-    <section class="categories-section">
-        <div class="section-header reveal">
-            <span class="section-subtitle">تصفّح حسب الفئة</span>
-            <h2 class="section-title">الأقسام</h2>
-        </div>
-        <div class="categories-grid">
-            <a href="#store" class="category-card reveal">
-                <div class="category-icon">📱</div>
-                <span class="category-name">هواتف</span>
-            </a>
-            <a href="#store" class="category-card reveal delay-1">
-                <div class="category-icon">⌚</div>
-                <span class="category-name">ساعات</span>
-            </a>
-            <a href="#store" class="category-card reveal delay-2">
-                <div class="category-icon">🎧</div>
-                <span class="category-name">سماعات</span>
-            </a>
-            <a href="#store" class="category-card reveal delay-3">
-                <div class="category-icon">🕶️</div>
-                <span class="category-name">نظارات</span>
-            </a>
-        </div>
-    </section>
-
-    <!-- قسم العروض المميزة المتحرك (Featured Deals Marquee) -->
-    <section class="deals-marquee-section">
-        <div class="marquee-container">
-            <div class="marquee-content">
-                <span class="deal-item">🔥 خصم 20% على الساعات الذكية استخدم كود LMX20</span>
-                <span class="deal-separator">•</span>
-                <span class="deal-item">⚡ شحن مجاني للطلبات فوق 5,000,000 ل.س</span>
-                <span class="deal-separator">•</span>
-                <span class="deal-item">🎉 انضم كبائع الآن واحصل على شهر مجاني بدون عمولة</span>
-                <span class="deal-separator">•</span>
-                <span class="deal-item">🔥 خصم 20% على الساعات الذكية استخدم كود LMX20</span>
-                <span class="deal-separator">•</span>
-                <span class="deal-item">⚡ شحن مجاني للطلبات فوق 5,000,000 ل.س</span>
-                <span class="deal-separator">•</span>
-                <span class="deal-item">🎉 انضم كبائع الآن واحصل على شهر مجاني بدون عمولة</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- قسم المنتجات الرائجة (Trending) -->
-    <section class="trending-section">
-        <div class="section-header reveal">
-            <span class="section-subtitle">الأكثر طلباً هذا الأسبوع</span>
-            <h2 class="section-title">منتجات رائجة 🔥</h2>
-        </div>
-        <div class="horizontal-scroll-container reveal">
-            <!-- Skeleton Loader (يظهر قبل تحميل المنتجات) -->
-            <div class="skeleton-card">
-                <div class="skeleton-image"></div>
-                <div class="skeleton-text short"></div>
-                <div class="skeleton-text"></div>
-                <div class="skeleton-text"></div>
-            </div>
-            <div class="skeleton-card">
-                <div class="skeleton-image"></div>
-                <div class="skeleton-text short"></div>
-                <div class="skeleton-text"></div>
-                <div class="skeleton-text"></div>
-            </div>
-
-            <div class="product-card mini-card">
-                <button class="wishlist-btn" title="أضف للمفضلة">❤️</button>
-                <div class="product-image">
-                    <div class="product-placeholder">🎮</div>
-                </div>
-                <div class="product-info">
-                    <div class="stars">★★★★★ <span class="reviews-count">(120)</span></div>
-                    <h3 class="product-name">قبضة ألعاب LMX</h3>
-                    <div class="product-footer">
-                        <span class="product-price">850,000 ل.س</span>
-                        <button class="btn btn-outline add-to-cart-btn" data-id="4" data-name="قبضة ألعاب LMX"
-                            data-price="850000">إضافة</button>
+                
+                <div class="hero-visual">
+                    <div class="glass-panel visual-card">
+                        <div class="card-glowing-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="visual-card-content">
+                            <div class="ai-chip">LMIXI PREMIUM AI</div>
+                            
+                            <div class="pulse-circle"></div>
+                            
+                            <div>
+                                <div class="skeleton-text short"></div>
+                                <div class="skeleton-text medium"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="product-card mini-card">
-                <button class="wishlist-btn" title="أضف للمفضلة">❤️</button>
-                <div class="product-image">
-                    <div class="product-placeholder">💻</div>
+        </section>
+
+        <!-- قسم التصنيفات السريعة -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-subtitle">تصفّح عبر الفئات</span>
+                <h2 class="section-title">أقسام المتجر الرئيسية</h2>
+            </div>
+            <div class="categories-grid">
+                <div class="glass-panel category-card" onclick="filterCategory('phones')">
+                    <div class="category-icon">📱</div>
+                    <span class="category-name">الهواتف الذكية</span>
+                    <span style="font-size: 0.8rem; color: var(--neon-blue);">تصفح المنتجات</span>
                 </div>
-                <div class="product-info">
-                    <div class="stars">★★★★☆ <span class="reviews-count">(85)</span></div>
-                    <h3 class="product-name">لابتوب LMX ProBook</h3>
-                    <div class="product-footer">
-                        <span class="product-price">12,500,000 ل.س</span>
-                        <button class="btn btn-outline add-to-cart-btn" data-id="5" data-name="لابتوب LMX ProBook"
-                            data-price="12500000">إضافة</button>
-                    </div>
+                <div class="glass-panel category-card" onclick="filterCategory('watches')">
+                    <div class="category-icon">⌚</div>
+                    <span class="category-name">الساعات الذكية</span>
+                    <span style="font-size: 0.8rem; color: var(--primary-orange);">تصفح المنتجات</span>
+                </div>
+                <div class="glass-panel category-card" onclick="filterCategory('audio')">
+                    <div class="category-icon">🎧</div>
+                    <span class="category-name">السماعات والصوتيات</span>
+                    <span style="font-size: 0.8rem; color: var(--neon-purple);">تصفح المنتجات</span>
+                </div>
+                <div class="glass-panel category-card" onclick="filterCategory('accessories')">
+                    <div class="category-icon">🕶️</div>
+                    <span class="category-name">الإكسسوارات</span>
+                    <span style="font-size: 0.8rem; color: var(--neon-blue);">تصفح المنتجات</span>
                 </div>
             </div>
-            <div class="product-card mini-card">
-                <button class="wishlist-btn" title="أضف للمفضلة">❤️</button>
-                <div class="product-image">
-                    <div class="product-placeholder">🔋</div>
+        </section>
+
+        <!-- قسم الثقة والمميزات -->
+        <section class="section" style="background: rgba(255,255,255,0.01); border-radius: 30px; border: 1px solid var(--glass-border); padding: 4rem 2rem;">
+            <div class="section-header">
+                <span class="section-subtitle">لماذا نحن؟</span>
+                <h2 class="section-title">مميزات تجعلك تختار LMIXI</h2>
+            </div>
+            <div class="categories-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                <div style="text-align: center; padding: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔒</div>
+                    <h3 style="margin-bottom: 0.5rem; font-weight: 700;">دفع إلكتروني آمن</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">ندعم الدفع الفوري كاش أو عبر محفظة سيريتل كاش مع تشفير كامل للبيانات.</p>
                 </div>
-                <div class="product-info">
-                    <div class="stars">★★★★★ <span class="reviews-count">(200)</span></div>
-                    <h3 class="product-name">باور بانك 20000mAh</h3>
-                    <div class="product-footer">
-                        <span class="product-price">450,000 ل.س</span>
-                        <button class="btn btn-outline add-to-cart-btn" data-id="6" data-name="باور بانك 20000mAh"
-                            data-price="450000">إضافة</button>
-                    </div>
+                <div style="text-align: center; padding: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                    <h3 style="margin-bottom: 0.5rem; font-weight: 700;">توصيل فائق السرعة</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">شحن سريع وآمن حتى باب منزلك مع فحص المنتج قبل الاستلام.</p>
                 </div>
+                <div style="text-align: center; padding: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🛡️</div>
+                    <h3 style="margin-bottom: 0.5rem; font-weight: 700;">ضمان الوكيل المعتمد</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">كافة الأجهزة المتوفرة في متجرنا تأتي بضمان حقيقي يصل إلى عام كامل.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==============================================
+         متجر المنتجات (Store View)
+         ============================================== -->
+    <main id="store-view" class="view" style="display: none; padding: 8rem 2rem 4rem 2rem; max-width: 1200px; margin: 0 auto;">
+        <div class="section-header" style="text-align: right; margin-bottom: 2rem;">
+            <span class="section-subtitle">معرض الأجهزة الفاخرة</span>
+            <h2 class="section-title">تصفّح تشكيلتنا المميزة</h2>
+        </div>
+
+        <!-- البحث والتصفية -->
+        <div class="glass-panel" style="padding: 1.5rem; margin-bottom: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+            <input type="text" id="store-search" class="form-input" placeholder="ابحث عن منتج بالاسم..." style="flex-grow: 1; max-width: 400px; margin-bottom: 0;">
+            
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <button class="btn btn-outline filter-btn active" onclick="filterStore('all')">الكل</button>
+                <button class="btn btn-outline filter-btn" onclick="filterStore('phones')">هواتف</button>
+                <button class="btn btn-outline filter-btn" onclick="filterStore('watches')">ساعات</button>
+                <button class="btn btn-outline filter-btn" onclick="filterStore('audio')">سماعات</button>
+                <button class="btn btn-outline filter-btn" onclick="filterStore('accessories')">إكسسوارات</button>
             </div>
         </div>
-    </section>
 
-    <!-- قسم أحدث المنتجات (Latest / Store) -->
-    <section class="store-section" id="store">
-        <div class="section-header reveal">
-            <span class="section-subtitle">تشكيلتنا المختارة</span>
-            <h2 class="section-title">أحدث الأجهزة الذكية</h2>
+        <!-- شبكة عرض المنتجات -->
+        <div class="products-grid" id="store-products-grid">
+            <!-- سيتم توليد المنتجات ديناميكياً عبر JS -->
+        </div>
+    </main>
+
+    <!-- ==============================================
+         لوحة البائع (Seller View)
+         ============================================== -->
+    <main id="seller-view" class="view" style="display: none; padding: 8rem 2rem 4rem 2rem; max-width: 1200px; margin: 0 auto;">
+        <div class="section-header" style="text-align: right; margin-bottom: 2rem;">
+            <span class="section-subtitle">لوحة إدارة المنتجات</span>
+            <h2 class="section-title">بوابة البائعين المميزين</h2>
         </div>
 
-        <div class="products-grid">
-            <!-- المنتج الأول -->
-            <div class="product-card reveal liquid-hover">
-                <button class="wishlist-btn" title="أضف للمفضلة">❤️</button>
-                <div class="product-image">
-                    <div class="glow-orb"></div>
-                    <div class="product-placeholder">⌚</div>
-                </div>
-                <div class="product-info">
-                    <div class="stars">★★★★★ <span class="reviews-count">(45)</span></div>
-                    <h3 class="product-name">ساعة ذكية LMX Ultra</h3>
-                    <p class="product-desc">تصميم معدني متين، شاشة أموليد مقاومة للخدش، مع بطارية تدوم طويلاً.</p>
-                    <div class="product-footer">
-                        <span class="product-price">3,500,000 ل.س</span>
-                        <button class="btn btn-outline add-to-cart-btn" data-id="1" data-name="ساعة ذكية LMX Ultra"
-                            data-price="3500000">إضافة للسلة</button>
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: start;">
+            <!-- نموذج إضافة منتج جديد -->
+            <div class="glass-panel" style="padding: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; color: var(--primary-orange);">إضافة منتج جديد</h3>
+                <form id="add-product-form">
+                    <div class="form-group">
+                        <label class="form-label">اسم المنتج</label>
+                        <input type="text" id="new-prod-name" class="form-input" required placeholder="مثال: لابتوب ديل إكس بي إس">
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label class="form-label">الفئة</label>
+                        <select id="new-prod-category" class="form-input" required>
+                            <option value="phones">هواتف ذكية</option>
+                            <option value="watches">ساعات ذكية</option>
+                            <option value="audio">سماعات وصوتيات</option>
+                            <option value="accessories">إكسسوارات ومستلزمات</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">السعر (ل.س)</label>
+                        <input type="number" id="new-prod-price" class="form-input" required placeholder="مثال: 5500000">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">الوصف التفصيلي</label>
+                        <textarea id="new-prod-desc" class="form-input" rows="3" required placeholder="اكتب وصفاً جذاباً للمنتج ومميزاته الفنية..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">إرسال المنتج للمراجعة</button>
+                </form>
             </div>
 
-            <!-- المنتج الثاني -->
-            <div class="product-card reveal delay-1 liquid-hover">
-                <button class="wishlist-btn" title="أضف للمفضلة">❤️</button>
-                <div class="product-image">
-                    <div class="glow-orb"></div>
-                    <div class="product-placeholder">🎧</div>
-                </div>
-                <div class="product-info">
-                    <div class="stars">★★★★☆ <span class="reviews-count">(88)</span></div>
-                    <h3 class="product-name">سماعات LMX Pro</h3>
-                    <p class="product-desc">عزل ضوضاء احترافي، جودة صوت محيطية 3D لتجربة استماع خيالية.</p>
-                    <div class="product-footer">
-                        <span class="product-price">2,200,000 ل.س</span>
-                        <button class="btn btn-outline add-to-cart-btn" data-id="2" data-name="سماعات LMX Pro"
-                            data-price="2200000">إضافة للسلة</button>
+            <!-- إحصائيات ومنتجات البائع الحالية -->
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                <!-- بطاقات إحصائيات زجاجية -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+                    <div class="glass-panel" style="padding: 1.5rem; text-align: center;">
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);">إجمالي المبيعات</span>
+                        <h2 style="color: var(--neon-blue); margin-top: 5px;">14,500,000 ل.س</h2>
+                    </div>
+                    <div class="glass-panel" style="padding: 1.5rem; text-align: center;">
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);">المنتجات النشطة</span>
+                        <h2 style="color: var(--primary-orange); margin-top: 5px;">8 منتجات</h2>
+                    </div>
+                    <div class="glass-panel" style="padding: 1.5rem; text-align: center;">
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);">حالة الحساب</span>
+                        <h2 style="color: var(--neon-purple); margin-top: 5px;">موثّق 👑</h2>
                     </div>
                 </div>
-            </div>
 
-            <!-- المنتج الثالث -->
-            <div class="product-card reveal delay-2 liquid-hover">
-                <button class="wishlist-btn" title="أضف للمفضلة">❤️</button>
-                <div class="product-image">
-                    <div class="glow-orb"></div>
-                    <div class="product-placeholder">🕶️</div>
-                </div>
-                <div class="product-info">
-                    <div class="stars">★★★★★ <span class="reviews-count">(15)</span></div>
-                    <h3 class="product-name">نظارات الواقع المعزز LMX</h3>
-                    <p class="product-desc">شاشة عرض مدمجة، تجربة لعب ثلاثية الأبعاد بوضوح لا يصدق.</p>
-                    <div class="product-footer">
-                        <span class="product-price">5,800,000 ل.س</span>
-                        <button class="btn btn-outline add-to-cart-btn" data-id="3" data-name="نظارات الواقع المعزز LMX"
-                            data-price="5800000">إضافة للسلة</button>
+                <!-- جدول أو قائمة المنتجات المعروضة -->
+                <div class="glass-panel" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">منتجاتك الحالية</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: right;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.08); color: var(--text-secondary);">
+                                    <th style="padding: 10px;">المنتج</th>
+                                    <th style="padding: 10px;">الفئة</th>
+                                    <th style="padding: 10px;">السعر</th>
+                                    <th style="padding: 10px;">الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="seller-products-list">
+                                <!-- سيتم توليد العناصر عبر JS -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- قسم البائعين المميزين (Top Sellers) -->
-    <section class="top-sellers-section">
-        <div class="section-header reveal">
-            <span class="section-subtitle">شركاء النجاح</span>
-            <h2 class="section-title">البائعين المميزين 🏆</h2>
+    <!-- ==============================================
+         لوحة المسؤول (Admin View)
+         ============================================== -->
+    <main id="admin-view" class="view" style="display: none; padding: 8rem 2rem 4rem 2rem; max-width: 1200px; margin: 0 auto;">
+        <div class="section-header" style="text-align: right; margin-bottom: 2rem;">
+            <span class="section-subtitle">لوحة الرقابة والإشراف</span>
+            <h2 class="section-title">بوابة الإدارة العامة للموقع</h2>
         </div>
-        <div class="horizontal-scroll-container reveal">
-            <div class="seller-profile-card">
-                <div class="seller-avatar">👑</div>
-                <h4>متجر النخبة</h4>
-                <div class="stars">★★★★★</div>
-            </div>
-            <div class="seller-profile-card">
-                <div class="seller-avatar">🌟</div>
-                <h4>التقنية بلس</h4>
-                <div class="stars">★★★★☆</div>
-            </div>
-            <div class="seller-profile-card">
-                <div class="seller-avatar">🚀</div>
-                <h4>مستقبل فون</h4>
-                <div class="stars">★★★★★</div>
-            </div>
-            <div class="seller-profile-card">
-                <div class="seller-avatar">⚡</div>
-                <h4>إلكترونيات سريعة</h4>
-                <div class="stars">★★★★☆</div>
-            </div>
-        </div>
-    </section>
 
-    <!-- قسم الإحصائيات والثقة -->
-    <section class="trust-section">
-        <div class="section-header reveal">
-            <span class="section-subtitle">لماذا LMIXI؟</span>
-            <h2 class="section-title">ثقة وأمان</h2>
-        </div>
-        <div class="trust-grid" id="trust-stats-grid">
-            <div class="trust-card reveal">
-                <span class="trust-icon">👥</span>
-                <span class="trust-number counter" data-target="10500">0</span>
-                <span class="trust-label">مشتري نشط</span>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+            <div class="glass-panel" style="padding: 2rem; text-align: center;">
+                <h3>إجمالي المستخدمين</h3>
+                <h2 style="color: var(--neon-blue); font-size: 2.5rem; margin-top: 10px;">1,240</h2>
             </div>
-            <div class="trust-card reveal delay-1">
-                <span class="trust-icon">🚚</span>
-                <span class="trust-number counter" data-target="100">0</span><span
-                    style="color:var(--orange); font-size:1.6rem; font-weight:900;">%</span>
-                <span class="trust-label">شحن مضمون</span>
+            <div class="glass-panel" style="padding: 2rem; text-align: center;">
+                <h3>البائعين المعتمدين</h3>
+                <h2 style="color: var(--primary-orange); font-size: 2.5rem; margin-top: 10px;">42</h2>
             </div>
-            <div class="trust-card reveal delay-2">
-                <span class="trust-icon">🔒</span>
-                <span class="trust-number counter" data-target="100">0</span><span
-                    style="color:var(--orange); font-size:1.6rem; font-weight:900;">%</span>
-                <span class="trust-label">دفع محمي</span>
-            </div>
-            <div class="trust-card reveal delay-3">
-                <span class="trust-icon">⭐</span>
-                <span class="trust-number">4.9</span>
-                <span class="trust-label">تقييم العملاء</span>
+            <div class="glass-panel" style="padding: 2rem; text-align: center;">
+                <h3>الطلبات قيد المراجعة</h3>
+                <h2 style="color: var(--neon-purple); font-size: 2.5rem; margin-top: 10px;">7 طلبات</h2>
             </div>
         </div>
-    </section>
 
-    <!-- قسم انضم كبائع -->
-    <section class="seller-cta">
-        <div class="seller-cta-card reveal">
-            <h2>🏪 انضم كبائع في <span class="neon-text">LMIXI</span></h2>
-            <p>ابدأ ببيع منتجاتك على أكبر منصة تسوّق تقنية في سوريا. تسجيل مجاني وأرباح فورية.</p>
-            <a href="seller.html" class="btn btn-primary btn-glow">سجّل كبائع الآن</a>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <!-- قائمة مراجعة المنتجات الجديدة -->
+            <div class="glass-panel" style="padding: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; color: var(--primary-orange);">مراجعة المنتجات الجديدة مع البائعين</h3>
+                <div id="admin-pending-products" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- توليد ديناميكي للمنتجات المعلقة -->
+                </div>
+            </div>
+
+            <!-- قائمة البائعين الجدد قيد الانتظار -->
+            <div class="glass-panel" style="padding: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; color: var(--neon-blue);">طلبات توثيق حسابات البائعين الجدد</h3>
+                <div id="admin-pending-sellers" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- توليد ديناميكي للبائعين المعلقين -->
+                </div>
+            </div>
         </div>
-    </section>
+    </main>
+
+    <!-- ==============================================
+         سحب المشتريات الجانبي (Drawer Cart)
+         ============================================== -->
+    <div class="cart-overlay" id="cart-overlay-bg"></div>
+    <div class="cart-drawer" id="cart-drawer-panel">
+        <div class="cart-header">
+            <h3>سلة التسوق الخاصة بك</h3>
+            <button class="close-btn" id="cart-close-btn">✕</button>
+        </div>
+        
+        <div class="cart-items" id="cart-items-list">
+            <!-- العناصر المضافة تظهر هنا -->
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>المجموع النهائي:</span>
+                <span class="cart-total-value" id="cart-final-total">0 ل.س</span>
+            </div>
+            <button class="btn btn-primary" id="checkout-btn" style="width: 100%; justify-content: center;">إتمام عملية الدفع والشراء 💳</button>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         النوافذ المنبثقة (Modals)
+         ============================================== -->
+    
+    <!-- نافذة تسجيل الدخول / حساب جديد -->
+    <div class="modal-wrapper" id="auth-modal-wrapper">
+        <div class="modal-bg" id="auth-modal-bg"></div>
+        <div class="glass-panel glass-modal">
+            <button class="close-btn" id="auth-modal-close" style="position: absolute; top: 1.5rem; left: 1.5rem;">✕</button>
+            <h3 class="modal-title" id="auth-modal-title">تسجيل الدخول</h3>
+            
+            <form id="auth-form-el">
+                <div class="form-group" id="reg-name-group" style="display: none;">
+                    <label class="form-label">الاسم الكامل</label>
+                    <input type="text" id="auth-name" class="form-input" placeholder="اكتب اسمك هنا...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">البريد الإلكتروني</label>
+                    <input type="email" id="auth-email" class="form-input" required placeholder="name@domain.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">كلمة المرور</label>
+                    <input type="password" id="auth-password" class="form-input" required placeholder="••••••••">
+                </div>
+                <div class="form-group" id="reg-role-group" style="display: none;">
+                    <label class="form-label">نوع الحساب</label>
+                    <select id="auth-role" class="form-input">
+                        <option value="customer">مشتري (مستهلك)</option>
+                        <option value="seller">بائع (تاجر)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-bottom: 1.5rem;" id="auth-submit-btn">تسجيل الدخول</button>
+                
+                <p style="text-align: center; font-size: 0.9rem; color: var(--text-secondary);">
+                    <span id="auth-switch-text">ليس لديك حساب؟</span> 
+                    <a href="#" id="auth-switch-btn" style="color: var(--neon-blue); text-decoration: none; font-weight: 700;">إنشاء حساب جديد</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة تفاصيل المنتج -->
+    <div class="modal-wrapper" id="product-details-modal">
+        <div class="modal-bg" id="prod-modal-bg"></div>
+        <div class="glass-panel glass-modal" style="max-width: 600px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem; align-items: center;">
+            <button class="close-btn" id="prod-modal-close" style="position: absolute; top: 1.5rem; left: 1.5rem;">✕</button>
+            
+            <div style="background: rgba(255,255,255,0.02); border-radius: 16px; padding: 1.5rem; display: flex; align-items: center; justify-content: center; height: 250px; border: 1px solid var(--glass-border);">
+                <span id="detail-prod-image" style="font-size: 5rem;"></span>
+            </div>
+            
+            <div>
+                <span class="product-tag" id="detail-prod-category" style="position: static; display: inline-block; margin-bottom: 0.8rem;"></span>
+                <h3 id="detail-prod-name" style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.8rem;"></h3>
+                <p id="detail-prod-desc" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;"></p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="product-price" id="detail-prod-price" style="font-size: 1.6rem;"></span>
+                    <button class="btn btn-primary" id="detail-add-to-cart">إضافة للسلة 🛒</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تأكيد الطلب والدفع (Checkout Modal) -->
+    <div class="modal-wrapper" id="checkout-modal-wrapper">
+        <div class="modal-bg" id="checkout-modal-bg"></div>
+        <div class="glass-panel glass-modal">
+            <button class="close-btn" id="checkout-close-btn" style="position: absolute; top: 1.5rem; left: 1.5rem;">✕</button>
+            <h3 class="modal-title">تفاصيل الدفع والشحن</h3>
+            
+            <form id="checkout-form-el">
+                <div class="form-group">
+                    <label class="form-label">المدينة</label>
+                    <input type="text" id="checkout-city" class="form-input" required placeholder="مثال: دمشق، حلب، حمص...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">عنوان التوصيل بالتفصيل</label>
+                    <input type="text" id="checkout-address" class="form-input" required placeholder="الحي، الشارع، المبنى...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">رقم التواصل</label>
+                    <input type="tel" id="checkout-phone" class="form-input" required placeholder="09xxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">طريقة الدفع</label>
+                    <select id="checkout-payment" class="form-input">
+                        <option value="cod">الدفع نقداً عند الاستلام</option>
+                        <option value="syriatel">سيريتل كاش (تحويل فوري)</option>
+                    </select>
+                </div>
+
+                <div style="padding: 1rem; background: rgba(255,106,0,0.05); border: 1px solid rgba(255,106,0,0.15); border-radius: 12px; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: 700;">المجموع النهائي المطلوب:</span>
+                    <span id="checkout-total-val" style="color: var(--primary-orange); font-size: 1.3rem; font-weight: 900;">0 ل.س</span>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">تأكيد وحجز الطلب الآن 🎉</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة تأكيد النجاح -->
+    <div class="modal-wrapper" id="success-modal-wrapper">
+        <div class="modal-bg" id="success-modal-bg"></div>
+        <div class="glass-panel glass-modal" style="text-align: center; padding: 4rem 2rem;">
+            <div style="font-size: 4rem; margin-bottom: 1.5rem; animation: pulse 1s infinite alternate;">🎉</div>
+            <h3 style="font-size: 1.8rem; font-weight: 900; color: var(--primary-orange); margin-bottom: 1rem;">تم تأكيد طلبك بنجاح!</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">شكراً لثقتك بنا. جاري تجهيز طلبك وسوف نتواصل معك في أقرب وقت لتأكيد الشحن.</p>
+            <button class="btn btn-primary" id="success-done-btn" style="width: 100%; justify-content: center;">العودة للمتجر</button>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         قائمة التنقل السفلية للموبايل (Bottom Navigation)
+         ============================================== -->
+    <nav class="bottom-nav">
+        <a href="#" class="bottom-nav-item active" data-target="home-view">
+            <i>🏠</i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="#" class="bottom-nav-item" data-target="store-view">
+            <i>🛒</i>
+            <span>المتجر</span>
+        </a>
+        <a href="#" class="bottom-nav-item" data-target="seller-view">
+            <i>🏪</i>
+            <span>البائع</span>
+        </a>
+        <a href="#" class="bottom-nav-item" id="bottom-profile-btn">
+            <i>👤</i>
+            <span>حسابي</span>
+        </a>
+    </nav>
 
     <!-- الفوتر -->
-    <footer class="footer" id="contact">
+    <footer class="footer">
         <div class="footer-content">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <span class="logo">LMIXI</span>
-                    <p>منصة التسوق التقني الأولى في سوريا. نوفر لك أحدث التقنيات بتجربة فاخرة.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>روابط سريعة</h4>
-                    <ul>
-                        <li><a href="#hero">الرئيسية</a></li>
-                        <li><a href="#store">المتجر</a></li>
-                        <li><a href="seller.html">كن بائعاً</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>تواصل معنا</h4>
-                    <ul>
-                        <li><a href="coming-soon.html">الدعم الفني</a></li>
-                        <li><a href="coming-soon.html">سياسة الخصوصية</a></li>
-                    </ul>
-                    <div class="footer-social">
-                        <a href="coming-soon.html" title="Instagram">📸</a>
-                        <a href="coming-soon.html" title="Telegram">✈️</a>
-                        <a href="coming-soon.html" title="WhatsApp">💬</a>
-                    </div>
-                </div>
+            <div class="footer-brand">
+                <a href="#" class="logo">LMIXI</a>
+                <p>الوجهة الأولى والأحدث لشراء وإدارة الأجهزة الذكية والإلكترونيات الفاخرة في سوريا وفق أعلى معايير التصميم والأمان.</p>
             </div>
-            <div class="footer-bottom">
-                <p>© 2025 LMIXI — جميع الحقوق محفوظة.</p>
+            <div class="footer-links">
+                <h4>روابط مهمة</h4>
+                <ul>
+                    <li><a href="#" onclick="switchView('home-view')">الرئيسية</a></li>
+                    <li><a href="#" onclick="switchView('store-view')">المتجر الفاخر</a></li>
+                    <li><a href="#" onclick="switchView('seller-view')">حساب البائعين</a></li>
+                </ul>
             </div>
+            <div class="footer-links">
+                <h4>الدعم والمساعدة</h4>
+                <ul>
+                    <li><a href="#">مركز الدعم والمساعدة</a></li>
+                    <li><a href="#">سياسة الخصوصية والاستخدام</a></li>
+                    <li><a href="#">تواصل عبر واتساب</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 LMIXI. جميع الحقوق محفوظة لمتجر المستقبل الفاخر.</span>
+            <span>تصميم بنمط Liquid Glass & Neon Premium UI</span>
         </div>
     </footer>
 
-    <!-- ==============================
-         نوافذ منبثقة (Modals & Drawers)
-         ============================== -->
-
-    <!-- السلة الجانبية (Sidebar Cart) -->
-    <div class="overlay" id="cart-overlay"></div>
-    <div class="cart-drawer" id="cart-drawer">
-        <div class="cart-header">
-            <h3>سلة المشتريات</h3>
-            <button class="close-btn" id="close-cart-btn">✕</button>
-        </div>
-        <div class="cart-items" id="cart-items-container">
-            <!-- سيتم إضافة المنتجات هنا بالـ JS -->
-            <div class="empty-cart-msg">سلتك فارغة حالياً.</div>
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>المجموع الكلي:</span>
-                <strong id="cart-total-price">0 ل.س</strong>
-            </div>
-            <button class="btn btn-primary btn-full" id="checkout-btn" disabled>إتمام الطلب</button>
-        </div>
-    </div>
-
-    <!-- نافذة تسجيل الدخول / حساب جديد -->
-    <div class="modal-overlay" id="auth-modal">
-        <div class="glass-modal">
-            <button class="close-btn modal-close" id="close-auth-modal">✕</button>
-            <div class="modal-tabs">
-                <button class="tab-btn active" data-tab="login">تسجيل الدخول</button>
-                <button class="tab-btn" data-tab="register">حساب جديد</button>
-            </div>
-
-            <!-- نموذج الدخول -->
-            <form id="login-form" class="auth-form active">
-                <div class="form-group">
-                    <label>البريد الإلكتروني</label>
-                    <input type="email" id="login-email" required placeholder="example@domain.com">
-                </div>
-                <div class="form-group">
-                    <label>كلمة المرور</label>
-                    <input type="password" id="login-password" required placeholder="••••••••">
-                </div>
-                <button type="submit" class="btn btn-primary btn-full">دخول</button>
-            </form>
-
-            <!-- نموذج التسجيل -->
-            <form id="register-form" class="auth-form">
-                <div class="form-group">
-                    <label>الاسم الكامل</label>
-                    <input type="text" id="reg-name" required>
-                </div>
-                <div class="form-group">
-                    <label>البريد الإلكتروني</label>
-                    <input type="email" id="reg-email" required>
-                </div>
-                <div class="form-group">
-                    <label>رقم الجوال (سوريا)</label>
-                    <input type="tel" id="reg-phone" placeholder="09xxxxxxxx" required>
-                </div>
-                <div class="form-group">
-                    <label>كلمة المرور</label>
-                    <input type="password" id="reg-password" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-full">إنشاء حساب جديد</button>
-            </form>
-
-            <!-- معلومات الحساب (تظهر إذا كان مسجلاً) -->
-            <div id="profile-info" class="auth-form">
-                <div class="profile-card">
-                    <div class="profile-avatar">👤</div>
-                    <h3 id="profile-name-display">الاسم</h3>
-                    <p id="profile-email-display">البريد</p>
-                    <p id="profile-phone-display">الهاتف</p>
-                    <button type="button" class="btn btn-outline btn-full" style="margin-top: 1rem;"
-                        id="logout-btn">تسجيل الخروج</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة إتمام الدفع (Checkout) -->
-    <div class="modal-overlay" id="checkout-modal">
-        <div class="glass-modal checkout-modal-card">
-            <button class="close-btn modal-close" id="close-checkout-modal">✕</button>
-            <h2 style="margin-bottom: 1.5rem; text-align: center;">إتمام الطلب</h2>
-
-            <form id="checkout-form">
-                <div class="form-group">
-                    <label>المدينة / المحافظة</label>
-                    <input type="text" id="checkout-city" required placeholder="مثال: دمشق">
-                </div>
-                <div class="form-group">
-                    <label>العنوان بالتفصيل</label>
-                    <input type="text" id="checkout-address" required placeholder="مثال: المزة - شارع الجلاء">
-                </div>
-                <div class="form-group">
-                    <label>طريقة الدفع</label>
-                    <select id="checkout-payment-method">
-                        <option value="cod">الدفع عند الاستلام</option>
-                        <option value="syriatel_cash">سيريتل كاش</option>
-                    </select>
-                </div>
-                <div class="cart-total" style="margin: 1.5rem 0;">
-                    <span>المطلوب دفعه:</span>
-                    <strong id="checkout-final-price" style="color: var(--neon-orange);">0 ل.س</strong>
-                </div>
-                <button type="submit" class="btn btn-primary btn-full btn-glow">تأكيد الشراء الآن</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- نافذة نجاح الطلب (Confetti / Success) -->
-    <div class="modal-overlay" id="success-modal">
-        <div class="glass-modal" style="text-align: center;">
-            <div class="success-icon">🎉</div>
-            <h2 style="margin-bottom: 1rem; color: var(--neon-orange);">تم الطلب بنجاح!</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 2rem;">شكراً لتسوقك من LMIXI. سنتواصل معك قريباً
-                لتأكيد الشحن.</p>
-            <button type="button" class="btn btn-primary btn-full" id="close-success-btn">العودة للمتجر</button>
-        </div>
-    </div>
-        <!-- ==============================
-         تطبيق الموبايل والميزات المضافة
-         ============================== -->
-
-        <!-- نافذة المساعد الذكي (AI Chat Window) -->
-        <div class="ai-chat-window" id="ai-chat-window">
-            <div class="ai-chat-header">
-                <div class="ai-header-info">
-                    <span class="ai-avatar">🤖</span>
-                    <div>
-                        <h4>مساعد LMIXI</h4>
-                        <span class="ai-status">متصل الآن</span>
-                    </div>
-                </div>
-                <button class="close-btn" id="close-ai-btn">✕</button>
-            </div>
-            <div class="ai-chat-messages" id="ai-chat-messages">
-                <div class="ai-msg bot">مرحباً! أنا مساعد LMIXI الذكي. كيف يمكنني مساعدتك اليوم؟ ✨</div>
-            </div>
-            <div class="ai-chat-input-area">
-                <form id="ai-chat-form" style="display: flex; width: 100%; gap: 0.5rem;">
-                    <input type="text" id="ai-input" placeholder="اسألني أي شيء..." autocomplete="off" required>
-                    <button type="submit" id="ai-send-btn">
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-                        </svg>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-
-
-        <!-- حاوية الإشعارات (Toast Notifications) -->
-        <div id="toast-container" class="toast-container"></div>
-
-        <!-- زر التواصل العائم (Floating Action Button) - مخفي بناءً على طلب المستخدم -->
-        <a href="coming-soon.html" class="floating-contact-btn" title="تواصل معنا عبر واتساب" style="display: none;">
-            <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path
-                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
-                </path>
-            </svg>
-        </a>
-
-        <!-- شريط التنقل السفلي للموبايل (Bottom Navigation) -->
-        <nav class="bottom-nav" id="bottom-nav">
-            <a href="#hero" class="nav-item active">
-                <span class="nav-icon">🏠</span>
-                <span class="nav-text">الرئيسية</span>
-            </a>
-            <a href="coming-soon.html" class="nav-item">
-                <span class="nav-icon">🔍</span>
-                <span class="nav-text">البحث</span>
-            </a>
-            <a href="javascript:void(0)" class="nav-item" id="bottom-nav-cart">
-                <span class="nav-icon">
-                    🛒<span class="bottom-cart-badge" id="bottom-cart-count">0</span>
-                </span>
-                <span class="nav-text">السلة</span>
-            </a>
-            <a href="coming-soon.html" class="nav-item">
-                <span class="nav-icon">❤️</span>
-                <span class="nav-text">المفضلة</span>
-            </a>
-            <a href="javascript:void(0)" class="nav-item" id="bottom-nav-account">
-                <span class="nav-icon">👤</span>
-                <span class="nav-text">حسابي</span>
-            </a>
-        </nav>
-
-        <!-- ملف برمجة التفاعل -->
-        <script src="script.js"></script>
+    <!-- ملف التفاعل البرمجي -->
+    <script src="script.js"></script>
 </body>
-
 </html>
