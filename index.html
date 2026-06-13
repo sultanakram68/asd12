@@ -249,6 +249,61 @@
       background-color: rgb(var(--color-primary)) !important;
       color: #ffffff !important;
     }
+
+    /* 3D Product Radial Carousel Styles */
+    .product-radial-card {
+      position: absolute;
+      width: 220px;
+      height: 310px;
+      left: -110px;
+      top: -155px;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 16px;
+      user-select: none;
+      transform-origin: center center;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s, border-color 0.4s, box-shadow 0.4s !important;
+      cursor: pointer;
+    }
+    
+    @media (max-width: 768px) {
+      .product-radial-card {
+        width: 170px;
+        height: 250px;
+        left: -85px;
+        top: -125px;
+        padding: 16px 12px;
+      }
+      .product-radial-card h3 { font-size: 0.95rem; }
+      .product-radial-card p { font-size: 1.1rem; }
+    }
+
+    .product-radial-card-content {
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      opacity: 0.7;
+      transition: all 0.4s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .product-radial-card.active {
+      border-color: rgb(var(--color-primary));
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 40px rgb(var(--color-primary) / 0.25), inset 0 0 20px rgb(var(--color-primary) / 0.1) !important;
+    }
+    
+    .dark .product-radial-card.active {
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgb(var(--color-primary) / 0.25), inset 0 0 20px rgb(var(--color-primary) / 0.1) !important;
+    }
+    
+    .product-radial-card.active .product-radial-card-content {
+      opacity: 1;
+    }
   </style>
 </head>
 
@@ -509,6 +564,109 @@
         بحثك عن <span id="searchedTerm" class="font-bold text-blue-500 dark:text-blue-400 mx-1"></span>. الرجاء التأكد
         من الكلمة والمحاولة مرة أخرى.</p>
     </div>
+
+    <!-- 3D Product Carousel Section -->
+    <section id="featuredCarouselSection" class="w-full max-w-7xl mx-auto mt-32 mb-24 flex flex-col gap-6 relative z-20">
+
+      <div class="relative w-full h-[400px] flex justify-center items-center overflow-hidden" style="perspective: 1200px;">
+        <!-- Ambient background flow -->
+        <div class="absolute inset-0 z-0 pointer-events-none opacity-40">
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 rounded-full blur-[60px]"></div>
+        </div>
+
+        <div id="productRadialCarousel" class="relative w-0 h-0 z-10 cursor-grab active:cursor-grabbing" style="transform-style: preserve-3d; transition: transform 0.1s ease-out;">
+          <div class="product-radial-card glass-card active" data-id="1">
+            <div class="product-radial-card-content">
+              <span class="text-xs text-primary font-bold tracking-wider uppercase mb-2">الهواتف الذكية</span>
+              <div class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
+                <i data-lucide="smartphone" class="w-9 h-9"></i>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">iPhone 15 Pro Max</h3>
+              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">4,500 <span class="text-xs text-gray-500 font-normal">ر.س</span></p>
+              <div class="flex gap-2 w-full mt-auto">
+                <a href="product.html?id=1" class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
+                <button class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center" onclick="event.stopPropagation(); addToCart('iPhone 15 Pro Max', 4500, 'smartphone')"><i data-lucide="plus" class="w-4 h-4"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-radial-card glass-card" data-id="3">
+            <div class="product-radial-card-content">
+              <span class="text-xs text-primary font-bold tracking-wider uppercase mb-2">صوتيات</span>
+              <div class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
+                <i data-lucide="headphones" class="w-9 h-9"></i>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">Sony WH-1000XM5</h3>
+              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">1,200 <span class="text-xs text-gray-500 font-normal">ر.س</span></p>
+              <div class="flex gap-2 w-full mt-auto">
+                <a href="product.html?id=3" class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
+                <button class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center" onclick="event.stopPropagation(); addToCart('Sony WH-1000XM5', 1200, 'headphones')"><i data-lucide="plus" class="w-4 h-4"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-radial-card glass-card" data-id="5">
+            <div class="product-radial-card-content">
+              <span class="text-xs text-primary font-bold tracking-wider uppercase mb-2">لابتوب</span>
+              <div class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
+                <i data-lucide="laptop" class="w-9 h-9"></i>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">MacBook Pro M3</h3>
+              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">8,500 <span class="text-xs text-gray-500 font-normal">ر.س</span></p>
+              <div class="flex gap-2 w-full mt-auto">
+                <a href="product.html?id=5" class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
+                <button class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center" onclick="event.stopPropagation(); addToCart('MacBook Pro M3', 8500, 'laptop')"><i data-lucide="plus" class="w-4 h-4"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-radial-card glass-card" data-id="7">
+            <div class="product-radial-card-content">
+              <span class="text-xs text-primary font-bold tracking-wider uppercase mb-2">ساعات ذكية</span>
+              <div class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
+                <i data-lucide="watch" class="w-9 h-9"></i>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">Apple Watch Ultra 2</h3>
+              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">3,200 <span class="text-xs text-gray-500 font-normal">ر.س</span></p>
+              <div class="flex gap-2 w-full mt-auto">
+                <a href="product.html?id=7" class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
+                <button class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center" onclick="event.stopPropagation(); addToCart('Apple Watch Ultra 2', 3200, 'watch')"><i data-lucide="plus" class="w-4 h-4"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-radial-card glass-card" data-id="8">
+            <div class="product-radial-card-content">
+              <span class="text-xs text-primary font-bold tracking-wider uppercase mb-2">ألعاب</span>
+              <div class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
+                <i data-lucide="gamepad-2" class="w-9 h-9"></i>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">PlayStation 5 Slim</h3>
+              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">2,200 <span class="text-xs text-gray-500 font-normal">ر.س</span></p>
+              <div class="flex gap-2 w-full mt-auto">
+                <a href="product.html?id=8" class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
+                <button class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center" onclick="event.stopPropagation(); addToCart('PlayStation 5 Slim', 2200, 'gamepad-2')"><i data-lucide="plus" class="w-4 h-4"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-radial-card glass-card" data-id="2">
+            <div class="product-radial-card-content">
+              <span class="text-xs text-primary font-bold tracking-wider uppercase mb-2">الهواتف الذكية</span>
+              <div class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
+                <i data-lucide="smartphone" class="w-9 h-9"></i>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">Samsung S24 Ultra</h3>
+              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">4,300 <span class="text-xs text-gray-500 font-normal">ر.س</span></p>
+              <div class="flex gap-2 w-full mt-auto">
+                <a href="product.html?id=2" class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
+                <button class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center" onclick="event.stopPropagation(); addToCart('Samsung Galaxy S24 Ultra', 4300, 'smartphone')"><i data-lucide="plus" class="w-4 h-4"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Product Catalog -->
     <section id="productCatalog" class="w-full max-w-7xl mx-auto mt-4 md:mt-12 flex flex-col gap-8 z-10 relative">
@@ -1411,6 +1569,46 @@
                 </div>`;
       });
 
+      // Smart recommendation in Cart Drawer
+      let cartUpsellHtml = '';
+      if (cartState.length > 0) {
+          const hasPhone = cartState.some(i => i.name.toLowerCase().includes('phone') || i.name.toLowerCase().includes('galaxy') || i.name.toLowerCase().includes('pixel'));
+          const hasLaptop = cartState.some(i => i.name.toLowerCase().includes('macbook') || i.name.toLowerCase().includes('dell') || i.name.toLowerCase().includes('rog'));
+          
+          const hasHeadphones = cartState.some(i => i.name.toLowerCase().includes('airpods') || i.name.toLowerCase().includes('wh-1000') || i.name.toLowerCase().includes('quietcomfort'));
+          const hasMouse = cartState.some(i => i.name.toLowerCase().includes('logitech') || i.name.toLowerCase().includes('mouse') || i.name.toLowerCase().includes('keyboard'));
+          
+          if (hasPhone && !hasHeadphones) {
+              cartUpsellHtml = `
+              <div class="mt-4 p-3 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-between gap-3 text-xs text-right animate-pulse">
+                  <div class="flex items-center gap-2">
+                      <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary shrink-0"><i data-lucide="headphones" class="w-4 h-4"></i></div>
+                      <div class="text-right">
+                          <p class="font-bold text-gray-800 dark:text-white">أكمل تجربة هاتفك 🎧</p>
+                          <p class="text-gray-500 dark:text-gray-400">أضف سماعات AirPods Pro 2</p>
+                      </div>
+                  </div>
+                  <button class="px-3 py-1.5 rounded-lg bg-primary text-white font-bold hover:scale-105 transition-all text-[10px]" onclick="addToCart('Apple AirPods Pro 2', 900, 'headphones')">إضافة بـ 900 ر.س</button>
+              </div>`;
+          } else if (hasLaptop && !hasMouse) {
+              cartUpsellHtml = `
+              <div class="mt-4 p-3 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-between gap-3 text-xs text-right animate-pulse">
+                  <div class="flex items-center gap-2">
+                      <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary shrink-0"><i data-lucide="mouse" class="w-4 h-4"></i></div>
+                      <div class="text-right">
+                          <p class="font-bold text-gray-800 dark:text-white">أكمل محطة عملك 🖱️</p>
+                          <p class="text-gray-500 dark:text-gray-400">أضف ماوس Logitech MX Master 3S</p>
+                      </div>
+                  </div>
+                  <button class="px-3 py-1.5 rounded-lg bg-primary text-white font-bold hover:scale-105 transition-all text-[10px]" onclick="addToCart('Logitech MX Master 3S', 450, 'mouse')">إضافة بـ 450 ر.س</button>
+              </div>`;
+          }
+      }
+      
+      if (cartUpsellHtml) {
+          html += cartUpsellHtml;
+      }
+
       drawerContent.innerHTML = html;
       badgeContainer.style.display = 'flex';
       badgeCount.innerText = totalCount;
@@ -1471,6 +1669,42 @@
 
           addToCart(name, price, itemIcon);
         });
+      });
+
+      // Dynamic link assignment for catalog cards
+      const catalogCards = document.querySelectorAll('#productCatalog .glass-card');
+      const titleToIdMap = {
+          "iPhone 15 Pro Max": 1,
+          "Samsung Galaxy S24 Ultra": 2,
+          "Sony WH-1000XM5": 3,
+          "Apple AirPods Pro 2": 4,
+          "MacBook Pro M3": 5,
+          "iPad Pro 12.9\"": 6,
+          "Apple Watch Ultra 2": 7,
+          "PlayStation 5 Slim": 8,
+          "Xbox Series X": 9,
+          "Nintendo Switch OLED": 10,
+          "Dell XPS 15": 11,
+          "Asus ROG Ally": 12,
+          "Bose QuietComfort Ultra": 13,
+          "Galaxy Watch 6 Classic": 14,
+          "Google Pixel 8 Pro": 15,
+          "LG OLED evo C3 65\"": 16,
+          "DJI Mini 4 Pro": 17,
+          "GoPro Hero 12 Black": 18,
+          "Apple Magic Keyboard": 19,
+          "Logitech MX Master 3S": 20
+      };
+
+      catalogCards.forEach(card => {
+          const h3 = card.querySelector('h3');
+          if (h3) {
+              const title = h3.innerText.trim();
+              const id = titleToIdMap[title];
+              if (id) {
+                  card.setAttribute('onclick', `window.location.href='product.html?id=${id}'`);
+              }
+          }
       });
 
       // Start empty
@@ -1722,8 +1956,158 @@
           }
       }
 
+      // ==========================================
+      // 3D Product Radial Carousel Logic
+      // ==========================================
+      const prodRadialCarousel = document.getElementById('productRadialCarousel');
+      const prodRadialCards = document.querySelectorAll('.product-radial-card');
+      const prevProductBtn = document.getElementById('prevProductBtn');
+      const nextProductBtn = document.getElementById('nextProductBtn');
+      
+      let prodRadialAngle = 0;
+      const prodAngleStep = 360 / prodRadialCards.length;
+      
+      let prodStartX = 0;
+      let prodLastX = 0;
+      let prodIsDragging = false;
+      let prodVelocity = 0;
+      let prodLastTime = 0;
+      let prodAnimationFrame;
+
+      function updateProductRadialCards() {
+          const radius = window.innerWidth < 768 ? 130 : 260;
+          prodRadialCards.forEach((card, index) => {
+              const angle = prodRadialAngle + (index * prodAngleStep);
+              const rad = angle * Math.PI / 180;
+              const x = Math.sin(rad) * radius;
+              const z = Math.cos(rad) * radius;
+              const normalizedZ = (z + radius) / (2 * radius);
+              const scale = 0.55 + (0.45 * normalizedZ);
+              const opacity = 0.15 + (0.85 * normalizedZ);
+              
+              card.style.transform = `translate3d(${x}px, 0, ${z}px) scale(${scale})`;
+              card.style.opacity = opacity;
+              card.style.zIndex = Math.round(normalizedZ * 100);
+
+              if (z > radius - 35) {
+                  card.classList.add('active');
+              } else {
+                  card.classList.remove('active');
+              }
+          });
+      }
+
+      function rotateProductRadial(direction) {
+          cancelAnimationFrame(prodAnimationFrame);
+          const targetAngle = prodRadialAngle + (direction * prodAngleStep);
+          animateRotateTo(targetAngle);
+      }
+
+      function animateRotateTo(target) {
+          const diff = target - prodRadialAngle;
+          if (Math.abs(diff) > 0.5) {
+              prodRadialAngle += diff * 0.15;
+              updateProductRadialCards();
+              prodAnimationFrame = requestAnimationFrame(() => animateRotateTo(target));
+          } else {
+              prodRadialAngle = target;
+              updateProductRadialCards();
+          }
+      }
+
+      if (prevProductBtn) {
+          prevProductBtn.addEventListener('click', () => rotateProductRadial(1));
+      }
+      if (nextProductBtn) {
+          nextProductBtn.addEventListener('click', () => rotateProductRadial(-1));
+      }
+
+      if (prodRadialCarousel) {
+          prodRadialCarousel.addEventListener('mousedown', (e) => {
+              prodIsDragging = true;
+              prodStartX = e.clientX;
+              prodLastX = prodStartX;
+              prodLastTime = performance.now();
+              cancelAnimationFrame(prodAnimationFrame);
+          });
+
+          window.addEventListener('mousemove', (e) => {
+              if (!prodIsDragging) return;
+              const x = e.clientX;
+              const deltaX = x - prodLastX;
+              prodRadialAngle += deltaX * 0.4;
+              updateProductRadialCards();
+              const now = performance.now();
+              const dt = now - prodLastTime;
+              if (dt > 0) prodVelocity = deltaX / dt;
+              prodLastX = x;
+              prodLastTime = now;
+          });
+
+          window.addEventListener('mouseup', () => {
+              if (prodIsDragging) {
+                  prodIsDragging = false;
+                  applyProductRadialInertia();
+              }
+          });
+
+          prodRadialCarousel.addEventListener('touchstart', (e) => {
+              prodIsDragging = true;
+              prodStartX = e.touches[0].clientX;
+              prodLastX = prodStartX;
+              prodLastTime = performance.now();
+              cancelAnimationFrame(prodAnimationFrame);
+          }, { passive: true });
+
+          prodRadialCarousel.addEventListener('touchmove', (e) => {
+              if (!prodIsDragging) return;
+              const x = e.touches[0].clientX;
+              const deltaX = x - prodLastX;
+              prodRadialAngle += deltaX * 0.4;
+              updateProductRadialCards();
+              const now = performance.now();
+              const dt = now - prodLastTime;
+              if (dt > 0) prodVelocity = deltaX / dt;
+              prodLastX = x;
+              prodLastTime = now;
+          }, { passive: true });
+
+          prodRadialCarousel.addEventListener('touchend', () => {
+              prodIsDragging = false;
+              applyProductRadialInertia();
+          });
+      }
+
+      function applyProductRadialInertia() {
+          if (Math.abs(prodVelocity) > 0.1) {
+              prodRadialAngle += prodVelocity * 16;
+              prodVelocity *= 0.92;
+              updateProductRadialCards();
+              prodAnimationFrame = requestAnimationFrame(applyProductRadialInertia);
+          } else {
+              snapProductRadialToNearest();
+          }
+      }
+
+      function snapProductRadialToNearest() {
+          const snapAngle = Math.round(prodRadialAngle / prodAngleStep) * prodAngleStep;
+          const diff = snapAngle - prodRadialAngle;
+          if (Math.abs(diff) > 0.5) {
+              prodRadialAngle += diff * 0.15;
+              updateProductRadialCards();
+              prodAnimationFrame = requestAnimationFrame(snapProductRadialToNearest);
+          } else {
+              prodRadialAngle = snapAngle;
+              updateProductRadialCards();
+          }
+      }
+
+      // Initial layout call
+      updateProductRadialCards();
+
       window.addEventListener('resize', () => {
           if (radialIsActive) updateRadialCards();
+          updateProductRadialCards();
       });
       
       // Update once on load

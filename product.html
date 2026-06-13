@@ -185,6 +185,32 @@
             background-color: rgb(var(--color-primary)) !important;
             color: #ffffff !important;
         }
+
+        /* 3D Parallax Tilt Effect for Product Image */
+        .tilt-3d {
+          transform-style: preserve-3d;
+          perspective: 1000px;
+          transform: rotateY(-8deg) rotateX(5deg);
+          transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.6s !important;
+        }
+        
+        .tilt-3d:hover {
+          transform: rotateY(10deg) rotateX(-6deg) translateY(-8px);
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15), 0 0 50px rgb(var(--color-primary) / 0.15) !important;
+        }
+        
+        .dark .tilt-3d:hover {
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 50px rgb(var(--color-primary) / 0.15) !important;
+        }
+        
+        .tilt-3d-child {
+          transform: translateZ(30px);
+          transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+        }
+        
+        .tilt-3d:hover .tilt-3d-child {
+          transform: translateZ(70px) scale(1.08);
+        }
     </style>
 </head>
 <body class="relative overflow-x-hidden bg-[#FAFAFA] dark:bg-[#05060A] text-gray-900 dark:text-white transition-colors duration-300 min-h-screen flex flex-col">
@@ -302,20 +328,20 @@
         <nav class="w-full flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-8 mt-2">
             <a href="index.html" class="hover:text-primary transition-colors">الرئيسية</a>
             <i data-lucide="chevron-left" class="w-4 h-4"></i>
-            <a href="#" class="hover:text-primary transition-colors">الهواتف الذكية</a>
+            <a href="#" class="hover:text-primary transition-colors" id="breadcrumb-category">الهواتف الذكية</a>
             <i data-lucide="chevron-left" class="w-4 h-4"></i>
-            <span class="text-gray-900 dark:text-white font-medium">iPhone 15 Pro Max</span>
+            <span class="text-gray-900 dark:text-white font-medium" id="breadcrumb-product-name">iPhone 15 Pro Max</span>
         </nav>
 
         <!-- Product Overview Section -->
         <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 mb-20">
             <!-- Product "Image" (Icon) -->
-            <div class="glass-card rounded-[3rem] aspect-square flex items-center justify-center border border-white/10 dark:border-white/5 relative overflow-hidden group w-full max-w-[500px] mx-auto">
+            <div class="glass-card rounded-[3rem] aspect-square flex items-center justify-center border border-white/10 dark:border-white/5 relative overflow-hidden group w-full max-w-[500px] mx-auto tilt-3d">
                 <div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent opacity-50"></div>
                 <div class="absolute -inset-20 bg-primary/20 blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-full z-0 pointer-events-none"></div>
                 
                 <!-- Placeholder Icon instead of Image -->
-                <i data-lucide="smartphone" class="w-32 h-32 md:w-48 md:h-48 text-gray-800 dark:text-gray-200 relative z-10 transition-transform duration-500 group-hover:scale-110"></i>
+                <i data-lucide="smartphone" id="product-icon" class="w-32 h-32 md:w-48 md:h-48 text-gray-800 dark:text-gray-200 relative z-10 transition-transform duration-500 group-hover:scale-110 tilt-3d-child"></i>
                 
                 <!-- Floating tags -->
                 <div class="absolute top-6 right-6 bg-red-500/10 text-red-500 px-3 py-1 rounded-full text-xs font-bold border border-red-500/20 backdrop-blur-md">
@@ -331,9 +357,9 @@
                 <div>
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-medium text-primary mb-4">
                         <i data-lucide="zap" class="w-3 h-3"></i>
-                        <span>تكنولوجيا المستقبل</span>
+                        <span id="product-tag-text">تكنولوجيا المستقبل</span>
                     </div>
-                    <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-3 leading-tight tracking-tight">iPhone 15 Pro Max</h1>
+                    <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-3 leading-tight tracking-tight" id="product-name">iPhone 15 Pro Max</h1>
                     
                     <div class="flex items-center gap-2 text-yellow-500 mb-6">
                         <i data-lucide="star" class="w-5 h-5 fill-current"></i>
@@ -344,9 +370,9 @@
                         <span class="text-sm text-gray-500 dark:text-gray-400 font-medium ml-2 cursor-pointer hover:underline">(128 تقييم ومراجعة)</span>
                     </div>
 
-                    <p class="text-4xl font-black text-gradient-primary mb-6">4,500 <span class="text-xl text-gray-500 font-normal">ر.س</span></p>
+                    <p class="text-4xl font-black text-gradient-primary mb-6" id="product-price">4,500 <span class="text-xl text-gray-500 font-normal">ر.س</span></p>
                     
-                    <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+                    <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-8" id="product-desc">
                         صُمم هذا الهاتف الرائد من التيتانيوم القوي وخفيف الوزن من فئة الطيران والفضاء. يحتوي على شريحة متطورة تقدم أداءً رسومياً غير مسبوق، وكاميرا رئيسية تمنحك تفاصيل خيالية، وزر إجراءات جديد كلياً للوصول السريع إلى الميزات المفضلة.
                     </p>
                 </div>
@@ -381,85 +407,17 @@
             </div>
         </div>
 
-        <!-- Suggested Products -->
+        <!-- Suggested Products (Dynamic Accessories - شو يلزمه) -->
         <section class="w-full mt-8 flex flex-col gap-8">
             <div class="flex items-center justify-between border-b border-black/10 dark:border-white/10 pb-4">
-                <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">منتجات مقترحة لك</h2>
-                <button class="text-sm font-semibold text-primary hover:underline flex items-center gap-1">عرض الكل <i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-2">
+                    <i data-lucide="sparkles" class="text-primary animate-pulse w-6 h-6"></i>
+                    اقتراح ما يلزمه المنتج ليكون مكتملاً 💡
+                </h2>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Suggestion 1 -->
-                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
-                    <div class="absolute -inset-10 bg-primary/10 blur-[50px] opacity-0 group-hover:opacity-50 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
-                    <div class="flex justify-between items-start relative z-10">
-                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="headphones" class="w-7 h-7"></i></div>
-                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
-                    </div>
-                    <div class="relative z-10 mt-2">
-                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">صوتيات</p>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Sony WH-1000XM5</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">عزل ضوضاء رائد، بطارية 30 ساعة، صوت فائق النقاء.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
-                        <span class="text-2xl font-black text-gray-900 dark:text-white">1,200<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
-                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
-                    </div>
-                </div>
-
-                <!-- Suggestion 2 -->
-                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
-                    <div class="absolute -inset-10 bg-primary/10 blur-[50px] opacity-0 group-hover:opacity-50 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
-                    <div class="flex justify-between items-start relative z-10">
-                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="watch" class="w-7 h-7"></i></div>
-                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
-                    </div>
-                    <div class="relative z-10 mt-2">
-                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">ساعات ذكية</p>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Apple Watch Ultra 2</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">تيتانيوم قوي جداً، نظام GPS ثنائي التردد.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
-                        <span class="text-2xl font-black text-gray-900 dark:text-white">3,200<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
-                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
-                    </div>
-                </div>
-
-                <!-- Suggestion 3 -->
-                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
-                    <div class="absolute -inset-10 bg-primary/10 blur-[50px] opacity-0 group-hover:opacity-50 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
-                    <div class="flex justify-between items-start relative z-10">
-                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="gamepad-2" class="w-7 h-7"></i></div>
-                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
-                    </div>
-                    <div class="relative z-10 mt-2">
-                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">ألعاب</p>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">PlayStation 5 Slim</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">أجهزة كونسول الجيل الجديد بتصميم أنحف وأخف.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
-                        <span class="text-2xl font-black text-gray-900 dark:text-white">2,200<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
-                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
-                    </div>
-                </div>
-
-                <!-- Suggestion 4 -->
-                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
-                    <div class="absolute -inset-10 bg-primary/10 blur-[50px] opacity-0 group-hover:opacity-50 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
-                    <div class="flex justify-between items-start relative z-10">
-                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="smartphone" class="w-7 h-7"></i></div>
-                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
-                    </div>
-                    <div class="relative z-10 mt-2">
-                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">الهواتف الذكية</p>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Samsung Galaxy S24 Ultra</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">شاشة مسطحة، ذكاء اصطناعي متقدم، كاميرا 200MP.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
-                        <span class="text-2xl font-black text-gray-900 dark:text-white">4,300<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
-                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
-                    </div>
-                </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="recommendations-grid">
+                <!-- Injected dynamically by JavaScript -->
             </div>
         </section>
     </main>
@@ -516,10 +474,201 @@
         lucide.createIcons();
     </script>
 
-    <!-- Inline Search Logic (Copied from index) -->
+    <!-- Inline Search and Dynamic Page Logic -->
     <script>
-        const container = document.getElementById('inlineSearchContainer');
-        const input = document.getElementById('inlineSearchInput');
+      // ==============================================
+      // Global Products Database
+      // ==============================================
+      const allProducts = [
+        {
+          id: 1,
+          name: "iPhone 15 Pro Max",
+          price: 4500,
+          category: "الهواتف الذكية",
+          catKey: "phones",
+          icon: "smartphone",
+          desc: "صُمم هذا الهاتف الرائد من التيتانيوم القوي وخفيف الوزن من فئة الطيران والفضاء. يحتوي على شريحة متطورة تقدم أداءً رسومياً غير مسبوق، وكاميرا رئيسية تمنحك تفاصيل خيالية، وزر إجراءات جديد كلياً للوصول السريع إلى الميزات المفضلة."
+        },
+        {
+          id: 2,
+          name: "Samsung Galaxy S24 Ultra",
+          price: 4300,
+          category: "الهواتف الذكية",
+          catKey: "phones",
+          icon: "smartphone",
+          desc: "أقوى هواتف سامسونج مع شاشة مسطحة مذهلة، إطار متين من التيتانيوم، وقلم S Pen مدمج. يتميز بمحرك ذكاء اصطناعي متطور لترجمة المكالمات الفورية وتعديل الصور الذكي وكاميرا بدقة 200 ميجابكسل."
+        },
+        {
+          id: 3,
+          name: "Sony WH-1000XM5",
+          price: 1200,
+          category: "صوتيات",
+          catKey: "audio",
+          icon: "headphones",
+          desc: "سماعات رأس لاسلكية تتميز بأفضل تقنية لعزل الضوضاء النشط في العالم، وجودة صوت استثنائية مع دعم الصوت عالي الدقة (Hi-Res Audio)، بالإضافة إلى بطارية تدوم حتى 30 ساعة وشحن سريع للغاية."
+        },
+        {
+          id: 4,
+          name: "Apple AirPods Pro 2",
+          price: 900,
+          category: "صوتيات",
+          catKey: "audio",
+          icon: "headphones",
+          desc: "سماعات لاسلكية داخل الأذن مجهزة بشريحة H2 لتقديم عزل ضوضاء مضاعف، ميزة الصوت التكيفي، وصوت مكاني مخصص لتجربة استماع سينمائية ثلاثية الأبعاد."
+        },
+        {
+          id: 5,
+          name: "MacBook Pro M3",
+          price: 8500,
+          category: "لابتوب",
+          catKey: "laptops",
+          icon: "laptop",
+          desc: "كمبيوتر محمول استثنائي للمحترفين مدعوم بشريحة Apple M3 المتطورة، شاشة Liquid Retina XDR الساطعة للغاية، عمر بطارية يصل إلى 22 ساعة، وتصميم أنيق بلون أسود فضائي."
+        },
+        {
+          id: 6,
+          name: "iPad Pro 12.9\"",
+          price: 3500,
+          category: "أجهزة لوحية",
+          catKey: "tablets",
+          icon: "tablet",
+          desc: "أقوى جهاز لوحي بشاشة Liquid Retina XDR حجم 12.9 إنش بتقنية Mini-LED، شريحة M2 الفائقة، دعم لقلم Apple Pencil 2 ولوحة مفاتيح Magic Keyboard لإنتاجية بلا حدود."
+        },
+        {
+          id: 7,
+          name: "Apple Watch Ultra 2",
+          price: 3200,
+          category: "ساعات ذكية",
+          catKey: "watches",
+          icon: "watch",
+          desc: "ساعة رياضية فائقة الصلابة بهيكل تيتانيوم 49 مم، مقاومة للماء حتى عمق 100 متر، نظام تحديد مواقع ثنائي التردد عالي الدقة، وعمر بطارية يصل إلى 36 ساعة للاستخدام المكثف في المغامرات."
+        },
+        {
+          id: 8,
+          name: "PlayStation 5 Slim",
+          price: 2200,
+          category: "ألعاب",
+          catKey: "games",
+          icon: "gamepad-2",
+          desc: "إصدار PlayStation 5 بتصميم أنحف وأخف، قرص تخزين SSD فائق السرعة بسعة 1 تيرابايت، تجربة ألعاب غامرة بدقة 4K ومعدل تحديث يصل إلى 120 إطاراً في الثانية مع مؤثرات بصرية مذهلة."
+        },
+        {
+          id: 9,
+          name: "Xbox Series X",
+          price: 2100,
+          category: "ألعاب",
+          catKey: "games",
+          icon: "gamepad-2",
+          desc: "أسرع وأقوى منصة ألعاب Xbox على الإطلاق. تتيح لك تشغيل ألعاب 4K حقيقية بمعدل 120 إطاراً في الثانية مع معمارية Xbox Velocity لتقليل أوقات التحميل بشكل غير مسبوق."
+        },
+        {
+          id: 10,
+          name: "Nintendo Switch OLED",
+          price: 1400,
+          category: "ألعاب",
+          catKey: "games",
+          icon: "gamepad-2",
+          desc: "جهاز ألعاب محمول وهجين يتميز بشاشة OLED مقاس 7 إنش بألوان زاهية وتباين عميق، مسند عريض قابل للتعديل، وقاعدة تدعم كابل LAN لتجربة لعب سلسة عبر الإنترنت."
+        },
+        {
+          id: 11,
+          name: "Dell XPS 15",
+          price: 7500,
+          category: "لابتوب",
+          catKey: "laptops",
+          icon: "laptop",
+          desc: "كمبيوتر محمول فاخر يجمع بين القوة والتصميم الأنيق. يحتوي على شاشة InfinityEdge بدقة 3.5K ومكبرات صوت استوديو غامرة مع معالجات Intel Core ورسوميات NVIDIA GeForce RTX."
+        },
+        {
+          id: 12,
+          name: "Asus ROG Ally",
+          price: 2800,
+          category: "ألعاب",
+          catKey: "games",
+          icon: "gamepad-2",
+          desc: "جهاز ألعاب محمول يعمل بنظام Windows 11، مدعوم بمعالج AMD Ryzen Z1 Extreme المتطور لشغل جميع ألعاب الكمبيوتر المفضلة لديك أينما كنت وبأداء مذهل."
+        },
+        {
+          id: 13,
+          name: "Bose QuietComfort Ultra",
+          price: 1300,
+          category: "صوتيات",
+          catKey: "audio",
+          icon: "headphones",
+          desc: "سماعات إلغاء الضوضاء الأكثر شهرة بتجربة صوتية مكانية غامرة ومستويات عزل صوتي متطورة مع تقنية CustomTune لتكييف الصوت حسب شكل أذنك."
+        },
+        {
+          id: 14,
+          name: "Galaxy Watch 6 Classic",
+          price: 1100,
+          category: "ساعات ذكية",
+          catKey: "watches",
+          icon: "watch",
+          desc: "ساعة سامسونج الكلاسيكية مع حافة دوارة أيقونية، تتبع متقدم للنوم وتكوين الجسم، وتصميم متميز يناسب جميع المناسبات الرسمية والرياضية."
+        },
+        {
+          id: 15,
+          name: "Google Pixel 8 Pro",
+          price: 3800,
+          category: "الهواتف الذكية",
+          catKey: "phones",
+          icon: "smartphone",
+          desc: "أحدث هواتف جوجل مع شاشة Super Actua فائقة السطوع، شريحة Google Tensor G3 المخصصة للذكاء الاصطناعي، ونظام كاميرات احترافي يلتقط صوراً ليلية وفيديوهات بجودة مذهلة."
+        },
+        {
+          id: 16,
+          name: "LG OLED evo C3 65\"",
+          price: 5500,
+          category: "شاشات وتلفزيونات",
+          catKey: "tvs",
+          icon: "tv",
+          desc: "تلفزيون ذكي بشاشة OLED مقاس 65 إنش مع معالج a9 Gen6 بتقنية AI لتقديم مستويات سواد مطلقة، سطوع معزز، وأداء فائق للألعاب مع 4 منافذ HDMI 2.1 تدعم 120Hz."
+        },
+        {
+          id: 17,
+          name: "DJI Mini 4 Pro",
+          price: 3400,
+          category: "كاميرات وتصوير",
+          catKey: "cameras",
+          icon: "camera",
+          desc: "طائرة بدون طيار (درون) خفيفة الوزن للغاية (أقل من 249 جرام)، مزودة بنظام تجنب العقبات في جميع الاتجاهات، تصوير فيديو بدقة 4K/60fps HDR، ونظام تصوير عمودي حقيقي لوسائل التواصل."
+        },
+        {
+          id: 18,
+          name: "GoPro Hero 12 Black",
+          price: 1600,
+          category: "كاميرات وتصوير",
+          catKey: "cameras",
+          icon: "camera",
+          desc: "كاميرا الأكشن الأقوى في العالم مع تثبيت فيديو HyperSmooth 6.0 الحائز على جائزة إيمي، جودة فيديو HDR محسنة، دعم تسجيل الصوت بالبلوتوث، وبطارية ذات قدرة تحمل مضاعفة."
+        },
+        {
+          id: 19,
+          name: "Apple Magic Keyboard",
+          price: 600,
+          category: "ملحقات",
+          catKey: "accessories",
+          icon: "keyboard",
+          desc: "لوحة مفاتيح لاسلكية مريحة جداً بتصميم أنيق ومفاتيح مقصية هادئة وبطارية قابلة لإعادة الشحن تدوم لأكثر من شهر بشحنة واحدة."
+        },
+        {
+          id: 20,
+          name: "Logitech MX Master 3S",
+          price: 450,
+          category: "ملحقات",
+          catKey: "accessories",
+          icon: "mouse",
+          desc: "ماوس لاسلكي احترافي للمبرمجين والمصممين يتميز بحساسية 8000 DPI، نقرات صامتة تماماً، وعجلة تمرير MagSpeed الكهرومغناطيسية السريعة والذكية."
+        }
+      ];
+
+      // Load product dynamically based on URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = parseInt(urlParams.get('id')) || 1; // default to 1 (iPhone 15 Pro Max)
+      const currentProduct = allProducts.find(p => p.id === productId) || allProducts[0];
+
+      const container = document.getElementById('inlineSearchContainer');
+      const input = document.getElementById('inlineSearchInput');
         const micIcon = document.getElementById('searchMicIcon');
         const checkIcon = document.getElementById('searchCheckIcon');
         const clearIcon = document.getElementById('searchClearIcon');
@@ -709,6 +858,46 @@
                 </div>`;
             });
             
+            // Smart recommendation in Cart Drawer
+            let cartUpsellHtml = '';
+            if (cartState.length > 0) {
+                const hasPhone = cartState.some(i => i.name.toLowerCase().includes('phone') || i.name.toLowerCase().includes('galaxy') || i.name.toLowerCase().includes('pixel'));
+                const hasLaptop = cartState.some(i => i.name.toLowerCase().includes('macbook') || i.name.toLowerCase().includes('dell') || i.name.toLowerCase().includes('rog'));
+                
+                const hasHeadphones = cartState.some(i => i.name.toLowerCase().includes('airpods') || i.name.toLowerCase().includes('wh-1000') || i.name.toLowerCase().includes('quietcomfort'));
+                const hasMouse = cartState.some(i => i.name.toLowerCase().includes('logitech') || i.name.toLowerCase().includes('mouse') || i.name.toLowerCase().includes('keyboard'));
+                
+                if (hasPhone && !hasHeadphones) {
+                    cartUpsellHtml = `
+                    <div class="mt-4 p-3 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-between gap-3 text-xs text-right animate-pulse">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary shrink-0"><i data-lucide="headphones" class="w-4 h-4"></i></div>
+                            <div class="text-right">
+                                <p class="font-bold text-gray-800 dark:text-white">أكمل تجربة هاتفك 🎧</p>
+                                <p class="text-gray-500 dark:text-gray-400">أضف سماعات AirPods Pro 2</p>
+                            </div>
+                        </div>
+                        <button class="px-3 py-1.5 rounded-lg bg-primary text-white font-bold hover:scale-105 transition-all text-[10px]" onclick="addToCart('Apple AirPods Pro 2', 900, 'headphones')">إضافة بـ 900 ر.س</button>
+                    </div>`;
+                } else if (hasLaptop && !hasMouse) {
+                    cartUpsellHtml = `
+                    <div class="mt-4 p-3 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-between gap-3 text-xs text-right animate-pulse">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary shrink-0"><i data-lucide="mouse" class="w-4 h-4"></i></div>
+                            <div class="text-right">
+                                <p class="font-bold text-gray-800 dark:text-white">أكمل محطة عملك 🖱️</p>
+                                <p class="text-gray-500 dark:text-gray-400">أضف ماوس Logitech MX Master 3S</p>
+                            </div>
+                        </div>
+                        <button class="px-3 py-1.5 rounded-lg bg-primary text-white font-bold hover:scale-105 transition-all text-[10px]" onclick="addToCart('Logitech MX Master 3S', 450, 'mouse')">إضافة بـ 450 ر.س</button>
+                    </div>`;
+                }
+            }
+            
+            if (cartUpsellHtml) {
+                html += cartUpsellHtml;
+            }
+ 
             drawerContent.innerHTML = html;
             badgeContainer.style.display = 'flex';
             badgeCount.innerText = totalCount;
@@ -741,59 +930,110 @@
         }
 
         function addMainProductToCart() {
-            const nameEl = document.querySelector('h1');
-            const priceEl = document.querySelector('.text-gradient-primary');
-            const iconEl = document.querySelector('.aspect-square i[data-lucide]');
-            
-            if(nameEl && priceEl) {
-                const name = nameEl.innerText;
-                const priceText = priceEl.innerText;
-                const price = parseInt(priceText.replace(/[^0-9]/g, ''));
-                let itemIcon = 'smartphone';
-                const iconContainer = document.querySelector('.aspect-square');
-                if (iconContainer) {
-                    const svg = iconContainer.querySelector('svg');
-                    if (svg) {
-                        const classes = Array.from(svg.classList);
-                        const lucideClass = classes.find(c => c.startsWith('lucide-'));
-                        if (lucideClass) itemIcon = lucideClass.replace('lucide-', '');
-                    }
-                }
-                
-                addToCart(name, price, itemIcon);
+            if (currentProduct) {
+                addToCart(currentProduct.name, currentProduct.price, currentProduct.icon);
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Bind Add to Cart buttons in catalog
-            const cards = document.querySelectorAll('.glass-card');
-            cards.forEach(card => {
-                const buttons = card.querySelectorAll('button');
-                if (buttons.length < 2) return;
-                const btn = buttons[buttons.length - 1]; // The 'add to cart' is the last button
+        function loadProductDetails() {
+            // Update breadcrumbs
+            const breadcrumbCat = document.getElementById('breadcrumb-category');
+            const breadcrumbName = document.getElementById('breadcrumb-product-name');
+            if(breadcrumbCat) {
+                breadcrumbCat.innerText = currentProduct.category;
+                breadcrumbCat.setAttribute('href', `index.html`);
+            }
+            if(breadcrumbName) breadcrumbName.innerText = currentProduct.name;
+            
+            // Update Title, Tag, Description, Price
+            const nameEl = document.getElementById('product-name');
+            const tagEl = document.getElementById('product-tag-text');
+            const descEl = document.getElementById('product-desc');
+            const priceEl = document.getElementById('product-price');
+            const iconEl = document.getElementById('product-icon');
+            
+            if(nameEl) nameEl.innerText = currentProduct.name;
+            if(tagEl) tagEl.innerText = currentProduct.category === "الهواتف الذكية" ? "تكنولوجيا المستقبل" : "جودة استثنائية";
+            if(descEl) descEl.innerText = currentProduct.desc;
+            if(priceEl) priceEl.innerHTML = `${currentProduct.price.toLocaleString('en-US')} <span class="text-xl text-gray-500 font-normal">ر.س</span>`;
+            
+            if(iconEl) {
+                iconEl.setAttribute('data-lucide', currentProduct.icon);
+            }
+            
+            // Populate Recommendations ("اقتراح ما يلزمه")
+            renderSmartRecommendations();
+        }
 
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    
-                    const name = card.querySelector('h3').innerText;
-                    let priceText = card.querySelector('.text-2xl').innerText;
-                    let price = parseInt(priceText.replace(/[^0-9]/g, ''));
-                    
-                    let itemIcon = 'smartphone'; // default
-                    const iconContainer = card.querySelector('.w-14');
-                    if (iconContainer) {
-                        const svg = iconContainer.querySelector('svg');
-                        if (svg) {
-                            const classes = Array.from(svg.classList);
-                            const lucideClass = classes.find(c => c.startsWith('lucide-'));
-                            if (lucideClass) itemIcon = lucideClass.replace('lucide-', '');
-                        }
-                    }
-                    
-                    addToCart(name, price, itemIcon);
-                });
+        function renderSmartRecommendations() {
+            const grid = document.getElementById('recommendations-grid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            // Define rules for accessories recommendations
+            let recommendedIds = [];
+            const category = currentProduct.catKey;
+            
+            if (category === 'phones') {
+                // Phones need: earphones (4), smartwatch (7), mouse/charger (20)
+                recommendedIds = [4, 7, 20];
+            } else if (category === 'laptops') {
+                // Laptops need: mouse (20), keyboard (19), headphones (3)
+                recommendedIds = [20, 19, 3];
+            } else if (category === 'tablets') {
+                // Tablets need: keyboard (19), mouse (20), headphones (4)
+                recommendedIds = [19, 20, 4];
+            } else if (category === 'games') {
+                // Games need: headphones (3), mouse/controller (20), laptop (11)
+                recommendedIds = [3, 20, 11];
+            } else if (category === 'watches') {
+                // Watches need: phone (1), AirPods (4), headphones (3)
+                recommendedIds = [1, 4, 3];
+            } else {
+                // Default accessories
+                recommendedIds = [1, 4, 7];
+            }
+            
+            // Render the recommended cards
+            recommendedIds.forEach(id => {
+                const prod = allProducts.find(p => p.id === id);
+                if (!prod) return;
+                
+                const card = document.createElement('div');
+                card.className = "glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden";
+                card.setAttribute('onclick', `window.location.href='product.html?id=${prod.id}'`);
+                
+                card.innerHTML = `
+                    <div class="absolute -inset-10 bg-primary/10 blur-[50px] opacity-0 group-hover:opacity-50 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm">
+                            <i data-lucide="${prod.icon}" class="w-7 h-7"></i>
+                        </div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm" onclick="event.stopPropagation();"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">${prod.category}</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">${prod.name}</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2">${prod.desc}</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">${prod.price.toLocaleString('en-US')}<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300" onclick="event.stopPropagation(); addToCart('${prod.name}', ${prod.price}, '${prod.icon}')">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
             });
+            
+            if (window.lucide) lucide.createIcons();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load dynamic product details and matching recommendations
+            loadProductDetails();
             
             // Start empty
             updateCartUI();
