@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,7 +76,7 @@
         }
     </style>
 </head>
-<body class="relative">
+<body class="relative overflow-x-hidden">
     <!-- Ambient Lighting -->
     <div class="ambient-glow bg-primary w-[600px] h-[600px] top-[-200px] left-[-200px]"></div>
     <div class="ambient-glow bg-accent w-[800px] h-[800px] bottom-[-300px] right-[-200px]"></div>
@@ -91,24 +91,13 @@
                 <a href="#" class="hover:text-gray-900">الفئات</a>
             </nav>
             <div class="flex gap-4 items-center">
-                <!-- قائمة الموبايل (تظهر فقط في الشاشات الصغيرة) -->
-                <div class="relative group cursor-pointer md:hidden py-2 -my-2">
-                    <i data-lucide="menu" class="w-5 h-5 text-gray-600 hover:text-gray-900"></i>
-                    <!-- محتوى قائمة الموبايل -->
-                    <div class="absolute left-0 top-full mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-[-10px] group-hover:translate-y-0 z-50">
+                <!-- قائمة المستخدم (Profile Dropdown) -->
+                <div class="relative group cursor-pointer py-2 -my-2">
+                    <i data-lucide="user" class="w-5 h-5 text-gray-600 hover:text-gray-900"></i>
+                    
+                    <!-- القائمة المنسدلة -->
+                    <div class="absolute right-0 top-full mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-[-10px] group-hover:translate-y-0 z-50">
                         <div class="bg-blue-950/80 backdrop-blur-xl rounded-2xl p-2 flex flex-col gap-1 shadow-2xl border border-blue-500/20">
-                            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
-                                <i data-lucide="compass" class="w-4 h-4 text-primary"></i> اكتشف
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
-                                <i data-lucide="trending-up" class="w-4 h-4 text-primary"></i> الرائج
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
-                                <i data-lucide="grid" class="w-4 h-4 text-primary"></i> الفئات
-                            </a>
-                            
-                            <div class="h-px bg-white/10 my-1 mx-2"></div>
-                            
                             <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
                                 <i data-lucide="user-circle" class="w-4 h-4 text-primary"></i> الملف الشخصي
                             </a>
@@ -128,13 +117,24 @@
                 <i data-lucide="search" class="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-900"></i>
                 <i data-lucide="shopping-bag" class="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-900"></i>
                 
-                <!-- قائمة المستخدم (Profile Dropdown) -->
-                <div class="relative group cursor-pointer py-2 -my-2">
-                    <i data-lucide="user" class="w-5 h-5 text-gray-600 hover:text-gray-900"></i>
-                    
-                    <!-- القائمة المنسدلة -->
-                    <div class="absolute left-0 top-full mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-[-10px] group-hover:translate-y-0 z-50">
+                <!-- قائمة الموبايل (تظهر فقط في الشاشات الصغيرة) -->
+                <div class="relative group cursor-pointer md:hidden py-2 -my-2">
+                    <i data-lucide="menu" class="w-5 h-5 text-gray-600 hover:text-gray-900"></i>
+                    <!-- محتوى قائمة الموبايل -->
+                    <div class="absolute left-0 top-full mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-[-10px] group-hover:translate-y-0 z-50">
                         <div class="bg-blue-950/80 backdrop-blur-xl rounded-2xl p-2 flex flex-col gap-1 shadow-2xl border border-blue-500/20">
+                            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
+                                <i data-lucide="compass" class="w-4 h-4 text-primary"></i> اكتشف
+                            </a>
+                            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
+                                <i data-lucide="trending-up" class="w-4 h-4 text-primary"></i> الرائج
+                            </a>
+                            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
+                                <i data-lucide="grid" class="w-4 h-4 text-primary"></i> الفئات
+                            </a>
+                            
+                            <div class="h-px bg-white/10 my-1 mx-2"></div>
+                            
                             <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
                                 <i data-lucide="user-circle" class="w-4 h-4 text-primary"></i> الملف الشخصي
                             </a>
