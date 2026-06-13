@@ -170,6 +170,21 @@
         .mesh-blob-2 { animation: morph2 6s ease-in-out infinite alternate; }
         .mesh-blob-3 { animation: morph3 7s ease-in-out infinite alternate; }
         .mesh-blob-4 { animation: morph4 4s ease-in-out infinite alternate; }
+
+        /* Override Plus Button in Glass Cards for a premium translucent look */
+        .glass-card button.bg-gray-100 {
+            background-color: rgb(var(--color-primary) / 15%) !important;
+            color: rgb(var(--color-primary)) !important;
+        }
+        .dark .glass-card button.dark\:bg-white\/10 {
+            background-color: rgb(var(--color-primary) / 20%) !important;
+            color: rgb(var(--color-primary)) !important;
+        }
+        .glass-card button.group-hover\:bg-primary:hover,
+        .glass-card:hover button.group-hover\:bg-primary:hover {
+            background-color: rgb(var(--color-primary)) !important;
+            color: #ffffff !important;
+        }
     </style>
 </head>
 <body class="relative overflow-x-hidden bg-[#FAFAFA] dark:bg-[#05060A] text-gray-900 dark:text-white transition-colors duration-300 min-h-screen flex flex-col">

@@ -234,6 +234,21 @@
     .mesh-blob-2 { animation: morph2 6s ease-in-out infinite alternate; }
     .mesh-blob-3 { animation: morph3 7s ease-in-out infinite alternate; }
     .mesh-blob-4 { animation: morph4 4s ease-in-out infinite alternate; }
+
+    /* Override Plus Button in Glass Cards for a premium translucent look */
+    .glass-card button.bg-gray-100 {
+      background-color: rgb(var(--color-primary) / 15%) !important;
+      color: rgb(var(--color-primary)) !important;
+    }
+    .dark .glass-card button.dark\:bg-white\/10 {
+      background-color: rgb(var(--color-primary) / 20%) !important;
+      color: rgb(var(--color-primary)) !important;
+    }
+    .glass-card button.group-hover\:bg-primary:hover,
+    .glass-card:hover button.group-hover\:bg-primary:hover {
+      background-color: rgb(var(--color-primary)) !important;
+      color: #ffffff !important;
+    }
   </style>
 </head>
 
@@ -260,6 +275,7 @@
         <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">اكتشف</a>
         <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">الرائج</a>
         <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">الفئات</a>
+        <a href="#" onclick="toggleRadialCarousel(); return false;" class="hover:text-primary transition-colors font-bold text-primary">خيارات (جديد)</a>
       </nav>
       <div class="flex gap-4 items-center">
         <!-- قائمة المستخدم (Profile Dropdown) -->
@@ -387,6 +403,10 @@
               <a href="#"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
                 <i data-lucide="grid" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> الفئات
+              </a>
+              <a href="#" onclick="toggleRadialCarousel(); return false;"
+                class="flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-primary hover:text-primary/80 hover:bg-primary/10 rounded-xl transition-all">
+                <i data-lucide="sparkles" class="w-4 h-4 text-primary"></i> خيارات (جديد)
               </a>
 
               <div class="h-px bg-gray-200/50 dark:bg-white/10 my-1 mx-2"></div>
@@ -1456,6 +1476,246 @@
       // Start empty
       updateCartUI();
     });
+  </script>
+  <!-- Radial Carousel Overlay -->
+  <div id="radialOverlay" class="fixed inset-0 bg-[#05060A]/90 backdrop-blur-xl z-[100] opacity-0 pointer-events-none transition-opacity duration-500 flex flex-col justify-center items-center overflow-hidden">
+      <button onclick="toggleRadialCarousel()" class="absolute top-8 right-8 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 z-[110]">
+          <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      
+      <div class="relative w-full h-full flex justify-center items-center" style="perspective: 1200px;">
+          <div id="radialCarousel" class="relative w-0 h-0" style="transform-style: preserve-3d;">
+              <div class="radial-card active">
+                  <div class="radial-card-content">
+                      <i data-lucide="settings" class="w-10 h-10 mb-4 text-primary"></i>
+                      <h3>الإعدادات</h3>
+                      <p>تخصيص الواجهة</p>
+                  </div>
+              </div>
+              <div class="radial-card">
+                  <div class="radial-card-content">
+                      <i data-lucide="user" class="w-10 h-10 mb-4 text-white"></i>
+                      <h3>الملف الشخصي</h3>
+                      <p>تعديل البيانات</p>
+                  </div>
+              </div>
+              <div class="radial-card">
+                  <div class="radial-card-content">
+                      <i data-lucide="bell" class="w-10 h-10 mb-4 text-white"></i>
+                      <h3>الإشعارات</h3>
+                      <p>إدارة التنبيهات</p>
+                  </div>
+              </div>
+              <div class="radial-card">
+                  <div class="radial-card-content">
+                      <i data-lucide="shield" class="w-10 h-10 mb-4 text-white"></i>
+                      <h3>الأمان</h3>
+                      <p>حماية الحساب</p>
+                  </div>
+              </div>
+              <div class="radial-card">
+                  <div class="radial-card-content">
+                      <i data-lucide="moon" class="w-10 h-10 mb-4 text-white"></i>
+                      <h3>المظهر</h3>
+                      <p>الوضع الليلي</p>
+                  </div>
+              </div>
+              <div class="radial-card">
+                  <div class="radial-card-content">
+                      <i data-lucide="globe" class="w-10 h-10 mb-4 text-white"></i>
+                      <h3>اللغة</h3>
+                      <p>تغيير اللغة</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <style>
+      .radial-card {
+          position: absolute;
+          width: 220px;
+          height: 320px;
+          left: -110px;
+          top: -160px;
+          background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 24px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 30px 20px;
+          color: white;
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+          backdrop-filter: blur(15px);
+          -webkit-backdrop-filter: blur(15px);
+          transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s, border-color 0.4s;
+          user-select: none;
+          transform-origin: center center;
+      }
+      .radial-card-content {
+          text-align: center;
+          transform: translateY(10px);
+          opacity: 0.7;
+          transition: all 0.4s;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+      }
+      .radial-card h3 { font-size: 1.3rem; margin-bottom: 8px; font-weight: 700; }
+      .radial-card p { font-size: 0.9rem; color: #aaa; }
+      
+      .radial-card.active {
+          border-color: #FF6A00;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 106, 0, 0.25), inset 0 0 20px rgba(255, 106, 0, 0.1);
+      }
+      .radial-card.active .radial-card-content {
+          transform: translateY(0);
+          opacity: 1;
+      }
+      .radial-card.active h3, .radial-card.active i {
+          color: #FF6A00;
+      }
+  </style>
+
+  <script>
+      const radialOverlay = document.getElementById('radialOverlay');
+      const radialCarousel = document.getElementById('radialCarousel');
+      const radialCards = document.querySelectorAll('.radial-card');
+      
+      let radialIsActive = false;
+      let currentRadialAngle = 0;
+      const angleRadialStep = 360 / radialCards.length;
+      
+      let radStartX = 0;
+      let radLastX = 0;
+      let radIsDragging = false;
+      let radVelocity = 0;
+      let radLastTime = 0;
+      let radAnimationFrame;
+
+      function toggleRadialCarousel() {
+          radialIsActive = !radialIsActive;
+          if (radialIsActive) {
+              radialOverlay.classList.remove('opacity-0', 'pointer-events-none');
+              radialOverlay.classList.add('opacity-100', 'pointer-events-auto');
+              setTimeout(updateRadialCards, 50);
+          } else {
+              radialOverlay.classList.add('opacity-0', 'pointer-events-none');
+              radialOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+          }
+      }
+
+      function updateRadialCards() {
+          const radius = window.innerWidth < 768 ? 160 : 250;
+          radialCards.forEach((card, index) => {
+              const angle = currentRadialAngle + (index * angleRadialStep);
+              const rad = angle * Math.PI / 180;
+              const x = Math.sin(rad) * radius;
+              const z = Math.cos(rad) * radius;
+              const normalizedZ = (z + radius) / (2 * radius);
+              const scale = 0.6 + (0.5 * normalizedZ);
+              const opacity = 0.1 + (0.9 * normalizedZ);
+              
+              card.style.transform = `translate3d(${x}px, 0, ${z}px) scale(${scale})`;
+              card.style.opacity = opacity;
+              card.style.zIndex = Math.round(normalizedZ * 100);
+
+              if (z > radius - 30) {
+                  card.classList.add('active');
+              } else {
+                  card.classList.remove('active');
+              }
+          });
+      }
+
+      radialCarousel.addEventListener('touchstart', (e) => {
+          radIsDragging = true;
+          radStartX = e.touches[0].clientX;
+          radLastX = radStartX;
+          radLastTime = performance.now();
+          cancelAnimationFrame(radAnimationFrame);
+      });
+
+      radialCarousel.addEventListener('touchmove', (e) => {
+          if (!radIsDragging) return;
+          const x = e.touches[0].clientX;
+          const deltaX = x - radLastX;
+          currentRadialAngle += deltaX * 0.6;
+          updateRadialCards();
+          const now = performance.now();
+          const dt = now - radLastTime;
+          if (dt > 0) radVelocity = deltaX / dt;
+          radLastX = x;
+          radLastTime = now;
+      });
+
+      radialCarousel.addEventListener('touchend', () => {
+          radIsDragging = false;
+          applyRadialInertia();
+      });
+
+      radialCarousel.addEventListener('mousedown', (e) => {
+          radIsDragging = true;
+          radStartX = e.clientX;
+          radLastX = radStartX;
+          radLastTime = performance.now();
+          cancelAnimationFrame(radAnimationFrame);
+      });
+
+      window.addEventListener('mousemove', (e) => {
+          if (!radIsDragging) return;
+          const x = e.clientX;
+          const deltaX = x - radLastX;
+          currentRadialAngle += deltaX * 0.6;
+          updateRadialCards();
+          const now = performance.now();
+          const dt = now - radLastTime;
+          if (dt > 0) radVelocity = deltaX / dt;
+          radLastX = x;
+          radLastTime = now;
+      });
+
+      window.addEventListener('mouseup', () => {
+          if (radIsDragging) {
+              radIsDragging = false;
+              applyRadialInertia();
+          }
+      });
+
+      function applyRadialInertia() {
+          if (Math.abs(radVelocity) > 0.1) {
+              currentRadialAngle += radVelocity * 16;
+              radVelocity *= 0.92;
+              updateRadialCards();
+              radAnimationFrame = requestAnimationFrame(applyRadialInertia);
+          } else {
+              snapRadialToNearest();
+          }
+      }
+
+      function snapRadialToNearest() {
+          const snapAngle = Math.round(currentRadialAngle / angleRadialStep) * angleRadialStep;
+          const diff = snapAngle - currentRadialAngle;
+          if (Math.abs(diff) > 0.5) {
+              currentRadialAngle += diff * 0.15;
+              updateRadialCards();
+              radAnimationFrame = requestAnimationFrame(snapRadialToNearest);
+          } else {
+              currentRadialAngle = snapAngle;
+              updateRadialCards();
+          }
+      }
+
+      window.addEventListener('resize', () => {
+          if (radialIsActive) updateRadialCards();
+      });
+      
+      // Update once on load
+      setTimeout(() => {
+          if(window.lucide) lucide.createIcons();
+      }, 500);
   </script>
 </body>
 
