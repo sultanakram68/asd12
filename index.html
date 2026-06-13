@@ -261,6 +261,382 @@
             <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">عذراً، لم نتمكن من العثور على أي منتج يطابق بحثك عن <span id="searchedTerm" class="font-bold text-blue-500 dark:text-blue-400 mx-1"></span>. الرجاء التأكد من الكلمة والمحاولة مرة أخرى.</p>
         </div>
 
+        <!-- Product Catalog -->
+        <section id="productCatalog" class="w-full max-w-7xl mx-auto mt-4 md:mt-12 flex flex-col gap-8 z-10 relative">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <h2 class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">الكتالوج الحالي</h2>
+                <div class="flex gap-2 bg-black/5 dark:bg-white/5 p-1 rounded-xl overflow-x-auto max-w-full w-full md:w-auto">
+                    <button class="px-4 py-2 rounded-lg bg-white dark:bg-[#1A1A1A] text-primary shadow-sm text-sm font-semibold transition-colors whitespace-nowrap">الكل</button>
+                    <button class="px-4 py-2 rounded-lg bg-transparent text-gray-500 text-sm font-semibold hover:text-gray-900 dark:hover:text-white transition-colors whitespace-nowrap">هواتف</button>
+                    <button class="px-4 py-2 rounded-lg bg-transparent text-gray-500 text-sm font-semibold hover:text-gray-900 dark:hover:text-white transition-colors whitespace-nowrap">ألعاب</button>
+                    <button class="px-4 py-2 rounded-lg bg-transparent text-gray-500 text-sm font-semibold hover:text-gray-900 dark:hover:text-white transition-colors whitespace-nowrap">صوتيات</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 1 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="smartphone" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">الهواتف الذكية</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">iPhone 15 Pro Max</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">سعة 256 جيجابايت، تيتانيوم طبيعي، شريحة A17 Pro.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">4,500<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 2 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="smartphone" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">الهواتف الذكية</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Samsung Galaxy S24 Ultra</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">شاشة مسطحة، ذكاء اصطناعي متقدم، كاميرا 200MP.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">4,300<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 3 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="headphones" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">صوتيات</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Sony WH-1000XM5</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">عزل ضوضاء رائد، بطارية 30 ساعة، صوت فائق النقاء.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">1,200<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 4 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="headphones" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">صوتيات</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Apple AirPods Pro 2</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">سماعات لاسلكية مع عزل ضوضاء وشفافية صوت محسنة.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">900<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 5 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="laptop" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">لابتوب</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">MacBook Pro M3</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">أداء استثنائي للمحترفين، شاشة Liquid Retina XDR.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">8,500<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 6 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="tablet" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">أجهزة لوحية</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">iPad Pro 12.9"</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">شريحة M2، شاشة Mini-LED مبهرة، دعم قلم آبل.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">3,500<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 7 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="watch" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">ساعات ذكية</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Apple Watch Ultra 2</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">تيتانيوم قوي جداً، نظام GPS ثنائي التردد.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">3,200<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 8 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="gamepad-2" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">ألعاب</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">PlayStation 5 Slim</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">أجهزة كونسول الجيل الجديد بتصميم أنحف وأخف.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">2,200<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 9 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="gamepad-2" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">ألعاب</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Xbox Series X</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">أقوى كونسول في العالم، أداء 4K مع 120 إطار بالثانية.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">2,100<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 10 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="gamepad-2" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">ألعاب</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Nintendo Switch OLED</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">شاشة OLED ساطعة بحجم 7 إنش لمتعة ألعاب لا مثيل لها.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">1,400<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 11 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="laptop" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">لابتوب</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Dell XPS 15</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">شاشة خالية من الحواف تقريباً مع أداء مخصص للمبدعين.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">7,500<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 12 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="gamepad-2" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">ألعاب</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Asus ROG Ally</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">جهاز محمول بمعالج Z1 Extreme لتشغيل كل ألعاب الـ PC.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">2,800<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 13 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="headphones" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">صوتيات</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Bose QuietComfort Ultra</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">أفضل عزل للصوت في العالم وتصميم فائق الراحة.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">1,300<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 14 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="watch" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">ساعات ذكية</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Galaxy Watch 6 Classic</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">تصميم كلاسيكي مع إطار دوار ومتابعة للصحة على مدار الساعة.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">1,100<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 15 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="smartphone" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">الهواتف الذكية</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Google Pixel 8 Pro</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">أذكى هاتف من جوجل بكاميرات معززة بالذكاء الاصطناعي.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">3,800<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 16 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="tv" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">شاشات وتلفزيونات</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">LG OLED evo C3 65"</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">ألوان مذهلة وسواد عميق لمتعة سينمائية في منزلك.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">5,500<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 17 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="camera" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">كاميرات وتصوير</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">DJI Mini 4 Pro</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">طائرة مسيرة صغيرة بوزن خفيف وتصوير 4K رأسي.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">3,400<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 18 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="camera" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">كاميرات وتصوير</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">GoPro Hero 12 Black</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">كاميرا أكشن متينة، تثبيت فيديو محسن، وبطارية أطول.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">1,600<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 19 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="keyboard" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">ملحقات</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Apple Magic Keyboard</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">لوحة مفاتيح لاسلكية من آبل بتصميم مريح ونحيف جداً.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">600<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+                <!-- 20 -->
+                <div onclick="window.location.href='product.html'" class="glass-card p-6 rounded-3xl flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300 group cursor-pointer border border-white/10 dark:border-white/5 relative overflow-hidden">
+                    <div class="absolute -inset-10 bg-primary/20 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full z-0 pointer-events-none"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm"><i data-lucide="mouse" class="w-7 h-7"></i></div>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="relative z-10 mt-2">
+                        <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">ملحقات</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight">Logitech MX Master 3S</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">ماوس احترافي، نقرات صامتة جداً وتمرير كهرومغناطيسي.</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-black/5 dark:border-white/5 relative z-10">
+                        <span class="text-2xl font-black text-gray-900 dark:text-white">450<span class="text-sm text-gray-500 font-normal ml-1">ر.س</span></span>
+                        <button class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
