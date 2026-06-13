@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LIMIXI - المعيار الجديد للفخامة</title>
+    <title>lmixi - المعيار الجديد للفخامة</title>
     <!-- Tailwind CSS via CDN for instant styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -83,7 +83,7 @@
         }
     </style>
 </head>
-<body class="relative overflow-x-hidden bg-[#FAFAFA] dark:bg-[#05060A] text-gray-900 dark:text-white transition-colors duration-300">
+<body class="relative overflow-x-hidden bg-[#FAFAFA] dark:bg-[#05060A] text-gray-900 dark:text-white transition-colors duration-300 min-h-screen flex flex-col">
     <!-- Ambient Lighting -->
     <div class="ambient-glow bg-primary w-[600px] h-[600px] top-[-200px] left-[-200px]"></div>
     <div class="ambient-glow bg-accent w-[800px] h-[800px] bottom-[-300px] right-[-200px]"></div>
@@ -91,7 +91,7 @@
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 py-4 flex justify-center">
         <div class="glass-panel rounded-full px-4 md:px-6 py-3 w-full max-w-7xl flex items-center justify-between">
-            <div class="text-2xl font-bold tracking-tighter text-gradient-primary cursor-pointer">LIMIXI</div>
+            <div class="text-2xl font-black tracking-tighter bg-gradient-to-r from-blue-600 to-blue-400 dark:from-primary dark:to-[#ff8c33] bg-clip-text text-transparent transition-colors duration-300 cursor-pointer">lmixi</div>
             <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600 dark:text-gray-300">
                 <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">اكتشف</a>
                 <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">الرائج</a>
@@ -99,7 +99,7 @@
             </nav>
             <div class="flex gap-4 items-center">
                 <!-- قائمة المستخدم (Profile Dropdown) -->
-                <div class="relative group cursor-pointer py-2 -my-2">
+                <div class="hidden relative group cursor-pointer py-2 -my-2">
                     <i data-lucide="user" class="w-5 h-5 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"></i>
                     
                     <!-- القائمة المنسدلة -->
@@ -107,6 +107,9 @@
                         <div class="bg-blue-950/80 backdrop-blur-xl rounded-2xl p-2 flex flex-col gap-1 shadow-2xl border border-blue-500/20">
                             <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
                                 <i data-lucide="user-circle" class="w-4 h-4 text-primary"></i> الملف الشخصي
+                            </a>
+                            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
+                                <i data-lucide="store" class="w-4 h-4 text-primary"></i> كن بائعاً
                             </a>
                             <a href="settings.html" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
                                 <i data-lucide="settings" class="w-4 h-4 text-primary"></i> الإعدادات
@@ -121,8 +124,8 @@
                     </div>
                 </div>
 
-                <i data-lucide="search" class="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"></i>
-                <i data-lucide="shopping-bag" class="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"></i>
+                <i data-lucide="search" class="w-5 h-5 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSearchOverlay()"></i>
+                <i data-lucide="shopping-bag" class="w-5 h-5 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"></i>
                 
                 <!-- قائمة الموبايل (تظهر فقط في الشاشات الصغيرة) -->
                 <div class="relative group cursor-pointer md:hidden py-2 -my-2">
@@ -145,6 +148,9 @@
                             <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
                                 <i data-lucide="user-circle" class="w-4 h-4 text-primary"></i> الملف الشخصي
                             </a>
+                            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
+                                <i data-lucide="store" class="w-4 h-4 text-primary"></i> كن بائعاً
+                            </a>
                             <a href="settings.html" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
                                 <i data-lucide="settings" class="w-4 h-4 text-primary"></i> الإعدادات
                             </a>
@@ -161,11 +167,34 @@
         </div>
     </header>
 
+    <!-- Search Overlay -->
+    <div id="searchOverlay" class="fixed inset-0 z-[100] bg-black/40 dark:bg-black/80 backdrop-blur-md hidden flex-col items-center justify-start pt-32 px-4 transition-opacity duration-300 opacity-0" onclick="if(event.target === this) toggleSearchOverlay()">
+        <div class="relative w-full max-w-2xl transform scale-95 transition-transform duration-300" id="searchContainer">
+            <!-- Close Button -->
+            <button onclick="toggleSearchOverlay()" class="absolute -top-12 left-0 text-white/70 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            
+            <div class="relative group">
+                <input type="text" id="searchInput" placeholder="ابحث عن الفخامة..." class="w-full bg-white/80 dark:bg-[#05060A]/80 border-2 border-white/20 dark:border-accent/30 text-gray-900 dark:text-white text-xl md:text-2xl rounded-3xl py-5 px-6 pr-16 focus:outline-none focus:border-accent dark:focus:border-accent focus:shadow-[0_0_35px_rgba(138,92,255,0.6)] shadow-lg transition-all duration-300 placeholder-gray-500">
+                
+                <!-- Status Icon / Button -->
+                <button id="searchSubmitBtn" class="absolute right-4 top-1/2 -translate-y-1/2 text-accent bg-accent/10 p-3 rounded-2xl hover:bg-accent/20 transition-colors">
+                    <i data-lucide="search" id="searchIconNormal" class="w-6 h-6"></i>
+                    <i data-lucide="check" id="searchIconCheck" class="w-6 h-6 hidden text-green-500"></i>
+                </button>
+            </div>
+            
+            <!-- Hint -->
+            <p id="searchHint" class="text-sm font-medium text-center text-gray-900/50 dark:text-white/50 mt-4 opacity-0 transition-all duration-300 transform translate-y-2">اضغط Enter لتأكيد البحث</p>
+        </div>
+    </div>
+
     <!-- Main Content -->
-    <main class="pt-24 md:pt-32 pb-16 md:pb-24 px-4 md:px-6 flex flex-col items-center relative z-10">
+    <main class="pt-24 md:pt-32 pb-16 md:pb-24 px-4 md:px-6 flex flex-col items-center relative z-10 w-full">
         
         <!-- Hero Section -->
-        <section class="min-h-[50vh] md:min-h-[60vh] flex flex-col justify-center items-center text-center max-w-4xl mx-auto mt-6 md:mt-10 w-full">
+        <section class="hidden min-h-[50vh] md:min-h-[60vh] flex-col justify-center items-center text-center max-w-4xl mx-auto mt-6 md:mt-10 w-full">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-medium text-primary mb-6 transition-colors">
                 <i data-lucide="zap" class="w-3 h-3"></i>
                 <span>المعيار الجديد للفخامة</span>
@@ -184,14 +213,14 @@
                 <button class="liquid-button w-full md:w-auto px-8 py-4 rounded-full text-white font-semibold flex items-center justify-center gap-2">
                     استكشف المجموعة <i data-lucide="arrow-left" class="w-5 h-5"></i>
                 </button>
-                <button class="glass-card w-full md:w-auto px-8 py-4 rounded-full text-gray-900 dark:text-white font-semibold flex items-center justify-center gap-2 hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+                <button class="hidden glass-card w-full md:w-auto px-8 py-4 rounded-full text-gray-900 dark:text-white font-semibold flex items-center justify-center gap-2 hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
                     كن بائعاً
                 </button>
             </div>
         </section>
 
-        <!-- Trust Badges -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl w-full mt-12 md:mt-24">
+        <!-- Trust Badges (Hidden as requested) -->
+        <section class="hidden grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl w-full mt-12 md:mt-24">
             <div class="glass-card p-6 rounded-3xl flex flex-col items-center text-center gap-3">
                 <div class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center">
                     <i data-lucide="shield-check" class="w-6 h-6"></i>
@@ -217,9 +246,131 @@
 
     </main>
 
+    <!-- Footer -->
+    <footer class="w-full text-center py-6 mt-auto border-t border-black/5 dark:border-white/5 relative z-10">
+        <p class="text-sm text-gray-500 dark:text-gray-400 transition-colors">
+            © 2026 lmixi. جميع الحقوق محفوظة.
+        </p>
+    </footer>
+
     <!-- Initialize Icons -->
     <script>
         lucide.createIcons();
+    </script>
+
+    <!-- Search Logic -->
+    <script>
+        const searchOverlay = document.getElementById('searchOverlay');
+        const searchContainer = document.getElementById('searchContainer');
+        const searchInput = document.getElementById('searchInput');
+        const searchIconNormal = document.getElementById('searchIconNormal');
+        const searchIconCheck = document.getElementById('searchIconCheck');
+        const searchHint = document.getElementById('searchHint');
+        const searchSubmitBtn = document.getElementById('searchSubmitBtn');
+
+        let isSearchOpen = false;
+
+        function toggleSearchOverlay() {
+            isSearchOpen = !isSearchOpen;
+            
+            if (isSearchOpen) {
+                searchOverlay.classList.remove('hidden');
+                // Trigger reflow for animation
+                void searchOverlay.offsetWidth;
+                searchOverlay.classList.remove('opacity-0');
+                searchContainer.classList.remove('scale-95');
+                searchContainer.classList.add('scale-100');
+                
+                setTimeout(() => searchInput.focus(), 100);
+            } else {
+                searchOverlay.classList.add('opacity-0');
+                searchContainer.classList.remove('scale-100');
+                searchContainer.classList.add('scale-95');
+                
+                resetSearchState();
+                
+                setTimeout(() => {
+                    searchOverlay.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Web Audio API to play a premium UI pop/ding
+        function playSuccessSound() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                
+                const audioCtx = new AudioContext();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                // Sine wave ding
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(800, audioCtx.currentTime); 
+                oscillator.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1);
+                
+                gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0.4, audioCtx.currentTime + 0.02);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.3);
+            } catch(e) {
+                console.log("Audio not supported or disabled");
+            }
+        }
+
+        function triggerSearchSuccess() {
+            if (searchInput.value.trim() === '') return;
+            
+            playSuccessSound();
+            
+            // Swap icons to Check
+            searchIconNormal.classList.add('hidden');
+            searchIconCheck.classList.remove('hidden');
+            
+            searchHint.innerText = 'صح ✔️ تم تأكيد البحث';
+            searchHint.classList.add('text-green-500', 'dark:text-green-400');
+            searchHint.classList.remove('text-gray-900/50', 'dark:text-white/50');
+            searchHint.classList.remove('translate-y-2');
+        }
+
+        function resetSearchState() {
+            searchIconCheck.classList.add('hidden');
+            searchIconNormal.classList.remove('hidden');
+            searchHint.innerText = 'اضغط Enter لتأكيد البحث';
+            searchHint.classList.remove('text-green-500', 'dark:text-green-400');
+            searchHint.classList.add('text-gray-900/50', 'dark:text-white/50');
+            searchHint.classList.remove('opacity-100');
+            searchHint.classList.add('translate-y-2');
+        }
+
+        searchInput.addEventListener('input', () => {
+            resetSearchState();
+            if (searchInput.value.trim().length > 0) {
+                searchHint.classList.add('opacity-100');
+                searchHint.classList.remove('translate-y-2');
+            } else {
+                searchHint.classList.remove('opacity-100');
+                searchHint.classList.add('translate-y-2');
+            }
+        });
+
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                triggerSearchSuccess();
+            } else if (e.key === 'Escape') {
+                toggleSearchOverlay();
+            }
+        });
+        
+        searchSubmitBtn.addEventListener('click', () => {
+            triggerSearchSuccess();
+        });
     </script>
 </body>
 </html>
