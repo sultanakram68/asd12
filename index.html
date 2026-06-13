@@ -271,7 +271,7 @@
       <div
         class="text-2xl font-black tracking-tighter bg-gradient-to-r from-blue-600 to-blue-400 dark:from-primary dark:to-primaryLight bg-clip-text text-transparent transition-colors duration-300 cursor-pointer">
         lmixi</div>
-      <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600 dark:text-gray-300">
+      <nav class="hidden lg:flex gap-6 text-sm font-medium text-gray-600 dark:text-gray-300">
         <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">اكتشف</a>
         <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">الرائج</a>
         <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">الفئات</a>
@@ -381,7 +381,7 @@
           </span>
         </div>
         <!-- قائمة الموبايل (تظهر فقط في الشاشات الصغيرة) -->
-        <div class="relative group cursor-pointer md:hidden py-2 -my-2">
+        <div class="relative group cursor-pointer lg:hidden py-2 -my-2">
           <i data-lucide="menu"
             class="w-5 h-5 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"></i>
           <!-- محتوى قائمة الموبايل -->
@@ -1478,53 +1478,53 @@
     });
   </script>
   <!-- Radial Carousel Overlay -->
-  <div id="radialOverlay" class="fixed inset-0 bg-[#05060A]/90 backdrop-blur-xl z-[100] opacity-0 pointer-events-none transition-opacity duration-500 flex flex-col justify-center items-center overflow-hidden">
-      <button onclick="toggleRadialCarousel()" class="absolute top-8 right-8 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 z-[110]">
+  <div id="radialOverlay" class="fixed inset-0 bg-white/80 dark:bg-[#05060A]/90 backdrop-blur-xl z-[100] opacity-0 pointer-events-none transition-opacity duration-500 flex flex-col justify-center items-center overflow-hidden">
+      <button onclick="toggleRadialCarousel()" class="absolute top-8 right-8 w-12 h-12 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center text-gray-900 dark:text-white hover:bg-primary hover:text-white dark:hover:border-primary transition-all duration-300 z-[110]">
           <i data-lucide="x" class="w-6 h-6"></i>
       </button>
       
       <div class="relative w-full h-full flex justify-center items-center" style="perspective: 1200px;">
           <div id="radialCarousel" class="relative w-0 h-0" style="transform-style: preserve-3d;">
-              <div class="radial-card active">
+              <div class="radial-card glass-card active">
                   <div class="radial-card-content">
-                      <i data-lucide="settings" class="w-10 h-10 mb-4 text-primary"></i>
-                      <h3>الإعدادات</h3>
-                      <p>تخصيص الواجهة</p>
+                      <i data-lucide="settings" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
+                      <h3 class="text-gray-900 dark:text-white">الإعدادات</h3>
+                      <p class="text-gray-500 dark:text-gray-400">تخصيص الواجهة</p>
                   </div>
               </div>
-              <div class="radial-card">
+              <div class="radial-card glass-card">
                   <div class="radial-card-content">
-                      <i data-lucide="user" class="w-10 h-10 mb-4 text-white"></i>
-                      <h3>الملف الشخصي</h3>
-                      <p>تعديل البيانات</p>
+                      <i data-lucide="user" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
+                      <h3 class="text-gray-900 dark:text-white">الملف الشخصي</h3>
+                      <p class="text-gray-500 dark:text-gray-400">تعديل البيانات</p>
                   </div>
               </div>
-              <div class="radial-card">
+              <div class="radial-card glass-card">
                   <div class="radial-card-content">
-                      <i data-lucide="bell" class="w-10 h-10 mb-4 text-white"></i>
-                      <h3>الإشعارات</h3>
-                      <p>إدارة التنبيهات</p>
+                      <i data-lucide="bell" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
+                      <h3 class="text-gray-900 dark:text-white">الإشعارات</h3>
+                      <p class="text-gray-500 dark:text-gray-400">إدارة التنبيهات</p>
                   </div>
               </div>
-              <div class="radial-card">
+              <div class="radial-card glass-card">
                   <div class="radial-card-content">
-                      <i data-lucide="shield" class="w-10 h-10 mb-4 text-white"></i>
-                      <h3>الأمان</h3>
-                      <p>حماية الحساب</p>
+                      <i data-lucide="shield" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
+                      <h3 class="text-gray-900 dark:text-white">الأمان</h3>
+                      <p class="text-gray-500 dark:text-gray-400">حماية الحساب</p>
                   </div>
               </div>
-              <div class="radial-card">
+              <div class="radial-card glass-card">
                   <div class="radial-card-content">
-                      <i data-lucide="moon" class="w-10 h-10 mb-4 text-white"></i>
-                      <h3>المظهر</h3>
-                      <p>الوضع الليلي</p>
+                      <i data-lucide="moon" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
+                      <h3 class="text-gray-900 dark:text-white">المظهر</h3>
+                      <p class="text-gray-500 dark:text-gray-400">الوضع الليلي</p>
                   </div>
               </div>
-              <div class="radial-card">
+              <div class="radial-card glass-card">
                   <div class="radial-card-content">
-                      <i data-lucide="globe" class="w-10 h-10 mb-4 text-white"></i>
-                      <h3>اللغة</h3>
-                      <p>تغيير اللغة</p>
+                      <i data-lucide="globe" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
+                      <h3 class="text-gray-900 dark:text-white">اللغة</h3>
+                      <p class="text-gray-500 dark:text-gray-400">تغيير اللغة</p>
                   </div>
               </div>
           </div>
@@ -1538,22 +1538,32 @@
           height: 320px;
           left: -110px;
           top: -160px;
-          background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-          border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 24px;
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
           padding: 30px 20px;
-          color: white;
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1);
-          backdrop-filter: blur(15px);
-          -webkit-backdrop-filter: blur(15px);
-          transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s, border-color 0.4s;
           user-select: none;
           transform-origin: center center;
+          /* Important to override some glass-card properties that interfere with the 3D transforms */
+          transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s, border-color 0.4s, box-shadow 0.4s !important;
       }
+      
+      /* Mobile optimization for radial cards */
+      @media (max-width: 768px) {
+          .radial-card {
+              width: 160px;
+              height: 230px;
+              left: -80px;
+              top: -115px;
+              padding: 20px 15px;
+          }
+          .radial-card h3 { font-size: 1.1rem; }
+          .radial-card p { font-size: 0.8rem; }
+          .radial-card-content i { width: 32px; height: 32px; margin-bottom: 12px; }
+      }
+
       .radial-card-content {
           text-align: center;
           transform: translateY(10px);
@@ -1563,19 +1573,23 @@
           flex-direction: column;
           align-items: center;
       }
-      .radial-card h3 { font-size: 1.3rem; margin-bottom: 8px; font-weight: 700; }
-      .radial-card p { font-size: 0.9rem; color: #aaa; }
+      .radial-card h3 { font-size: 1.3rem; margin-bottom: 8px; font-weight: 700; transition: color 0.3s; }
+      .radial-card p { font-size: 0.9rem; transition: color 0.3s; }
+      .radial-card i { transition: color 0.3s; }
       
       .radial-card.active {
-          border-color: #FF6A00;
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 106, 0, 0.25), inset 0 0 20px rgba(255, 106, 0, 0.1);
+          border-color: rgb(var(--color-primary));
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 40px rgb(var(--color-primary) / 0.25), inset 0 0 20px rgb(var(--color-primary) / 0.1) !important;
+      }
+      .dark .radial-card.active {
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgb(var(--color-primary) / 0.25), inset 0 0 20px rgb(var(--color-primary) / 0.1) !important;
       }
       .radial-card.active .radial-card-content {
           transform: translateY(0);
           opacity: 1;
       }
       .radial-card.active h3, .radial-card.active i {
-          color: #FF6A00;
+          color: rgb(var(--color-primary)) !important;
       }
   </style>
 
@@ -1608,7 +1622,7 @@
       }
 
       function updateRadialCards() {
-          const radius = window.innerWidth < 768 ? 160 : 250;
+          const radius = window.innerWidth < 768 ? 140 : 250;
           radialCards.forEach((card, index) => {
               const angle = currentRadialAngle + (index * angleRadialStep);
               const rad = angle * Math.PI / 180;
