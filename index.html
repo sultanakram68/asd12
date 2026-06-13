@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -19,14 +20,20 @@
             }
         }
     </script>
+    <script>
+        // Check for saved theme preference or use system preference
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
             font-family: 'Tajawal', 'Inter', sans-serif;
-            background-color: #FAFAFA;
-            color: #111827;
             overflow-x: hidden;
             margin: 0;
         }
@@ -76,7 +83,7 @@
         }
     </style>
 </head>
-<body class="relative overflow-x-hidden">
+<body class="relative overflow-x-hidden bg-[#FAFAFA] dark:bg-[#05060A] text-gray-900 dark:text-white transition-colors duration-300">
     <!-- Ambient Lighting -->
     <div class="ambient-glow bg-primary w-[600px] h-[600px] top-[-200px] left-[-200px]"></div>
     <div class="ambient-glow bg-accent w-[800px] h-[800px] bottom-[-300px] right-[-200px]"></div>
@@ -85,15 +92,15 @@
     <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 py-4 flex justify-center">
         <div class="glass-panel rounded-full px-4 md:px-6 py-3 w-full max-w-7xl flex items-center justify-between">
             <div class="text-2xl font-bold tracking-tighter text-gradient-primary cursor-pointer">LIMIXI</div>
-            <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
-                <a href="#" class="hover:text-gray-900">اكتشف</a>
-                <a href="#" class="hover:text-gray-900">الرائج</a>
-                <a href="#" class="hover:text-gray-900">الفئات</a>
+            <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600 dark:text-gray-300">
+                <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">اكتشف</a>
+                <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">الرائج</a>
+                <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">الفئات</a>
             </nav>
             <div class="flex gap-4 items-center">
                 <!-- قائمة المستخدم (Profile Dropdown) -->
                 <div class="relative group cursor-pointer py-2 -my-2">
-                    <i data-lucide="user" class="w-5 h-5 text-gray-600 hover:text-gray-900"></i>
+                    <i data-lucide="user" class="w-5 h-5 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"></i>
                     
                     <!-- القائمة المنسدلة -->
                     <div class="absolute right-0 top-full mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-[-10px] group-hover:translate-y-0 z-50">
@@ -101,7 +108,7 @@
                             <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
                                 <i data-lucide="user-circle" class="w-4 h-4 text-primary"></i> الملف الشخصي
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
+                            <a href="settings.html" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
                                 <i data-lucide="settings" class="w-4 h-4 text-primary"></i> الإعدادات
                             </a>
                             <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
@@ -114,12 +121,12 @@
                     </div>
                 </div>
 
-                <i data-lucide="search" class="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-900"></i>
-                <i data-lucide="shopping-bag" class="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-900"></i>
+                <i data-lucide="search" class="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"></i>
+                <i data-lucide="shopping-bag" class="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"></i>
                 
                 <!-- قائمة الموبايل (تظهر فقط في الشاشات الصغيرة) -->
                 <div class="relative group cursor-pointer md:hidden py-2 -my-2">
-                    <i data-lucide="menu" class="w-5 h-5 text-gray-600 hover:text-gray-900"></i>
+                    <i data-lucide="menu" class="w-5 h-5 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"></i>
                     <!-- محتوى قائمة الموبايل -->
                     <div class="absolute left-0 top-full mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-[-10px] group-hover:translate-y-0 z-50">
                         <div class="bg-blue-950/80 backdrop-blur-xl rounded-2xl p-2 flex flex-col gap-1 shadow-2xl border border-blue-500/20">
@@ -138,7 +145,7 @@
                             <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
                                 <i data-lucide="user-circle" class="w-4 h-4 text-primary"></i> الملف الشخصي
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
+                            <a href="settings.html" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
                                 <i data-lucide="settings" class="w-4 h-4 text-primary"></i> الإعدادات
                             </a>
                             <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-colors">
@@ -159,17 +166,17 @@
         
         <!-- Hero Section -->
         <section class="min-h-[50vh] md:min-h-[60vh] flex flex-col justify-center items-center text-center max-w-4xl mx-auto mt-6 md:mt-10 w-full">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 border border-black/10 text-xs font-medium text-primary mb-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-medium text-primary mb-6 transition-colors">
                 <i data-lucide="zap" class="w-3 h-3"></i>
                 <span>المعيار الجديد للفخامة</span>
             </div>
             
-            <h1 class="text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter mb-4 md:mb-6 leading-tight text-gray-900">
+            <h1 class="text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter mb-4 md:mb-6 leading-tight text-gray-900 dark:text-white transition-colors">
                 تميز منسق بعناية.<br/>
                 <span class="text-gradient-primary">بدون أي تنازلات.</span>
             </h1>
             
-            <p class="text-base md:text-xl text-gray-600 mb-8 md:mb-10 font-light px-2">
+            <p class="text-base md:text-xl text-gray-600 dark:text-gray-400 mb-8 md:mb-10 font-light px-2 transition-colors">
                 اكتشف منصة عالمية صُممت خصيصاً لأولئك الذين ينشدون القمة المطلقة في التصميم، الجودة، والجماليات المستقبلية.
             </p>
             
@@ -177,7 +184,7 @@
                 <button class="liquid-button w-full md:w-auto px-8 py-4 rounded-full text-white font-semibold flex items-center justify-center gap-2">
                     استكشف المجموعة <i data-lucide="arrow-left" class="w-5 h-5"></i>
                 </button>
-                <button class="glass-card w-full md:w-auto px-8 py-4 rounded-full text-gray-900 font-semibold flex items-center justify-center gap-2 hover:bg-black/5">
+                <button class="glass-card w-full md:w-auto px-8 py-4 rounded-full text-gray-900 dark:text-white font-semibold flex items-center justify-center gap-2 hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
                     كن بائعاً
                 </button>
             </div>
@@ -189,22 +196,22 @@
                 <div class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center">
                     <i data-lucide="shield-check" class="w-6 h-6"></i>
                 </div>
-                <h3 class="font-semibold text-gray-900">أصالة مضمونة</h3>
-                <p class="text-sm text-gray-600">كل منتج يتم التحقق منه بواسطة خبراء</p>
+                <h3 class="font-semibold text-gray-900 dark:text-white transition-colors">أصالة مضمونة</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors">كل منتج يتم التحقق منه بواسطة خبراء</p>
             </div>
             <div class="glass-card p-6 rounded-3xl flex flex-col items-center text-center gap-3">
                 <div class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center">
                     <i data-lucide="star" class="w-6 h-6"></i>
                 </div>
-                <h3 class="font-semibold text-gray-900">جودة فائقة</h3>
-                <p class="text-sm text-gray-600">أفضل 1٪ من المبدعين العالميين</p>
+                <h3 class="font-semibold text-gray-900 dark:text-white transition-colors">جودة فائقة</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors">أفضل 1٪ من المبدعين العالميين</p>
             </div>
             <div class="glass-card p-6 rounded-3xl flex flex-col items-center text-center gap-3">
                 <div class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center">
                     <i data-lucide="zap" class="w-6 h-6"></i>
                 </div>
-                <h3 class="font-semibold text-gray-900">وصول فوري</h3>
-                <p class="text-sm text-gray-600">توصيل فاخر وسريع في اليوم التالي</p>
+                <h3 class="font-semibold text-gray-900 dark:text-white transition-colors">وصول فوري</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors">توصيل فاخر وسريع في اليوم التالي</p>
             </div>
         </section>
 
