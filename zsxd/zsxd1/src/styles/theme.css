@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #FF6A00;
+  --color-secondary: #00D4FF;
+  --color-accent: #8A5CFF;
+  
+  --color-bg-base: #05060A;
+  --color-bg-surface: #0B0D14;
+  --color-bg-elevated: #10131C;
+  
+  --color-glass-1: rgba(255, 255, 255, 0.03);
+  --color-glass-2: rgba(255, 255, 255, 0.08);
+  --color-glass-3: rgba(255, 255, 255, 0.12);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-glass-highlight: rgba(255, 255, 255, 0.15);
+  
+  --shadow-glow-primary: 0 0 20px rgba(255, 106, 0, 0.3);
+  --shadow-glow-secondary: 0 0 20px rgba(0, 212, 255, 0.2);
+  --shadow-glow-accent: 0 0 20px rgba(138, 92, 255, 0.2);
+  
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg-base);
+    color: white;
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background: linear-gradient(135deg, rgba(138, 92, 255, 0.08) 0%, rgba(138, 92, 255, 0.03) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(138, 92, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  .glass-card {
+    background: rgba(138, 92, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(138, 92, 255, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .glass-card:hover {
+    background: rgba(138, 92, 255, 0.08);
+    border-color: rgba(138, 92, 255, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 40px -10px rgba(138, 92, 255, 0.15);
+  }
+
+  .liquid-button {
+    background: linear-gradient(135deg, rgba(255, 106, 0, 0.9) 0%, rgba(255, 106, 0, 0.7) 100%);
+    box-shadow: var(--shadow-glow-primary), inset 0 1px 0 rgba(255,255,255,0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .liquid-button:hover {
+    box-shadow: 0 0 30px rgba(255, 106, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.6);
+    transform: scale(1.02);
+  }
+  
+  .text-gradient {
+    background: linear-gradient(to right, #fff, #a1a1aa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .text-gradient-primary {
+    background: linear-gradient(to right, #FF6A00, #ff8c33);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .ambient-glow {
+    position: absolute;
+    filter: blur(100px);
+    opacity: 0.15;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+}
