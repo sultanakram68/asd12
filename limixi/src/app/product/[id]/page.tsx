@@ -1,7 +1,7 @@
 'use client';
 
 import { use } from 'react';
-import { products } from '@/data/products';
+import { useApp } from '@/lib/store';
 import { reviews as allReviews } from '@/data/reviews';
 import { formatPrice } from '@/lib/utils';
 import { useCart, useWishlist } from '@/lib/store';
@@ -11,7 +11,8 @@ import Link from 'next/link';
 
 export default function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const product = products.find(p => p.id === id);
+  const { state } = useApp();
+  const product = state.products.find(p => p.id === id);
   const { addToCart } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
 
@@ -31,7 +32,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
   }
 
   const productReviews = allReviews.filter(r => r.productId === product.id);
-  const relatedProducts = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
+  const relatedProducts = state.products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
   const wishlisted = isInWishlist(product.id);
   const discount = product.originalPrice ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
 

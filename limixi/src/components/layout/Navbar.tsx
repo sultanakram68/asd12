@@ -86,7 +86,7 @@ export default function Navbar() {
 
             {/* Auth */}
             <Link
-              href="/auth"
+              href={state.isAuthenticated ? '/profile' : '/auth'}
               className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#007AFF]/10 border border-[#007AFF]/20 text-sm font-semibold text-[#007AFF] hover:bg-[#007AFF] hover:text-white transition-all duration-300"
             >
               <span>👤</span>

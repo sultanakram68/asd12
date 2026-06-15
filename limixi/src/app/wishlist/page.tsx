@@ -1,13 +1,13 @@
 'use client';
 
-import { useWishlist } from '@/lib/store';
-import { products } from '@/data/products';
+import { useWishlist, useApp } from '@/lib/store';
 import ProductCard from '@/components/ui/ProductCard';
 import Link from 'next/link';
 
 export default function WishlistPage() {
   const { items } = useWishlist();
-  const wishlistProducts = products.filter(p => items.includes(p.id));
+  const { state } = useApp();
+  const wishlistProducts = state.products.filter(p => items.includes(p.id));
 
   if (wishlistProducts.length === 0) {
     return (

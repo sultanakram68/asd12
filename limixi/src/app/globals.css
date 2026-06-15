@@ -24,7 +24,7 @@ html {
 }
 
 body {
-  background-color: blue; /* Light background for glass to stand out */
+  background-color: #FAFAFA; /* Light background for glass to stand out */
   color: #111111; /* Deep black text */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   min-height: 100vh;
@@ -128,20 +128,31 @@ body {
   opacity: 0.5;
 }
 
-.glow-orb-blue-1 {
+.glow-orb-orange {
   width: 500px;
   height: 500px;
-  background: rgba(0, 122, 255, 0.2);
+  background: rgba(255, 106, 0, 0.15);
   top: -10%;
-  right: -10%;
+  left: -10%;
+  animation: float 8s ease-in-out infinite alternate;
 }
 
-.glow-orb-blue-2 {
+.glow-orb-blue {
   width: 600px;
   height: 600px;
-  background: rgba(71, 161, 255, 0.15);
+  background: rgba(0, 122, 255, 0.15);
   bottom: -15%;
-  left: -10%;
+  right: -10%;
+  animation: float 10s ease-in-out infinite alternate-reverse;
+}
+
+.glow-orb-purple {
+  width: 450px;
+  height: 450px;
+  background: rgba(138, 92, 255, 0.12);
+  top: 30%;
+  left: 20%;
+  animation: float 12s ease-in-out infinite alternate;
 }
 
 /* ═══════════ Utility Classes ═══════════ */

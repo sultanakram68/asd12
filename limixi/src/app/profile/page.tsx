@@ -1,14 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuth } from '@/lib/store';
-import { orders } from '@/data/orders';
+import { useAuth, useApp } from '@/lib/store';
 import { formatPrice } from '@/lib/utils';
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
 
 export default function ProfilePage() {
   const { isAuthenticated, user, login, logout } = useAuth();
+  const { state } = useApp();
   const [activeTab, setActiveTab] = useState('orders');
 
   // Auto-login for demo
@@ -39,7 +39,7 @@ export default function ProfilePage() {
     delivered: 'success', shipped: 'info', processing: 'warning', pending: 'neutral', cancelled: 'error',
   };
 
-  const userOrders = orders.filter(o => o.userId === 'user-001');
+  const userOrders = state.orders.filter(o => o.userId === user?.id || o.userId === 'user-001');
 
   return (
     <main className="min-h-screen pt-24 pb-24 px-4">

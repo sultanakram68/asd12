@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>lmixi</title>
+  <title>lmi</title>
   <!-- Tailwind CSS via CDN for instant styling -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -111,6 +111,23 @@
       -webkit-text-fill-color: transparent;
     }
 
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .animated-text-logo {
+      background: linear-gradient(270deg, #FF6A00, #ff0055, #00d4ff, #8A5CFF, #FF6A00);
+      background-size: 400% 400%;
+      animation: gradientMove 5s ease infinite;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      display: inline-block;
+    }
+
     .ambient-glow {
       position: absolute;
       border-radius: 50%;
@@ -210,40 +227,100 @@
     }
 
     @keyframes morph1 {
-      0% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
-      50% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: translate3d(20vw, 15vh, 0) scale(1.2) rotate(90deg); }
-      100% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; transform: translate3d(-10vw, 25vh, 0) scale(0.9) rotate(180deg); }
-    }
-    @keyframes morph2 {
-      0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
-      50% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: translate3d(-20vw, 10vh, 0) scale(1.1) rotate(-90deg); }
-      100% { border-radius: 60% 60% 100% 100% / 100% 60% 60% 100%; transform: translate3d(15vw, -20vh, 0) scale(1.3) rotate(-180deg); }
-    }
-    @keyframes morph3 {
-      0% { border-radius: 50% 50% 60% 40% / 60% 40% 60% 40%; transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
-      50% { border-radius: 60% 40% 40% 60% / 40% 60% 40% 60%; transform: translate3d(15vw, -15vh, 0) scale(1.4) rotate(90deg); }
-      100% { border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%; transform: translate3d(-15vw, 10vh, 0) scale(1.1) rotate(180deg); }
-    }
-    @keyframes morph4 {
-      0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
-      50% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate3d(25vw, -20vh, 0) scale(1.5) rotate(180deg); }
-      100% { border-radius: 50% 50% 60% 40% / 60% 40% 60% 40%; transform: translate3d(-20vw, 25vh, 0) scale(0.8) rotate(360deg); }
+      0% {
+        border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%;
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+      }
+
+      50% {
+        border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+        transform: translate3d(20vw, 15vh, 0) scale(1.2) rotate(90deg);
+      }
+
+      100% {
+        border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+        transform: translate3d(-10vw, 25vh, 0) scale(0.9) rotate(180deg);
+      }
     }
 
-    .mesh-blob-1 { animation: morph1 5s ease-in-out infinite alternate; }
-    .mesh-blob-2 { animation: morph2 6s ease-in-out infinite alternate; }
-    .mesh-blob-3 { animation: morph3 7s ease-in-out infinite alternate; }
-    .mesh-blob-4 { animation: morph4 4s ease-in-out infinite alternate; }
+    @keyframes morph2 {
+      0% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+      }
+
+      50% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        transform: translate3d(-20vw, 10vh, 0) scale(1.1) rotate(-90deg);
+      }
+
+      100% {
+        border-radius: 60% 60% 100% 100% / 100% 60% 60% 100%;
+        transform: translate3d(15vw, -20vh, 0) scale(1.3) rotate(-180deg);
+      }
+    }
+
+    @keyframes morph3 {
+      0% {
+        border-radius: 50% 50% 60% 40% / 60% 40% 60% 40%;
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+      }
+
+      50% {
+        border-radius: 60% 40% 40% 60% / 40% 60% 40% 60%;
+        transform: translate3d(15vw, -15vh, 0) scale(1.4) rotate(90deg);
+      }
+
+      100% {
+        border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%;
+        transform: translate3d(-15vw, 10vh, 0) scale(1.1) rotate(180deg);
+      }
+    }
+
+    @keyframes morph4 {
+      0% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+      }
+
+      50% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: translate3d(25vw, -20vh, 0) scale(1.5) rotate(180deg);
+      }
+
+      100% {
+        border-radius: 50% 50% 60% 40% / 60% 40% 60% 40%;
+        transform: translate3d(-20vw, 25vh, 0) scale(0.8) rotate(360deg);
+      }
+    }
+
+    .mesh-blob-1 {
+      animation: morph1 5s ease-in-out infinite alternate;
+    }
+
+    .mesh-blob-2 {
+      animation: morph2 6s ease-in-out infinite alternate;
+    }
+
+    .mesh-blob-3 {
+      animation: morph3 7s ease-in-out infinite alternate;
+    }
+
+    .mesh-blob-4 {
+      animation: morph4 4s ease-in-out infinite alternate;
+    }
 
     /* Override Plus Button in Glass Cards for a premium translucent look */
     .glass-card button.bg-gray-100 {
       background-color: rgb(var(--color-primary) / 15%) !important;
       color: rgb(var(--color-primary)) !important;
     }
+
     .dark .glass-card button.dark\:bg-white\/10 {
       background-color: rgb(var(--color-primary) / 20%) !important;
       color: rgb(var(--color-primary)) !important;
     }
+
     .glass-card button.group-hover\:bg-primary:hover,
     .glass-card:hover button.group-hover\:bg-primary:hover {
       background-color: rgb(var(--color-primary)) !important;
@@ -267,7 +344,7 @@
       transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s, border-color 0.4s, box-shadow 0.4s !important;
       cursor: pointer;
     }
-    
+
     @media (max-width: 768px) {
       .product-radial-card {
         width: 170px;
@@ -276,8 +353,14 @@
         top: -125px;
         padding: 16px 12px;
       }
-      .product-radial-card h3 { font-size: 0.95rem; }
-      .product-radial-card p { font-size: 1.1rem; }
+
+      .product-radial-card h3 {
+        font-size: 0.95rem;
+      }
+
+      .product-radial-card p {
+        font-size: 1.1rem;
+      }
     }
 
     .product-radial-card-content {
@@ -291,16 +374,16 @@
       align-items: center;
       justify-content: space-between;
     }
-    
+
     .product-radial-card.active {
       border-color: rgb(var(--color-primary));
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 40px rgb(var(--color-primary) / 0.25), inset 0 0 20px rgb(var(--color-primary) / 0.1) !important;
     }
-    
+
     .dark .product-radial-card.active {
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgb(var(--color-primary) / 0.25), inset 0 0 20px rgb(var(--color-primary) / 0.1) !important;
     }
-    
+
     .product-radial-card.active .product-radial-card-content {
       opacity: 1;
     }
@@ -310,27 +393,35 @@
 <body
   class="relative overflow-x-hidden bg-[#FAFAFA] dark:bg-[#05060A] text-gray-900 dark:text-white transition-colors duration-300 min-h-screen flex flex-col">
   <!-- Animated Mesh Gradient Background -->
-  <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none transition-opacity duration-700 bg-[#FAFAFA] dark:bg-[#05060A]">
+  <div
+    class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none transition-opacity duration-700 bg-[#FAFAFA] dark:bg-[#05060A]">
     <!-- 3 Orange Sections -->
-    <div class="mesh-blob absolute w-[50vw] h-[50vw] max-w-[450px] max-h-[450px] blur-[60px] opacity-60 dark:opacity-40 bg-[#ff7a00] top-[-10%] left-[-10%] mesh-blob-1"></div>
-    <div class="mesh-blob absolute w-[60vw] h-[60vw] max-w-[500px] max-h-[500px] blur-[60px] opacity-50 dark:opacity-30 bg-[#ffb800] bottom-[-20%] right-[-10%] mesh-blob-2"></div>
-    <div class="mesh-blob absolute w-[45vw] h-[45vw] max-w-[350px] max-h-[350px] blur-[60px] opacity-60 dark:opacity-40 bg-[#ff5500] top-[30%] left-[20%] mesh-blob-3"></div>
-    
+    <div
+      class="mesh-blob absolute w-[50vw] h-[50vw] max-w-[450px] max-h-[450px] blur-[60px] opacity-60 dark:opacity-40 bg-[#ff7a00] top-[-10%] left-[-10%] mesh-blob-1">
+    </div>
+    <div
+      class="mesh-blob absolute w-[60vw] h-[60vw] max-w-[500px] max-h-[500px] blur-[60px] opacity-50 dark:opacity-30 bg-[#ffb800] bottom-[-20%] right-[-10%] mesh-blob-2">
+    </div>
+    <div
+      class="mesh-blob absolute w-[45vw] h-[45vw] max-w-[350px] max-h-[350px] blur-[60px] opacity-60 dark:opacity-40 bg-[#ff5500] top-[30%] left-[20%] mesh-blob-3">
+    </div>
+
     <!-- Small Blue Accent -->
-    <div class="mesh-blob absolute w-[15vw] h-[15vw] max-w-[150px] max-h-[150px] blur-[40px] opacity-80 dark:opacity-60 bg-blue-500 top-[40%] right-[30%] mesh-blob-4"></div>
+    <div
+      class="mesh-blob absolute w-[15vw] h-[15vw] max-w-[150px] max-h-[150px] blur-[40px] opacity-80 dark:opacity-60 bg-blue-500 top-[40%] right-[30%] mesh-blob-4">
+    </div>
   </div>
 
   <!-- Header -->
   <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 py-4 flex justify-center">
     <div class="glass-panel rounded-full px-4 md:px-6 py-3 w-full max-w-7xl flex items-center justify-between">
-      <div
-        class="text-2xl font-black tracking-tighter bg-gradient-to-r from-blue-600 to-blue-400 dark:from-primary dark:to-primaryLight bg-clip-text text-transparent transition-colors duration-300 cursor-pointer">
-        lmixi</div>
+      <div class="text-2xl font-black tracking-tighter animated-text-logo cursor-pointer" onclick="window.location.href='index.html'">lmixi</div>
       <nav class="hidden lg:flex gap-6 text-sm font-medium text-gray-600 dark:text-gray-300">
-        <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">اكتشف</a>
-        <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">الرائج</a>
-        <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">الفئات</a>
-        <a href="#" onclick="toggleRadialCarousel(); return false;" class="hover:text-primary transition-colors font-bold text-primary">خيارات (جديد)</a>
+        <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_discover">اكتشف</a>
+        <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_trending">الرائج</a>
+        <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_categories">الفئات</a>
+        <a href="#" onclick="toggleRadialCarousel(); return false;"
+          class="hover:text-primary transition-colors font-bold text-primary" data-i18n="nav_new_options">خيارات (جديد)</a>
       </nav>
       <div class="flex gap-4 items-center">
         <!-- قائمة المستخدم (Profile Dropdown) -->
@@ -348,23 +439,23 @@
               class="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl rounded-2xl p-2 flex flex-col gap-1 border border-white/60 dark:border-white/10 shadow-xl">
               <a href="#"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
-                <i data-lucide="user-circle" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> الملف الشخصي
+                <i data-lucide="user-circle" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="profile">الملف الشخصي</span>
               </a>
               <a href="#"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
-                <i data-lucide="store" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> كن بائعاً
+                <i data-lucide="store" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="become_seller">كن بائعاً</span>
               </a>
               <a href="settings.html"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
-                <i data-lucide="settings" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> الإعدادات
+                <i data-lucide="settings" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="settings">الإعدادات</span>
               </a>
               <a href="#"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
-                <i data-lucide="credit-card" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> طرق الدفع
+                <i data-lucide="credit-card" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="payment_methods">طرق الدفع</span>
               </a>
               <a href="#"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
-                <i data-lucide="map-pin" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> تعديل العنوان
+                <i data-lucide="map-pin" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="edit_address">تعديل العنوان</span>
               </a>
             </div>
           </div>
@@ -399,7 +490,7 @@
             <div class="relative z-10 w-full h-full flex items-center">
               <input type="text" id="inlineSearchInput"
                 class="w-full h-full bg-transparent border-none outline-none text-sm pr-10 pl-10 text-gray-900 dark:text-white opacity-0 transition-opacity duration-300"
-                placeholder="بحث...">
+                placeholder="بحث..." data-i18n-placeholder="search_placeholder">
 
               <!-- Search Icon inside -->
               <i data-lucide="search" class="absolute right-3 w-4 h-4 text-gray-400 pointer-events-none"></i>
@@ -449,42 +540,42 @@
               class="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl rounded-2xl p-2 flex flex-col gap-1 border border-white/60 dark:border-white/10 shadow-xl">
               <a href="#"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
-                <i data-lucide="compass" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> اكتشف
+                <i data-lucide="compass" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="nav_discover">اكتشف</span>
               </a>
               <a href="#"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
-                <i data-lucide="trending-up" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> الرائج
+                <i data-lucide="trending-up" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="nav_trending">الرائج</span>
               </a>
               <a href="#"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
-                <i data-lucide="grid" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> الفئات
+                <i data-lucide="grid" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="nav_categories">الفئات</span>
               </a>
               <a href="#" onclick="toggleRadialCarousel(); return false;"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-primary hover:text-primary/80 hover:bg-primary/10 rounded-xl transition-all">
-                <i data-lucide="sparkles" class="w-4 h-4 text-primary"></i> خيارات (جديد)
+                <i data-lucide="sparkles" class="w-4 h-4 text-primary"></i> <span data-i18n="nav_new_options">خيارات (جديد)</span>
               </a>
 
               <div class="h-px bg-gray-200/50 dark:bg-white/10 my-1 mx-2"></div>
 
               <a href="#"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
-                <i data-lucide="user-circle" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> الملف الشخصي
+                <i data-lucide="user-circle" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="profile">الملف الشخصي</span>
               </a>
               <a href="#"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
-                <i data-lucide="store" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> كن بائعاً
+                <i data-lucide="store" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="become_seller">كن بائعاً</span>
               </a>
               <a href="settings.html"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
-                <i data-lucide="settings" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> الإعدادات
+                <i data-lucide="settings" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="settings">الإعدادات</span>
               </a>
               <a href="#"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
-                <i data-lucide="credit-card" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> طرق الدفع
+                <i data-lucide="credit-card" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="payment_methods">طرق الدفع</span>
               </a>
               <a href="#"
                 class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
-                <i data-lucide="map-pin" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> تعديل العنوان
+                <i data-lucide="map-pin" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="edit_address">تعديل العنوان</span>
               </a>
             </div>
           </div>
@@ -502,27 +593,27 @@
       <div
         class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-medium text-primary mb-6 transition-colors">
         <i data-lucide="zap" class="w-3 h-3"></i>
-        <span>المعيار الجديد للفخامة</span>
+        <span data-i18n="hero_badge">المعيار الجديد للفخامة</span>
       </div>
 
       <h1
         class="text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter mb-4 md:mb-6 leading-tight text-gray-900 dark:text-white transition-colors">
-        تميز منسق بعناية.<br />
-        <span class="text-gradient-primary">بدون أي تنازلات.</span>
+        <span data-i18n="hero_title_1">تميز منسق بعناية.</span><br />
+        <span class="text-gradient-primary" data-i18n="hero_title_2">بدون أي تنازلات.</span>
       </h1>
 
-      <p class="text-base md:text-xl text-gray-600 dark:text-gray-400 mb-8 md:mb-10 font-light px-2 transition-colors">
+      <p class="text-base md:text-xl text-gray-600 dark:text-gray-400 mb-8 md:mb-10 font-light px-2 transition-colors" data-i18n="hero_subtitle">
         اكتشف منصة عالمية صُممت خصيصاً لأولئك الذين ينشدون القمة المطلقة في التصميم، الجودة، والجماليات المستقبلية.
       </p>
 
       <div class="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto justify-center">
         <button
           class="liquid-button w-full md:w-auto px-8 py-4 rounded-full text-white font-semibold flex items-center justify-center gap-2">
-          استكشف المجموعة <i data-lucide="arrow-left" class="w-5 h-5"></i>
+          <span data-i18n="explore_btn">استكشف المجموعة</span> <i data-lucide="arrow-left" class="w-5 h-5"></i>
         </button>
         <button
           class="hidden glass-card w-full md:w-auto px-8 py-4 rounded-full text-gray-900 dark:text-white font-semibold flex items-center justify-center gap-2 hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
-          كن بائعاً
+          <span data-i18n="become_seller">كن بائعاً</span>
         </button>
       </div>
     </section>
@@ -533,22 +624,22 @@
         <div class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center">
           <i data-lucide="shield-check" class="w-6 h-6"></i>
         </div>
-        <h3 class="font-semibold text-gray-900 dark:text-white transition-colors">أصالة مضمونة</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors">كل منتج يتم التحقق منه بواسطة خبراء</p>
+        <h3 class="font-semibold text-gray-900 dark:text-white transition-colors" data-i18n="trust_1_title">أصالة مضمونة</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors" data-i18n="trust_1_desc">كل منتج يتم التحقق منه بواسطة خبراء</p>
       </div>
       <div class="glass-card p-6 rounded-3xl flex flex-col items-center text-center gap-3">
         <div class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center">
           <i data-lucide="star" class="w-6 h-6"></i>
         </div>
-        <h3 class="font-semibold text-gray-900 dark:text-white transition-colors">جودة فائقة</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors">أفضل 1% من المبدعين العالميين</p>
+        <h3 class="font-semibold text-gray-900 dark:text-white transition-colors" data-i18n="trust_2_title">جودة فائقة</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors" data-i18n="trust_2_desc">أفضل 1% من المبدعين العالميين</p>
       </div>
       <div class="glass-card p-6 rounded-3xl flex flex-col items-center text-center gap-3">
         <div class="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center">
           <i data-lucide="zap" class="w-6 h-6"></i>
         </div>
-        <h3 class="font-semibold text-gray-900 dark:text-white transition-colors">وصول فوري</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors">تحميل فوري وتحديثات مدى الحياة</p>
+        <h3 class="font-semibold text-gray-900 dark:text-white transition-colors" data-i18n="trust_3_title">وصول فوري</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 transition-colors" data-i18n="trust_3_desc">تحميل فوري وتحديثات مدى الحياة</p>
       </div>
     </section>
 
@@ -559,33 +650,43 @@
         class="w-24 h-24 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center mb-6 border border-red-500/20">
         <i data-lucide="search-x" class="w-10 h-10"></i>
       </div>
-      <h2 class="text-2xl md:text-3xl font-black text-gray-900 dark:text-white mb-4 tracking-tighter">لا توجد نتائج</h2>
-      <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">عذراً، لم نتمكن من العثور على أي منتج يطابق
-        بحثك عن <span id="searchedTerm" class="font-bold text-blue-500 dark:text-blue-400 mx-1"></span>. الرجاء التأكد
-        من الكلمة والمحاولة مرة أخرى.</p>
+      <h2 class="text-2xl md:text-3xl font-black text-gray-900 dark:text-white mb-4 tracking-tighter" data-i18n="no_results">لا توجد نتائج</h2>
+      <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed"><span data-i18n="no_results_desc1">عذراً، لم نتمكن من العثور على أي منتج يطابق بحثك عن</span> <span id="searchedTerm" class="font-bold text-blue-500 dark:text-blue-400 mx-1"></span>. <span data-i18n="no_results_desc2">الرجاء التأكد من الكلمة والمحاولة مرة أخرى.</span></p>
     </div>
 
     <!-- 3D Product Carousel Section -->
-    <section id="featuredCarouselSection" class="w-full max-w-7xl mx-auto mt-32 mb-24 flex flex-col gap-6 relative z-20">
+    <section id="featuredCarouselSection"
+      class="w-full max-w-7xl mx-auto mt-32 mb-24 flex flex-col gap-6 relative z-20">
 
-      <div class="relative w-full h-[400px] flex justify-center items-center overflow-hidden" style="perspective: 1200px;">
+      <div class="relative w-full h-[400px] flex justify-center items-center overflow-hidden"
+        style="perspective: 1200px;">
         <!-- Ambient background flow -->
         <div class="absolute inset-0 z-0 pointer-events-none opacity-40">
-          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 rounded-full blur-[60px]"></div>
+          <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 rounded-full blur-[60px]">
+          </div>
         </div>
 
-        <div id="productRadialCarousel" class="relative w-0 h-0 z-10 cursor-grab active:cursor-grabbing" style="transform-style: preserve-3d; transition: transform 0.1s ease-out;">
+        <div id="productRadialCarousel" class="relative w-0 h-0 z-10 cursor-grab active:cursor-grabbing"
+          style="transform-style: preserve-3d; transition: transform 0.1s ease-out;">
           <div class="product-radial-card glass-card active" data-id="1">
             <div class="product-radial-card-content">
               <span class="text-xs text-primary font-bold tracking-wider uppercase mb-2">الهواتف الذكية</span>
-              <div class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
+              <div
+                class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
                 <i data-lucide="smartphone" class="w-9 h-9"></i>
               </div>
-              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">iPhone 15 Pro Max</h3>
-              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">4,500 <span class="text-xs text-gray-500 font-normal">ر.س</span></p>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">iPhone 15 Pro
+                Max</h3>
+              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">4,500 <span
+                  class="text-xs text-gray-500 font-normal">ر.س</span></p>
               <div class="flex gap-2 w-full mt-auto">
-                <a href="product.html?id=1" class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
-                <button class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center" onclick="event.stopPropagation(); addToCart('iPhone 15 Pro Max', 4500, 'smartphone')"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                <a href="product.html?id=1"
+                  class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
+                <button
+                  class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                  onclick="event.stopPropagation(); addToCart('iPhone 15 Pro Max', 4500, 'smartphone')"><i
+                    data-lucide="plus" class="w-4 h-4"></i></button>
               </div>
             </div>
           </div>
@@ -593,14 +694,21 @@
           <div class="product-radial-card glass-card" data-id="3">
             <div class="product-radial-card-content">
               <span class="text-xs text-primary font-bold tracking-wider uppercase mb-2">صوتيات</span>
-              <div class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
+              <div
+                class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
                 <i data-lucide="headphones" class="w-9 h-9"></i>
               </div>
-              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">Sony WH-1000XM5</h3>
-              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">1,200 <span class="text-xs text-gray-500 font-normal">ر.س</span></p>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">Sony WH-1000XM5
+              </h3>
+              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">1,200 <span
+                  class="text-xs text-gray-500 font-normal">ر.س</span></p>
               <div class="flex gap-2 w-full mt-auto">
-                <a href="product.html?id=3" class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
-                <button class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center" onclick="event.stopPropagation(); addToCart('Sony WH-1000XM5', 1200, 'headphones')"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                <a href="product.html?id=3"
+                  class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
+                <button
+                  class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                  onclick="event.stopPropagation(); addToCart('Sony WH-1000XM5', 1200, 'headphones')"><i
+                    data-lucide="plus" class="w-4 h-4"></i></button>
               </div>
             </div>
           </div>
@@ -608,14 +716,21 @@
           <div class="product-radial-card glass-card" data-id="5">
             <div class="product-radial-card-content">
               <span class="text-xs text-primary font-bold tracking-wider uppercase mb-2">لابتوب</span>
-              <div class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
+              <div
+                class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
                 <i data-lucide="laptop" class="w-9 h-9"></i>
               </div>
-              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">MacBook Pro M3</h3>
-              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">8,500 <span class="text-xs text-gray-500 font-normal">ر.س</span></p>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">MacBook Pro M3
+              </h3>
+              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">8,500 <span
+                  class="text-xs text-gray-500 font-normal">ر.س</span></p>
               <div class="flex gap-2 w-full mt-auto">
-                <a href="product.html?id=5" class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
-                <button class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center" onclick="event.stopPropagation(); addToCart('MacBook Pro M3', 8500, 'laptop')"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                <a href="product.html?id=5"
+                  class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
+                <button
+                  class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                  onclick="event.stopPropagation(); addToCart('MacBook Pro M3', 8500, 'laptop')"><i data-lucide="plus"
+                    class="w-4 h-4"></i></button>
               </div>
             </div>
           </div>
@@ -623,14 +738,21 @@
           <div class="product-radial-card glass-card" data-id="7">
             <div class="product-radial-card-content">
               <span class="text-xs text-primary font-bold tracking-wider uppercase mb-2">ساعات ذكية</span>
-              <div class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
+              <div
+                class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
                 <i data-lucide="watch" class="w-9 h-9"></i>
               </div>
-              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">Apple Watch Ultra 2</h3>
-              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">3,200 <span class="text-xs text-gray-500 font-normal">ر.س</span></p>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">Apple Watch
+                Ultra 2</h3>
+              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">3,200 <span
+                  class="text-xs text-gray-500 font-normal">ر.س</span></p>
               <div class="flex gap-2 w-full mt-auto">
-                <a href="product.html?id=7" class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
-                <button class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center" onclick="event.stopPropagation(); addToCart('Apple Watch Ultra 2', 3200, 'watch')"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                <a href="product.html?id=7"
+                  class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
+                <button
+                  class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                  onclick="event.stopPropagation(); addToCart('Apple Watch Ultra 2', 3200, 'watch')"><i
+                    data-lucide="plus" class="w-4 h-4"></i></button>
               </div>
             </div>
           </div>
@@ -638,14 +760,21 @@
           <div class="product-radial-card glass-card" data-id="8">
             <div class="product-radial-card-content">
               <span class="text-xs text-primary font-bold tracking-wider uppercase mb-2">ألعاب</span>
-              <div class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
+              <div
+                class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
                 <i data-lucide="gamepad-2" class="w-9 h-9"></i>
               </div>
-              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">PlayStation 5 Slim</h3>
-              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">2,200 <span class="text-xs text-gray-500 font-normal">ر.س</span></p>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">PlayStation 5
+                Slim</h3>
+              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">2,200 <span
+                  class="text-xs text-gray-500 font-normal">ر.س</span></p>
               <div class="flex gap-2 w-full mt-auto">
-                <a href="product.html?id=8" class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
-                <button class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center" onclick="event.stopPropagation(); addToCart('PlayStation 5 Slim', 2200, 'gamepad-2')"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                <a href="product.html?id=8"
+                  class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
+                <button
+                  class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                  onclick="event.stopPropagation(); addToCart('PlayStation 5 Slim', 2200, 'gamepad-2')"><i
+                    data-lucide="plus" class="w-4 h-4"></i></button>
               </div>
             </div>
           </div>
@@ -653,14 +782,21 @@
           <div class="product-radial-card glass-card" data-id="2">
             <div class="product-radial-card-content">
               <span class="text-xs text-primary font-bold tracking-wider uppercase mb-2">الهواتف الذكية</span>
-              <div class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
+              <div
+                class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary mb-4 shadow-sm">
                 <i data-lucide="smartphone" class="w-9 h-9"></i>
               </div>
-              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">Samsung S24 Ultra</h3>
-              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">4,300 <span class="text-xs text-gray-500 font-normal">ر.س</span></p>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight text-center">Samsung S24
+                Ultra</h3>
+              <p class="text-2xl font-black text-gray-900 dark:text-white mb-4">4,300 <span
+                  class="text-xs text-gray-500 font-normal">ر.س</span></p>
               <div class="flex gap-2 w-full mt-auto">
-                <a href="product.html?id=2" class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
-                <button class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center" onclick="event.stopPropagation(); addToCart('Samsung Galaxy S24 Ultra', 4300, 'smartphone')"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                <a href="product.html?id=2"
+                  class="flex-1 py-2 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-primary hover:text-white text-xs font-bold text-center transition-all duration-300 flex items-center justify-center">التفاصيل</a>
+                <button
+                  class="px-3 py-2 rounded-xl bg-primary text-white hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                  onclick="event.stopPropagation(); addToCart('Samsung Galaxy S24 Ultra', 4300, 'smartphone')"><i
+                    data-lucide="plus" class="w-4 h-4"></i></button>
               </div>
             </div>
           </div>
@@ -1572,14 +1708,14 @@
       // Smart recommendation in Cart Drawer
       let cartUpsellHtml = '';
       if (cartState.length > 0) {
-          const hasPhone = cartState.some(i => i.name.toLowerCase().includes('phone') || i.name.toLowerCase().includes('galaxy') || i.name.toLowerCase().includes('pixel'));
-          const hasLaptop = cartState.some(i => i.name.toLowerCase().includes('macbook') || i.name.toLowerCase().includes('dell') || i.name.toLowerCase().includes('rog'));
-          
-          const hasHeadphones = cartState.some(i => i.name.toLowerCase().includes('airpods') || i.name.toLowerCase().includes('wh-1000') || i.name.toLowerCase().includes('quietcomfort'));
-          const hasMouse = cartState.some(i => i.name.toLowerCase().includes('logitech') || i.name.toLowerCase().includes('mouse') || i.name.toLowerCase().includes('keyboard'));
-          
-          if (hasPhone && !hasHeadphones) {
-              cartUpsellHtml = `
+        const hasPhone = cartState.some(i => i.name.toLowerCase().includes('phone') || i.name.toLowerCase().includes('galaxy') || i.name.toLowerCase().includes('pixel'));
+        const hasLaptop = cartState.some(i => i.name.toLowerCase().includes('macbook') || i.name.toLowerCase().includes('dell') || i.name.toLowerCase().includes('rog'));
+
+        const hasHeadphones = cartState.some(i => i.name.toLowerCase().includes('airpods') || i.name.toLowerCase().includes('wh-1000') || i.name.toLowerCase().includes('quietcomfort'));
+        const hasMouse = cartState.some(i => i.name.toLowerCase().includes('logitech') || i.name.toLowerCase().includes('mouse') || i.name.toLowerCase().includes('keyboard'));
+
+        if (hasPhone && !hasHeadphones) {
+          cartUpsellHtml = `
               <div class="mt-4 p-3 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-between gap-3 text-xs text-right animate-pulse">
                   <div class="flex items-center gap-2">
                       <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary shrink-0"><i data-lucide="headphones" class="w-4 h-4"></i></div>
@@ -1590,8 +1726,8 @@
                   </div>
                   <button class="px-3 py-1.5 rounded-lg bg-primary text-white font-bold hover:scale-105 transition-all text-[10px]" onclick="addToCart('Apple AirPods Pro 2', 900, 'headphones')">إضافة بـ 900 ر.س</button>
               </div>`;
-          } else if (hasLaptop && !hasMouse) {
-              cartUpsellHtml = `
+        } else if (hasLaptop && !hasMouse) {
+          cartUpsellHtml = `
               <div class="mt-4 p-3 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-between gap-3 text-xs text-right animate-pulse">
                   <div class="flex items-center gap-2">
                       <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary shrink-0"><i data-lucide="mouse" class="w-4 h-4"></i></div>
@@ -1602,11 +1738,11 @@
                   </div>
                   <button class="px-3 py-1.5 rounded-lg bg-primary text-white font-bold hover:scale-105 transition-all text-[10px]" onclick="addToCart('Logitech MX Master 3S', 450, 'mouse')">إضافة بـ 450 ر.س</button>
               </div>`;
-          }
+        }
       }
-      
+
       if (cartUpsellHtml) {
-          html += cartUpsellHtml;
+        html += cartUpsellHtml;
       }
 
       drawerContent.innerHTML = html;
@@ -1674,37 +1810,37 @@
       // Dynamic link assignment for catalog cards
       const catalogCards = document.querySelectorAll('#productCatalog .glass-card');
       const titleToIdMap = {
-          "iPhone 15 Pro Max": 1,
-          "Samsung Galaxy S24 Ultra": 2,
-          "Sony WH-1000XM5": 3,
-          "Apple AirPods Pro 2": 4,
-          "MacBook Pro M3": 5,
-          "iPad Pro 12.9\"": 6,
-          "Apple Watch Ultra 2": 7,
-          "PlayStation 5 Slim": 8,
-          "Xbox Series X": 9,
-          "Nintendo Switch OLED": 10,
-          "Dell XPS 15": 11,
-          "Asus ROG Ally": 12,
-          "Bose QuietComfort Ultra": 13,
-          "Galaxy Watch 6 Classic": 14,
-          "Google Pixel 8 Pro": 15,
-          "LG OLED evo C3 65\"": 16,
-          "DJI Mini 4 Pro": 17,
-          "GoPro Hero 12 Black": 18,
-          "Apple Magic Keyboard": 19,
-          "Logitech MX Master 3S": 20
+        "iPhone 15 Pro Max": 1,
+        "Samsung Galaxy S24 Ultra": 2,
+        "Sony WH-1000XM5": 3,
+        "Apple AirPods Pro 2": 4,
+        "MacBook Pro M3": 5,
+        "iPad Pro 12.9\"": 6,
+        "Apple Watch Ultra 2": 7,
+        "PlayStation 5 Slim": 8,
+        "Xbox Series X": 9,
+        "Nintendo Switch OLED": 10,
+        "Dell XPS 15": 11,
+        "Asus ROG Ally": 12,
+        "Bose QuietComfort Ultra": 13,
+        "Galaxy Watch 6 Classic": 14,
+        "Google Pixel 8 Pro": 15,
+        "LG OLED evo C3 65\"": 16,
+        "DJI Mini 4 Pro": 17,
+        "GoPro Hero 12 Black": 18,
+        "Apple Magic Keyboard": 19,
+        "Logitech MX Master 3S": 20
       };
 
       catalogCards.forEach(card => {
-          const h3 = card.querySelector('h3');
-          if (h3) {
-              const title = h3.innerText.trim();
-              const id = titleToIdMap[title];
-              if (id) {
-                  card.setAttribute('onclick', `window.location.href='product.html?id=${id}'`);
-              }
+        const h3 = card.querySelector('h3');
+        if (h3) {
+          const title = h3.innerText.trim();
+          const id = titleToIdMap[title];
+          if (id) {
+            card.setAttribute('onclick', `window.location.href='product.html?id=${id}'`);
           }
+        }
       });
 
       // Start empty
@@ -1712,409 +1848,566 @@
     });
   </script>
   <!-- Radial Carousel Overlay -->
-  <div id="radialOverlay" class="fixed inset-0 bg-white/80 dark:bg-[#05060A]/90 backdrop-blur-xl z-[100] opacity-0 pointer-events-none transition-opacity duration-500 flex flex-col justify-center items-center overflow-hidden">
-      <button onclick="toggleRadialCarousel()" class="absolute top-8 right-8 w-12 h-12 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center text-gray-900 dark:text-white hover:bg-primary hover:text-white dark:hover:border-primary transition-all duration-300 z-[110]">
-          <i data-lucide="x" class="w-6 h-6"></i>
-      </button>
-      
-      <div class="relative w-full h-full flex justify-center items-center" style="perspective: 1200px;">
-          <div id="radialCarousel" class="relative w-0 h-0" style="transform-style: preserve-3d;">
-              <div class="radial-card glass-card active">
-                  <div class="radial-card-content">
-                      <i data-lucide="settings" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
-                      <h3 class="text-gray-900 dark:text-white">الإعدادات</h3>
-                      <p class="text-gray-500 dark:text-gray-400">تخصيص الواجهة</p>
-                  </div>
-              </div>
-              <div class="radial-card glass-card">
-                  <div class="radial-card-content">
-                      <i data-lucide="user" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
-                      <h3 class="text-gray-900 dark:text-white">الملف الشخصي</h3>
-                      <p class="text-gray-500 dark:text-gray-400">تعديل البيانات</p>
-                  </div>
-              </div>
-              <div class="radial-card glass-card">
-                  <div class="radial-card-content">
-                      <i data-lucide="bell" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
-                      <h3 class="text-gray-900 dark:text-white">الإشعارات</h3>
-                      <p class="text-gray-500 dark:text-gray-400">إدارة التنبيهات</p>
-                  </div>
-              </div>
-              <div class="radial-card glass-card">
-                  <div class="radial-card-content">
-                      <i data-lucide="shield" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
-                      <h3 class="text-gray-900 dark:text-white">الأمان</h3>
-                      <p class="text-gray-500 dark:text-gray-400">حماية الحساب</p>
-                  </div>
-              </div>
-              <div class="radial-card glass-card">
-                  <div class="radial-card-content">
-                      <i data-lucide="moon" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
-                      <h3 class="text-gray-900 dark:text-white">المظهر</h3>
-                      <p class="text-gray-500 dark:text-gray-400">الوضع الليلي</p>
-                  </div>
-              </div>
-              <div class="radial-card glass-card">
-                  <div class="radial-card-content">
-                      <i data-lucide="globe" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
-                      <h3 class="text-gray-900 dark:text-white">اللغة</h3>
-                      <p class="text-gray-500 dark:text-gray-400">تغيير اللغة</p>
-                  </div>
-              </div>
+  <div id="radialOverlay"
+    class="fixed inset-0 bg-white/80 dark:bg-[#05060A]/90 backdrop-blur-xl z-[100] opacity-0 pointer-events-none transition-opacity duration-500 flex flex-col justify-center items-center overflow-hidden">
+    <button onclick="toggleRadialCarousel()"
+      class="absolute top-8 right-8 w-12 h-12 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center text-gray-900 dark:text-white hover:bg-primary hover:text-white dark:hover:border-primary transition-all duration-300 z-[110]">
+      <i data-lucide="x" class="w-6 h-6"></i>
+    </button>
+
+    <div class="relative w-full h-full flex justify-center items-center" style="perspective: 1200px;">
+      <div id="radialCarousel" class="relative w-0 h-0" style="transform-style: preserve-3d;">
+        <div class="radial-card glass-card active">
+          <div class="radial-card-content">
+            <i data-lucide="settings" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
+            <h3 class="text-gray-900 dark:text-white">الإعدادات</h3>
+            <p class="text-gray-500 dark:text-gray-400">تخصيص الواجهة</p>
           </div>
+        </div>
+        <div class="radial-card glass-card">
+          <div class="radial-card-content">
+            <i data-lucide="user" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
+            <h3 class="text-gray-900 dark:text-white">الملف الشخصي</h3>
+            <p class="text-gray-500 dark:text-gray-400">تعديل البيانات</p>
+          </div>
+        </div>
+        <div class="radial-card glass-card">
+          <div class="radial-card-content">
+            <i data-lucide="bell" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
+            <h3 class="text-gray-900 dark:text-white">الإشعارات</h3>
+            <p class="text-gray-500 dark:text-gray-400">إدارة التنبيهات</p>
+          </div>
+        </div>
+        <div class="radial-card glass-card">
+          <div class="radial-card-content">
+            <i data-lucide="shield" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
+            <h3 class="text-gray-900 dark:text-white">الأمان</h3>
+            <p class="text-gray-500 dark:text-gray-400">حماية الحساب</p>
+          </div>
+        </div>
+        <div class="radial-card glass-card">
+          <div class="radial-card-content">
+            <i data-lucide="moon" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
+            <h3 class="text-gray-900 dark:text-white">المظهر</h3>
+            <p class="text-gray-500 dark:text-gray-400">الوضع الليلي</p>
+          </div>
+        </div>
+        <div class="radial-card glass-card">
+          <div class="radial-card-content">
+            <i data-lucide="globe" class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400"></i>
+            <h3 class="text-gray-900 dark:text-white">اللغة</h3>
+            <p class="text-gray-500 dark:text-gray-400">تغيير اللغة</p>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 
   <style>
+    .radial-card {
+      position: absolute;
+      width: 220px;
+      height: 320px;
+      left: -110px;
+      top: -160px;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 20px;
+      user-select: none;
+      transform-origin: center center;
+      /* Important to override some glass-card properties that interfere with the 3D transforms */
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s, border-color 0.4s, box-shadow 0.4s !important;
+    }
+
+    /* Mobile optimization for radial cards */
+    @media (max-width: 768px) {
       .radial-card {
-          position: absolute;
-          width: 220px;
-          height: 320px;
-          left: -110px;
-          top: -160px;
-          border-radius: 24px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          padding: 30px 20px;
-          user-select: none;
-          transform-origin: center center;
-          /* Important to override some glass-card properties that interfere with the 3D transforms */
-          transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s, border-color 0.4s, box-shadow 0.4s !important;
-      }
-      
-      /* Mobile optimization for radial cards */
-      @media (max-width: 768px) {
-          .radial-card {
-              width: 160px;
-              height: 230px;
-              left: -80px;
-              top: -115px;
-              padding: 20px 15px;
-          }
-          .radial-card h3 { font-size: 1.1rem; }
-          .radial-card p { font-size: 0.8rem; }
-          .radial-card-content i { width: 32px; height: 32px; margin-bottom: 12px; }
+        width: 160px;
+        height: 230px;
+        left: -80px;
+        top: -115px;
+        padding: 20px 15px;
       }
 
-      .radial-card-content {
-          text-align: center;
-          transform: translateY(10px);
-          opacity: 0.7;
-          transition: all 0.4s;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+      .radial-card h3 {
+        font-size: 1.1rem;
       }
-      .radial-card h3 { font-size: 1.3rem; margin-bottom: 8px; font-weight: 700; transition: color 0.3s; }
-      .radial-card p { font-size: 0.9rem; transition: color 0.3s; }
-      .radial-card i { transition: color 0.3s; }
-      
-      .radial-card.active {
-          border-color: rgb(var(--color-primary));
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 40px rgb(var(--color-primary) / 0.25), inset 0 0 20px rgb(var(--color-primary) / 0.1) !important;
+
+      .radial-card p {
+        font-size: 0.8rem;
       }
-      .dark .radial-card.active {
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgb(var(--color-primary) / 0.25), inset 0 0 20px rgb(var(--color-primary) / 0.1) !important;
+
+      .radial-card-content i {
+        width: 32px;
+        height: 32px;
+        margin-bottom: 12px;
       }
-      .radial-card.active .radial-card-content {
-          transform: translateY(0);
-          opacity: 1;
-      }
-      .radial-card.active h3, .radial-card.active i {
-          color: rgb(var(--color-primary)) !important;
-      }
+    }
+
+    .radial-card-content {
+      text-align: center;
+      transform: translateY(10px);
+      opacity: 0.7;
+      transition: all 0.4s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .radial-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+      transition: color 0.3s;
+    }
+
+    .radial-card p {
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .radial-card i {
+      transition: color 0.3s;
+    }
+
+    .radial-card.active {
+      border-color: rgb(var(--color-primary));
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 40px rgb(var(--color-primary) / 0.25), inset 0 0 20px rgb(var(--color-primary) / 0.1) !important;
+    }
+
+    .dark .radial-card.active {
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgb(var(--color-primary) / 0.25), inset 0 0 20px rgb(var(--color-primary) / 0.1) !important;
+    }
+
+    .radial-card.active .radial-card-content {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .radial-card.active h3,
+    .radial-card.active i {
+      color: rgb(var(--color-primary)) !important;
+    }
   </style>
 
   <script>
-      const radialOverlay = document.getElementById('radialOverlay');
-      const radialCarousel = document.getElementById('radialCarousel');
-      const radialCards = document.querySelectorAll('.radial-card');
-      
-      let radialIsActive = false;
-      let currentRadialAngle = 0;
-      const angleRadialStep = 360 / radialCards.length;
-      
-      let radStartX = 0;
-      let radLastX = 0;
-      let radIsDragging = false;
-      let radVelocity = 0;
-      let radLastTime = 0;
-      let radAnimationFrame;
+    const radialOverlay = document.getElementById('radialOverlay');
+    const radialCarousel = document.getElementById('radialCarousel');
+    const radialCards = document.querySelectorAll('.radial-card');
 
-      function toggleRadialCarousel() {
-          radialIsActive = !radialIsActive;
-          if (radialIsActive) {
-              radialOverlay.classList.remove('opacity-0', 'pointer-events-none');
-              radialOverlay.classList.add('opacity-100', 'pointer-events-auto');
-              setTimeout(updateRadialCards, 50);
-          } else {
-              radialOverlay.classList.add('opacity-0', 'pointer-events-none');
-              radialOverlay.classList.remove('opacity-100', 'pointer-events-auto');
-          }
+    let radialIsActive = false;
+    let currentRadialAngle = 0;
+    const angleRadialStep = 360 / radialCards.length;
+
+    let radStartX = 0;
+    let radLastX = 0;
+    let radIsDragging = false;
+    let radVelocity = 0;
+    let radLastTime = 0;
+    let radAnimationFrame;
+
+    function toggleRadialCarousel() {
+      radialIsActive = !radialIsActive;
+      if (radialIsActive) {
+        radialOverlay.classList.remove('opacity-0', 'pointer-events-none');
+        radialOverlay.classList.add('opacity-100', 'pointer-events-auto');
+        setTimeout(updateRadialCards, 50);
+      } else {
+        radialOverlay.classList.add('opacity-0', 'pointer-events-none');
+        radialOverlay.classList.remove('opacity-100', 'pointer-events-auto');
       }
+    }
 
-      function updateRadialCards() {
-          const radius = window.innerWidth < 768 ? 140 : 250;
-          radialCards.forEach((card, index) => {
-              const angle = currentRadialAngle + (index * angleRadialStep);
-              const rad = angle * Math.PI / 180;
-              const x = Math.sin(rad) * radius;
-              const z = Math.cos(rad) * radius;
-              const normalizedZ = (z + radius) / (2 * radius);
-              const scale = 0.6 + (0.5 * normalizedZ);
-              const opacity = 0.1 + (0.9 * normalizedZ);
-              
-              card.style.transform = `translate3d(${x}px, 0, ${z}px) scale(${scale})`;
-              card.style.opacity = opacity;
-              card.style.zIndex = Math.round(normalizedZ * 100);
+    function updateRadialCards() {
+      const radius = window.innerWidth < 768 ? 140 : 250;
+      radialCards.forEach((card, index) => {
+        const angle = currentRadialAngle + (index * angleRadialStep);
+        const rad = angle * Math.PI / 180;
+        const x = Math.sin(rad) * radius;
+        const z = Math.cos(rad) * radius;
+        const normalizedZ = (z + radius) / (2 * radius);
+        const scale = 0.6 + (0.5 * normalizedZ);
+        const opacity = 0.1 + (0.9 * normalizedZ);
 
-              if (z > radius - 30) {
-                  card.classList.add('active');
-              } else {
-                  card.classList.remove('active');
-              }
-          });
+        card.style.transform = `translate3d(${x}px, 0, ${z}px) scale(${scale})`;
+        card.style.opacity = opacity;
+        card.style.zIndex = Math.round(normalizedZ * 100);
+
+        if (z > radius - 30) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+    }
+
+    radialCarousel.addEventListener('touchstart', (e) => {
+      radIsDragging = true;
+      radStartX = e.touches[0].clientX;
+      radLastX = radStartX;
+      radLastTime = performance.now();
+      cancelAnimationFrame(radAnimationFrame);
+    });
+
+    radialCarousel.addEventListener('touchmove', (e) => {
+      if (!radIsDragging) return;
+      const x = e.touches[0].clientX;
+      const deltaX = x - radLastX;
+      currentRadialAngle += deltaX * 0.6;
+      updateRadialCards();
+      const now = performance.now();
+      const dt = now - radLastTime;
+      if (dt > 0) radVelocity = deltaX / dt;
+      radLastX = x;
+      radLastTime = now;
+    });
+
+    radialCarousel.addEventListener('touchend', () => {
+      radIsDragging = false;
+      applyRadialInertia();
+    });
+
+    radialCarousel.addEventListener('mousedown', (e) => {
+      radIsDragging = true;
+      radStartX = e.clientX;
+      radLastX = radStartX;
+      radLastTime = performance.now();
+      cancelAnimationFrame(radAnimationFrame);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!radIsDragging) return;
+      const x = e.clientX;
+      const deltaX = x - radLastX;
+      currentRadialAngle += deltaX * 0.6;
+      updateRadialCards();
+      const now = performance.now();
+      const dt = now - radLastTime;
+      if (dt > 0) radVelocity = deltaX / dt;
+      radLastX = x;
+      radLastTime = now;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (radIsDragging) {
+        radIsDragging = false;
+        applyRadialInertia();
       }
+    });
 
-      radialCarousel.addEventListener('touchstart', (e) => {
-          radIsDragging = true;
-          radStartX = e.touches[0].clientX;
-          radLastX = radStartX;
-          radLastTime = performance.now();
-          cancelAnimationFrame(radAnimationFrame);
+    function applyRadialInertia() {
+      if (Math.abs(radVelocity) > 0.1) {
+        currentRadialAngle += radVelocity * 16;
+        radVelocity *= 0.92;
+        updateRadialCards();
+        radAnimationFrame = requestAnimationFrame(applyRadialInertia);
+      } else {
+        snapRadialToNearest();
+      }
+    }
+
+    function snapRadialToNearest() {
+      const snapAngle = Math.round(currentRadialAngle / angleRadialStep) * angleRadialStep;
+      const diff = snapAngle - currentRadialAngle;
+      if (Math.abs(diff) > 0.5) {
+        currentRadialAngle += diff * 0.15;
+        updateRadialCards();
+        radAnimationFrame = requestAnimationFrame(snapRadialToNearest);
+      } else {
+        currentRadialAngle = snapAngle;
+        updateRadialCards();
+      }
+    }
+
+    // ==========================================
+    // 3D Product Radial Carousel Logic
+    // ==========================================
+    const prodRadialCarousel = document.getElementById('productRadialCarousel');
+    const prodRadialCards = document.querySelectorAll('.product-radial-card');
+    const prevProductBtn = document.getElementById('prevProductBtn');
+    const nextProductBtn = document.getElementById('nextProductBtn');
+
+    let prodRadialAngle = 0;
+    const prodAngleStep = 360 / prodRadialCards.length;
+
+    let prodStartX = 0;
+    let prodLastX = 0;
+    let prodIsDragging = false;
+    let prodVelocity = 0;
+    let prodLastTime = 0;
+    let prodAnimationFrame;
+
+    function updateProductRadialCards() {
+      const radius = window.innerWidth < 768 ? 130 : 260;
+      prodRadialCards.forEach((card, index) => {
+        const angle = prodRadialAngle + (index * prodAngleStep);
+        const rad = angle * Math.PI / 180;
+        const x = Math.sin(rad) * radius;
+        const z = Math.cos(rad) * radius;
+        const normalizedZ = (z + radius) / (2 * radius);
+        const scale = 0.55 + (0.45 * normalizedZ);
+        const opacity = 0.15 + (0.85 * normalizedZ);
+
+        card.style.transform = `translate3d(${x}px, 0, ${z}px) scale(${scale})`;
+        card.style.opacity = opacity;
+        card.style.zIndex = Math.round(normalizedZ * 100);
+
+        if (z > radius - 35) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
       });
+    }
 
-      radialCarousel.addEventListener('touchmove', (e) => {
-          if (!radIsDragging) return;
-          const x = e.touches[0].clientX;
-          const deltaX = x - radLastX;
-          currentRadialAngle += deltaX * 0.6;
-          updateRadialCards();
-          const now = performance.now();
-          const dt = now - radLastTime;
-          if (dt > 0) radVelocity = deltaX / dt;
-          radLastX = x;
-          radLastTime = now;
-      });
+    function rotateProductRadial(direction) {
+      cancelAnimationFrame(prodAnimationFrame);
+      const targetAngle = prodRadialAngle + (direction * prodAngleStep);
+      animateRotateTo(targetAngle);
+    }
 
-      radialCarousel.addEventListener('touchend', () => {
-          radIsDragging = false;
-          applyRadialInertia();
-      });
+    function animateRotateTo(target) {
+      const diff = target - prodRadialAngle;
+      if (Math.abs(diff) > 0.5) {
+        prodRadialAngle += diff * 0.15;
+        updateProductRadialCards();
+        prodAnimationFrame = requestAnimationFrame(() => animateRotateTo(target));
+      } else {
+        prodRadialAngle = target;
+        updateProductRadialCards();
+      }
+    }
 
-      radialCarousel.addEventListener('mousedown', (e) => {
-          radIsDragging = true;
-          radStartX = e.clientX;
-          radLastX = radStartX;
-          radLastTime = performance.now();
-          cancelAnimationFrame(radAnimationFrame);
+    if (prevProductBtn) {
+      prevProductBtn.addEventListener('click', () => rotateProductRadial(1));
+    }
+    if (nextProductBtn) {
+      nextProductBtn.addEventListener('click', () => rotateProductRadial(-1));
+    }
+
+    if (prodRadialCarousel) {
+      prodRadialCarousel.addEventListener('mousedown', (e) => {
+        prodIsDragging = true;
+        prodStartX = e.clientX;
+        prodLastX = prodStartX;
+        prodLastTime = performance.now();
+        cancelAnimationFrame(prodAnimationFrame);
       });
 
       window.addEventListener('mousemove', (e) => {
-          if (!radIsDragging) return;
-          const x = e.clientX;
-          const deltaX = x - radLastX;
-          currentRadialAngle += deltaX * 0.6;
-          updateRadialCards();
-          const now = performance.now();
-          const dt = now - radLastTime;
-          if (dt > 0) radVelocity = deltaX / dt;
-          radLastX = x;
-          radLastTime = now;
+        if (!prodIsDragging) return;
+        const x = e.clientX;
+        const deltaX = x - prodLastX;
+        prodRadialAngle += deltaX * 0.4;
+        updateProductRadialCards();
+        const now = performance.now();
+        const dt = now - prodLastTime;
+        if (dt > 0) prodVelocity = deltaX / dt;
+        prodLastX = x;
+        prodLastTime = now;
       });
 
       window.addEventListener('mouseup', () => {
-          if (radIsDragging) {
-              radIsDragging = false;
-              applyRadialInertia();
-          }
+        if (prodIsDragging) {
+          prodIsDragging = false;
+          applyProductRadialInertia();
+        }
       });
 
-      function applyRadialInertia() {
-          if (Math.abs(radVelocity) > 0.1) {
-              currentRadialAngle += radVelocity * 16;
-              radVelocity *= 0.92;
-              updateRadialCards();
-              radAnimationFrame = requestAnimationFrame(applyRadialInertia);
-          } else {
-              snapRadialToNearest();
-          }
+      prodRadialCarousel.addEventListener('touchstart', (e) => {
+        prodIsDragging = true;
+        prodStartX = e.touches[0].clientX;
+        prodLastX = prodStartX;
+        prodLastTime = performance.now();
+        cancelAnimationFrame(prodAnimationFrame);
+      }, { passive: true });
+
+      prodRadialCarousel.addEventListener('touchmove', (e) => {
+        if (!prodIsDragging) return;
+        const x = e.touches[0].clientX;
+        const deltaX = x - prodLastX;
+        prodRadialAngle += deltaX * 0.4;
+        updateProductRadialCards();
+        const now = performance.now();
+        const dt = now - prodLastTime;
+        if (dt > 0) prodVelocity = deltaX / dt;
+        prodLastX = x;
+        prodLastTime = now;
+      }, { passive: true });
+
+      prodRadialCarousel.addEventListener('touchend', () => {
+        prodIsDragging = false;
+        applyProductRadialInertia();
+      });
+    }
+
+    function applyProductRadialInertia() {
+      if (Math.abs(prodVelocity) > 0.1) {
+        prodRadialAngle += prodVelocity * 16;
+        prodVelocity *= 0.92;
+        updateProductRadialCards();
+        prodAnimationFrame = requestAnimationFrame(applyProductRadialInertia);
+      } else {
+        snapProductRadialToNearest();
       }
+    }
 
-      function snapRadialToNearest() {
-          const snapAngle = Math.round(currentRadialAngle / angleRadialStep) * angleRadialStep;
-          const diff = snapAngle - currentRadialAngle;
-          if (Math.abs(diff) > 0.5) {
-              currentRadialAngle += diff * 0.15;
-              updateRadialCards();
-              radAnimationFrame = requestAnimationFrame(snapRadialToNearest);
-          } else {
-              currentRadialAngle = snapAngle;
-              updateRadialCards();
-          }
+    function snapProductRadialToNearest() {
+      const snapAngle = Math.round(prodRadialAngle / prodAngleStep) * prodAngleStep;
+      const diff = snapAngle - prodRadialAngle;
+      if (Math.abs(diff) > 0.5) {
+        prodRadialAngle += diff * 0.15;
+        updateProductRadialCards();
+        prodAnimationFrame = requestAnimationFrame(snapProductRadialToNearest);
+      } else {
+        prodRadialAngle = snapAngle;
+        updateProductRadialCards();
       }
+    }
 
-      // ==========================================
-      // 3D Product Radial Carousel Logic
-      // ==========================================
-      const prodRadialCarousel = document.getElementById('productRadialCarousel');
-      const prodRadialCards = document.querySelectorAll('.product-radial-card');
-      const prevProductBtn = document.getElementById('prevProductBtn');
-      const nextProductBtn = document.getElementById('nextProductBtn');
-      
-      let prodRadialAngle = 0;
-      const prodAngleStep = 360 / prodRadialCards.length;
-      
-      let prodStartX = 0;
-      let prodLastX = 0;
-      let prodIsDragging = false;
-      let prodVelocity = 0;
-      let prodLastTime = 0;
-      let prodAnimationFrame;
+    // Initial layout call
+    updateProductRadialCards();
 
-      function updateProductRadialCards() {
-          const radius = window.innerWidth < 768 ? 130 : 260;
-          prodRadialCards.forEach((card, index) => {
-              const angle = prodRadialAngle + (index * prodAngleStep);
-              const rad = angle * Math.PI / 180;
-              const x = Math.sin(rad) * radius;
-              const z = Math.cos(rad) * radius;
-              const normalizedZ = (z + radius) / (2 * radius);
-              const scale = 0.55 + (0.45 * normalizedZ);
-              const opacity = 0.15 + (0.85 * normalizedZ);
-              
-              card.style.transform = `translate3d(${x}px, 0, ${z}px) scale(${scale})`;
-              card.style.opacity = opacity;
-              card.style.zIndex = Math.round(normalizedZ * 100);
-
-              if (z > radius - 35) {
-                  card.classList.add('active');
-              } else {
-                  card.classList.remove('active');
-              }
-          });
-      }
-
-      function rotateProductRadial(direction) {
-          cancelAnimationFrame(prodAnimationFrame);
-          const targetAngle = prodRadialAngle + (direction * prodAngleStep);
-          animateRotateTo(targetAngle);
-      }
-
-      function animateRotateTo(target) {
-          const diff = target - prodRadialAngle;
-          if (Math.abs(diff) > 0.5) {
-              prodRadialAngle += diff * 0.15;
-              updateProductRadialCards();
-              prodAnimationFrame = requestAnimationFrame(() => animateRotateTo(target));
-          } else {
-              prodRadialAngle = target;
-              updateProductRadialCards();
-          }
-      }
-
-      if (prevProductBtn) {
-          prevProductBtn.addEventListener('click', () => rotateProductRadial(1));
-      }
-      if (nextProductBtn) {
-          nextProductBtn.addEventListener('click', () => rotateProductRadial(-1));
-      }
-
-      if (prodRadialCarousel) {
-          prodRadialCarousel.addEventListener('mousedown', (e) => {
-              prodIsDragging = true;
-              prodStartX = e.clientX;
-              prodLastX = prodStartX;
-              prodLastTime = performance.now();
-              cancelAnimationFrame(prodAnimationFrame);
-          });
-
-          window.addEventListener('mousemove', (e) => {
-              if (!prodIsDragging) return;
-              const x = e.clientX;
-              const deltaX = x - prodLastX;
-              prodRadialAngle += deltaX * 0.4;
-              updateProductRadialCards();
-              const now = performance.now();
-              const dt = now - prodLastTime;
-              if (dt > 0) prodVelocity = deltaX / dt;
-              prodLastX = x;
-              prodLastTime = now;
-          });
-
-          window.addEventListener('mouseup', () => {
-              if (prodIsDragging) {
-                  prodIsDragging = false;
-                  applyProductRadialInertia();
-              }
-          });
-
-          prodRadialCarousel.addEventListener('touchstart', (e) => {
-              prodIsDragging = true;
-              prodStartX = e.touches[0].clientX;
-              prodLastX = prodStartX;
-              prodLastTime = performance.now();
-              cancelAnimationFrame(prodAnimationFrame);
-          }, { passive: true });
-
-          prodRadialCarousel.addEventListener('touchmove', (e) => {
-              if (!prodIsDragging) return;
-              const x = e.touches[0].clientX;
-              const deltaX = x - prodLastX;
-              prodRadialAngle += deltaX * 0.4;
-              updateProductRadialCards();
-              const now = performance.now();
-              const dt = now - prodLastTime;
-              if (dt > 0) prodVelocity = deltaX / dt;
-              prodLastX = x;
-              prodLastTime = now;
-          }, { passive: true });
-
-          prodRadialCarousel.addEventListener('touchend', () => {
-              prodIsDragging = false;
-              applyProductRadialInertia();
-          });
-      }
-
-      function applyProductRadialInertia() {
-          if (Math.abs(prodVelocity) > 0.1) {
-              prodRadialAngle += prodVelocity * 16;
-              prodVelocity *= 0.92;
-              updateProductRadialCards();
-              prodAnimationFrame = requestAnimationFrame(applyProductRadialInertia);
-          } else {
-              snapProductRadialToNearest();
-          }
-      }
-
-      function snapProductRadialToNearest() {
-          const snapAngle = Math.round(prodRadialAngle / prodAngleStep) * prodAngleStep;
-          const diff = snapAngle - prodRadialAngle;
-          if (Math.abs(diff) > 0.5) {
-              prodRadialAngle += diff * 0.15;
-              updateProductRadialCards();
-              prodAnimationFrame = requestAnimationFrame(snapProductRadialToNearest);
-          } else {
-              prodRadialAngle = snapAngle;
-              updateProductRadialCards();
-          }
-      }
-
-      // Initial layout call
+    window.addEventListener('resize', () => {
+      if (radialIsActive) updateRadialCards();
       updateProductRadialCards();
+    });
 
-      window.addEventListener('resize', () => {
-          if (radialIsActive) updateRadialCards();
-          updateProductRadialCards();
-      });
-      
-      // Update once on load
-      setTimeout(() => {
-          if(window.lucide) lucide.createIcons();
-      }, 500);
+    // Update once on load
+    setTimeout(() => {
+      if (window.lucide) lucide.createIcons();
+    }, 500);
+
+    // i18n Translation Logic for index.html
+    const translations = {
+      'العربية': {
+        'nav_discover': 'اكتشف',
+        'nav_trending': 'الرائج',
+        'nav_categories': 'الفئات',
+        'nav_new_options': 'خيارات (جديد)',
+        'profile': 'الملف الشخصي',
+        'become_seller': 'كن بائعاً',
+        'settings': 'الإعدادات',
+        'payment_methods': 'طرق الدفع',
+        'edit_address': 'تعديل العنوان',
+        'search_placeholder': 'بحث...',
+        'hero_badge': 'المعيار الجديد للفخامة',
+        'hero_title_1': 'تميز منسق بعناية.',
+        'hero_title_2': 'بدون أي تنازلات.',
+        'hero_subtitle': 'اكتشف منصة عالمية صُممت خصيصاً لأولئك الذين ينشدون القمة المطلقة في التصميم، الجودة، والجماليات المستقبلية.',
+        'explore_btn': 'استكشف المجموعة',
+        'trust_1_title': 'أصالة مضمونة',
+        'trust_1_desc': 'كل منتج يتم التحقق منه بواسطة خبراء',
+        'trust_2_title': 'جودة فائقة',
+        'trust_2_desc': 'أفضل 1% من المبدعين العالميين',
+        'trust_3_title': 'وصول فوري',
+        'trust_3_desc': 'تحميل فوري وتحديثات مدى الحياة',
+        'no_results': 'لا توجد نتائج',
+        'no_results_desc1': 'عذراً، لم نتمكن من العثور على أي منتج يطابق بحثك عن',
+        'no_results_desc2': 'الرجاء التأكد من الكلمة والمحاولة مرة أخرى.'
+      },
+      'English': {
+        'nav_discover': 'Discover',
+        'nav_trending': 'Trending',
+        'nav_categories': 'Categories',
+        'nav_new_options': 'Options (New)',
+        'profile': 'Profile',
+        'become_seller': 'Become a Seller',
+        'settings': 'Settings',
+        'payment_methods': 'Payment Methods',
+        'edit_address': 'Edit Address',
+        'search_placeholder': 'Search...',
+        'hero_badge': 'The New Standard of Luxury',
+        'hero_title_1': 'Carefully curated excellence.',
+        'hero_title_2': 'Without compromises.',
+        'hero_subtitle': 'Discover a global platform designed specifically for those who seek the absolute pinnacle in design, quality, and futuristic aesthetics.',
+        'explore_btn': 'Explore Collection',
+        'trust_1_title': 'Guaranteed Authenticity',
+        'trust_1_desc': 'Every product is verified by experts',
+        'trust_2_title': 'Superior Quality',
+        'trust_2_desc': 'Top 1% of global creators',
+        'trust_3_title': 'Instant Access',
+        'trust_3_desc': 'Instant download and lifetime updates',
+        'no_results': 'No Results Found',
+        'no_results_desc1': 'Sorry, we couldn\'t find any product matching your search for',
+        'no_results_desc2': 'Please check the word and try again.'
+      },
+      'Türkçe': {
+        'nav_discover': 'Keşfet',
+        'nav_trending': 'Trend',
+        'nav_categories': 'Kategoriler',
+        'nav_new_options': 'Seçenekler (Yeni)',
+        'profile': 'Profil',
+        'become_seller': 'Satıcı Ol',
+        'settings': 'Ayarlar',
+        'payment_methods': 'Ödeme Yöntemleri',
+        'edit_address': 'Adresi Düzenle',
+        'search_placeholder': 'Ara...',
+        'hero_badge': 'Lüksün Yeni Standardı',
+        'hero_title_1': 'Özenle seçilmiş mükemmellik.',
+        'hero_title_2': 'Taviz vermeden.',
+        'hero_subtitle': 'Tasarım, kalite ve fütüristik estetiğin zirvesini arayanlar için özel tasarlanmış küresel bir platformu keşfedin.',
+        'explore_btn': 'Koleksiyonu Keşfet',
+        'trust_1_title': 'Garantili Orijinallik',
+        'trust_1_desc': 'Her ürün uzmanlarca doğrulanır',
+        'trust_2_title': 'Üstün Kalite',
+        'trust_2_desc': 'Dünyadaki en iyi %1 yaratıcılar',
+        'trust_3_title': 'Anında Erişim',
+        'trust_3_desc': 'Anında indirme ve ömür boyu güncellemeler',
+        'no_results': 'Sonuç Bulunamadı',
+        'no_results_desc1': 'Üzgünüz, aramanızla eşleşen hiçbir ürün bulamadık',
+        'no_results_desc2': 'Lütfen kelimeyi kontrol edip tekrar deneyin.'
+      },
+      'Deutsch': {
+        'nav_discover': 'Entdecken',
+        'nav_trending': 'Im Trend',
+        'nav_categories': 'Kategorien',
+        'nav_new_options': 'Optionen (Neu)',
+        'profile': 'Profil',
+        'become_seller': 'Verkäufer werden',
+        'settings': 'Einstellungen',
+        'payment_methods': 'Zahlungsmethoden',
+        'edit_address': 'Adresse bearbeiten',
+        'search_placeholder': 'Suchen...',
+        'hero_badge': 'Der neue Standard für Luxus',
+        'hero_title_1': 'Sorgfältig kuratierte Exzellenz.',
+        'hero_title_2': 'Ohne Kompromisse.',
+        'hero_subtitle': 'Entdecken Sie eine globale Plattform, die speziell für diejenigen entwickelt wurde, die das absolute Maximum an Design, Qualität und futuristischer Ästhetik suchen.',
+        'explore_btn': 'Kollektion erkunden',
+        'trust_1_title': 'Garantierte Authentizität',
+        'trust_1_desc': 'Jedes Produkt wird von Experten verifiziert',
+        'trust_2_title': 'Überragende Qualität',
+        'trust_2_desc': 'Die besten 1% der globalen Entwickler',
+        'trust_3_title': 'Sofortiger Zugriff',
+        'trust_3_desc': 'Sofortiger Download und lebenslange Updates',
+        'no_results': 'Keine Ergebnisse gefunden',
+        'no_results_desc1': 'Entschuldigung, wir konnten kein Produkt finden, das Ihrer Suche nach',
+        'no_results_desc2': 'entspricht. Bitte überprüfen Sie das Wort und versuchen Sie es erneut.'
+      }
+    };
+
+    function applyLanguage() {
+      const savedLang = localStorage.getItem('language');
+      if (savedLang && translations[savedLang]) {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (translations[savedLang][key]) {
+            el.textContent = translations[savedLang][key];
+          }
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+          const key = el.getAttribute('data-i18n-placeholder');
+          if (translations[savedLang][key]) {
+            el.setAttribute('placeholder', translations[savedLang][key]);
+          }
+        });
+      }
+    }
+
+    applyLanguage();
   </script>
 </body>
-
 </html>

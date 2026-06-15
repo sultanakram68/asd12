@@ -1,12 +1,20 @@
 'use client';
 
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
-import { Product } from '@/data/products';
+import { Product, products as initialProducts } from '@/data/products';
+import { orders as initialOrders, Order } from '@/data/orders';
 
 // ─── Types ─────────────────────────────────────────────
 export interface CartItem {
   product: Product;
   quantity: number;
+}
+
+export interface PendingSeller {
+  name: string;
+  email: string;
+  date: string;
+  products: string;
 }
 
 export interface AppState {
@@ -16,6 +24,10 @@ export interface AppState {
   user: { id: string; name: string; email: string; role: string; avatar: string } | null;
   mobileMenuOpen: boolean;
   searchQuery: string;
+  products: Product[];
+  pendingProducts: Product[];
+  pendingSellers: PendingSeller[];
+  orders: Order[];
 }
 
 type Action =
@@ -27,9 +39,81 @@ type Action =
   | { type: 'LOGIN'; user: AppState['user'] }
   | { type: 'LOGOUT' }
   | { type: 'SET_MOBILE_MENU'; open: boolean }
-  | { type: 'SET_SEARCH'; query: string };
+  | { type: 'SET_SEARCH'; query: string }
+  | { type: 'ADD_PENDING_PRODUCT'; product: Product }
+  | { type: 'APPROVE_PRODUCT'; productId: string }
+  | { type: 'REJECT_PRODUCT'; productId: string }
+  | { type: 'APPROVE_SELLER'; email: string }
+  | { type: 'REJECT_SELLER'; email: string }
+  | { type: 'ADD_ORDER'; order: Order };
 
 // ─── Initial State ─────────────────────────────────────
+const initialPendingProducts: Product[] = [
+  {
+    id: 'pending-001',
+    name: 'Xiaomi 15 Ultra',
+    price: 899,
+    description: 'Next-generation Xiaomi smartphone featuring Leica optics and Snapdragon 8 Elite.',
+    shortDescription: 'Xiaomi flagship with Leica camera and Snapdragon 8 Elite',
+    category: 'phones',
+    rating: 0,
+    reviewCount: 0,
+    seller: { id: 'seller-007', name: 'TechZone Global', avatar: '🏪', verified: false },
+    images: [],
+    emoji: '📱',
+    specs: { 'Display': '6.73" AMOLED', 'Chip': 'Snapdragon 8 Elite', 'Camera': '50MP Quad' },
+    inStock: true,
+    featured: false,
+    trending: false,
+    tags: ['xiaomi', 'flagship'],
+    createdAt: '2026-06-10',
+  },
+  {
+    id: 'pending-002',
+    name: 'Marshall Major V',
+    price: 149,
+    description: 'Marshall iconic on-ear headphones with 100+ hours of wireless playtime and customized sound.',
+    shortDescription: 'Iconic on-ear headphones with 100+ hours battery',
+    category: 'audio',
+    rating: 0,
+    reviewCount: 0,
+    seller: { id: 'seller-008', name: 'SmartGear Co.', avatar: '🏪', verified: false },
+    images: [],
+    emoji: '🎧',
+    specs: { 'Battery': '100+ hours', 'Bluetooth': 'LE Audio' },
+    inStock: true,
+    featured: false,
+    trending: false,
+    tags: ['marshall', 'headphones'],
+    createdAt: '2026-06-11',
+  },
+  {
+    id: 'pending-003',
+    name: 'Amazfit T-Rex 3',
+    price: 279,
+    description: 'Amazfit rugged outdoor GPS smartwatch with military-grade toughness and 27-day battery life.',
+    shortDescription: 'Rugged outdoor smartwatch with 27-day battery',
+    category: 'watches',
+    rating: 0,
+    reviewCount: 0,
+    seller: { id: 'seller-009', name: 'EliteTech Store', avatar: '🏪', verified: false },
+    images: [],
+    emoji: '⌚',
+    specs: { 'Case': 'Polymer', 'Battery': '27 days' },
+    inStock: true,
+    featured: false,
+    trending: false,
+    tags: ['amazfit', 'smartwatch'],
+    createdAt: '2026-06-12',
+  }
+];
+
+const initialPendingSellers: PendingSeller[] = [
+  { name: 'TechZone Global', email: 'info@techzone.com', date: 'Jun 10', products: '12 listed' },
+  { name: 'SmartGear Co.', email: 'apply@smartgear.io', date: 'Jun 11', products: '8 planned' },
+  { name: 'EliteTech Store', email: 'hello@elitetech.com', date: 'Jun 12', products: '20+ planned' },
+];
+
 const initialState: AppState = {
   cart: [],
   wishlist: [],
@@ -37,6 +121,10 @@ const initialState: AppState = {
   user: null,
   mobileMenuOpen: false,
   searchQuery: '',
+  products: initialProducts,
+  pendingProducts: initialPendingProducts,
+  pendingSellers: initialPendingSellers,
+  orders: initialOrders,
 };
 
 // ─── Reducer ───────────────────────────────────────────
@@ -87,6 +175,35 @@ function appReducer(state: AppState, action: Action): AppState {
       return { ...state, mobileMenuOpen: action.open };
     case 'SET_SEARCH':
       return { ...state, searchQuery: action.query };
+    case 'ADD_PENDING_PRODUCT':
+      return { ...state, pendingProducts: [...state.pendingProducts, action.product] };
+    case 'APPROVE_PRODUCT': {
+      const prod = state.pendingProducts.find(p => p.id === action.productId);
+      if (!prod) return state;
+      const approvedProd = { ...prod, id: `prod-${Date.now()}` };
+      return {
+        ...state,
+        pendingProducts: state.pendingProducts.filter(p => p.id !== action.productId),
+        products: [...state.products, approvedProd]
+      };
+    }
+    case 'REJECT_PRODUCT':
+      return {
+        ...state,
+        pendingProducts: state.pendingProducts.filter(p => p.id !== action.productId)
+      };
+    case 'APPROVE_SELLER':
+      return {
+        ...state,
+        pendingSellers: state.pendingSellers.filter(s => s.email !== action.email)
+      };
+    case 'REJECT_SELLER':
+      return {
+        ...state,
+        pendingSellers: state.pendingSellers.filter(s => s.email !== action.email)
+      };
+    case 'ADD_ORDER':
+      return { ...state, orders: [...state.orders, action.order] };
     default:
       return state;
   }

@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { products } from '@/data/products';
+import { useApp } from '@/lib/store';
 import { categories } from '@/data/categories';
 import ProductCard from '@/components/ui/ProductCard';
 
@@ -10,13 +10,14 @@ export default function MarketplacePage() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get('category') || 'all';
 
+  const { state } = useApp();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState(initialCategory);
   const [sortBy, setSortBy] = useState('popular');
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
 
   const filtered = useMemo(() => {
-    let result = [...products];
+    let result = [...state.products];
 
     // Category filter
     if (category !== 'all') {

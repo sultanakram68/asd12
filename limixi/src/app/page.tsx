@@ -1,13 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { products, getFeaturedProducts, getTrendingProducts } from '@/data/products';
+import { useApp } from '@/lib/store';
 import { categories } from '@/data/categories';
 import ProductCard from '@/components/ui/ProductCard';
 
 export default function HomePage() {
-  const featured = getFeaturedProducts().slice(0, 4);
-  const trending = getTrendingProducts().slice(0, 8);
+  const { state } = useApp();
+  const featured = state.products.filter(p => p.featured).slice(0, 4);
+  const trending = state.products.filter(p => p.trending).slice(0, 8);
   const topSellers = [
     { name: 'Apple Store', avatar: '📱', rating: 4.9, products: 48, verified: true },
     { name: 'Samsung Hub', avatar: '🌌', rating: 4.8, products: 32, verified: true },

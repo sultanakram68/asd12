@@ -3,27 +3,20 @@
 import { useState } from 'react';
 import StatsCard from '@/components/ui/StatsCard';
 import Badge from '@/components/ui/Badge';
+import { useApp } from '@/lib/store';
+import { formatPrice } from '@/lib/utils';
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
+  const { state, dispatch } = useApp();
+  const pendingSellers = state.pendingSellers;
+  const pendingProducts = state.pendingProducts;
 
   const tabs = [
     { id: 'overview', label: '📊 Overview' },
     { id: 'sellers', label: '🏪 Sellers' },
     { id: 'products', label: '📦 Products' },
     { id: 'users', label: '👥 Users' },
-  ];
-
-  const pendingSellers = [
-    { name: 'TechZone Global', email: 'info@techzone.com', date: 'Jun 10', products: '12 listed' },
-    { name: 'SmartGear Co.', email: 'apply@smartgear.io', date: 'Jun 11', products: '8 planned' },
-    { name: 'EliteTech Store', email: 'hello@elitetech.com', date: 'Jun 12', products: '20+ planned' },
-  ];
-
-  const pendingProducts = [
-    { name: 'Xiaomi 15 Ultra', seller: 'TechZone Global', price: '$899', category: 'phones' },
-    { name: 'Marshall Major V', seller: 'SmartGear Co.', price: '$149', category: 'audio' },
-    { name: 'Amazfit T-Rex 3', seller: 'EliteTech Store', price: '$279', category: 'watches' },
   ];
 
   const allUsers = [
@@ -114,21 +107,35 @@ export default function AdminDashboard() {
             <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6">
               <h3 className="text-lg font-black mb-4 text-[#00D4FF]">Pending Seller Applications</h3>
               <div className="space-y-3">
-                {pendingSellers.map(seller => (
-                  <div key={seller.email} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white/[0.02] border border-white/[0.04] rounded-xl p-4">
-                    <div className="flex items-center gap-3">
-                      <span className="w-10 h-10 rounded-full bg-[#8A5CFF]/10 flex items-center justify-center text-lg">🏪</span>
-                      <div>
-                        <h4 className="font-bold text-sm">{seller.name}</h4>
-                        <p className="text-xs text-white/40">{seller.email} · Applied {seller.date} · {seller.products}</p>
+                {pendingSellers.length > 0 ? (
+                  pendingSellers.map(seller => (
+                    <div key={seller.email} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white/[0.02] border border-white/[0.04] rounded-xl p-4">
+                      <div className="flex items-center gap-3">
+                        <span className="w-10 h-10 rounded-full bg-[#8A5CFF]/10 flex items-center justify-center text-lg">🏪</span>
+                        <div>
+                          <h4 className="font-bold text-sm">{seller.name}</h4>
+                          <p className="text-xs text-white/40">{seller.email} · Applied {seller.date} · {seller.products}</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => dispatch({ type: 'APPROVE_SELLER', email: seller.email })}
+                          className="px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold hover:bg-emerald-500/30 transition-all cursor-pointer"
+                        >
+                          ✓ Approve
+                        </button>
+                        <button
+                          onClick={() => dispatch({ type: 'REJECT_SELLER', email: seller.email })}
+                          className="px-4 py-2 rounded-lg bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-bold hover:bg-red-500/30 transition-all cursor-pointer"
+                        >
+                          ✗ Reject
+                        </button>
                       </div>
                     </div>
-                    <div className="flex gap-2">
-                      <button className="px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold hover:bg-emerald-500/30 transition-all">✓ Approve</button>
-                      <button className="px-4 py-2 rounded-lg bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-bold hover:bg-red-500/30 transition-all">✗ Reject</button>
-                    </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p className="text-center text-white/30 text-sm py-6">No pending seller applications.</p>
+                )}
               </div>
             </div>
           </div>
@@ -140,18 +147,32 @@ export default function AdminDashboard() {
             <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6">
               <h3 className="text-lg font-black mb-4 text-[#FF6A00]">Pending Product Approvals</h3>
               <div className="space-y-3">
-                {pendingProducts.map(product => (
-                  <div key={product.name} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white/[0.02] border border-white/[0.04] rounded-xl p-4">
-                    <div>
-                      <h4 className="font-bold text-sm">{product.name}</h4>
-                      <p className="text-xs text-white/40">by {product.seller} · {product.price} · {product.category}</p>
+                {pendingProducts.length > 0 ? (
+                  pendingProducts.map(product => (
+                    <div key={product.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white/[0.02] border border-white/[0.04] rounded-xl p-4">
+                      <div>
+                        <h4 className="font-bold text-sm">{product.name}</h4>
+                        <p className="text-xs text-white/40">by {product.seller.name} · {formatPrice(product.price)} · {product.category}</p>
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => dispatch({ type: 'APPROVE_PRODUCT', productId: product.id })}
+                          className="px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold hover:bg-emerald-500/30 transition-all cursor-pointer"
+                        >
+                          ✓ Approve
+                        </button>
+                        <button
+                          onClick={() => dispatch({ type: 'REJECT_PRODUCT', productId: product.id })}
+                          className="px-4 py-2 rounded-lg bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-bold hover:bg-red-500/30 transition-all cursor-pointer"
+                        >
+                          ✗ Reject
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex gap-2">
-                      <button className="px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold hover:bg-emerald-500/30 transition-all">✓ Approve</button>
-                      <button className="px-4 py-2 rounded-lg bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-bold hover:bg-red-500/30 transition-all">✗ Reject</button>
-                    </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p className="text-center text-white/30 text-sm py-6">No pending product approvals.</p>
+                )}
               </div>
             </div>
           </div>

@@ -9,6 +9,7 @@ interface GlassCardProps {
   hover?: boolean;
   onClick?: () => void;
   variant?: 'light' | 'darker';
+  glow?: string;
 }
 
 export default function GlassCard({ children, className, hover = true, onClick, variant = 'light' }: GlassCardProps) {

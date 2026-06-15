@@ -1,14 +1,61 @@
 'use client';
 
 import { useState } from 'react';
-import { products } from '@/data/products';
+import { useApp } from '@/lib/store';
 import { formatPrice } from '@/lib/utils';
 import StatsCard from '@/components/ui/StatsCard';
 import Badge from '@/components/ui/Badge';
+import { Product } from '@/data/products';
 
 export default function SellerDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
-  const sellerProducts = products.filter(p => p.seller.id === 'seller-001');
+  const { state, dispatch } = useApp();
+
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState('phones');
+  const [price, setPrice] = useState('');
+  const [description, setDescription] = useState('');
+
+  const sellerProducts = state.products.filter(p => p.seller.id === 'seller-001');
+  const sellerPendingProducts = state.pendingProducts.filter(p => p.seller.id === 'seller-001');
+
+  const handleAddProduct = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name || !price || !description) return;
+
+    const newProduct: Product = {
+      id: `pending-${Date.now()}`,
+      name,
+      price: Number(price),
+      description,
+      shortDescription: description.substring(0, 60),
+      category,
+      rating: 0,
+      reviewCount: 0,
+      seller: {
+        id: 'seller-001',
+        name: 'TechVault Pro',
+        avatar: '🏪',
+        verified: true,
+      },
+      images: [],
+      emoji: category === 'phones' ? '📱' : category === 'watches' ? '⌚' : category === 'audio' ? '🎧' : '🕶️',
+      specs: {},
+      inStock: true,
+      featured: false,
+      trending: false,
+      tags: [],
+      createdAt: new Date().toISOString().split('T')[0],
+    };
+
+    dispatch({ type: 'ADD_PENDING_PRODUCT', product: newProduct });
+
+    setName('');
+    setCategory('phones');
+    setPrice('');
+    setDescription('');
+    setActiveTab('products');
+  };
 
   const tabs = [
     { id: 'overview', label: '📊 Overview' },
@@ -65,7 +112,7 @@ export default function SellerDashboard() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <StatsCard label="Total Revenue" value="$84,290" icon="💰" color="orange" trend={{ value: '12.5% this month', positive: true }} />
               <StatsCard label="Total Orders" value="342" icon="📦" color="cyan" trend={{ value: '8.3% this month', positive: true }} />
-              <StatsCard label="Active Products" value={String(sellerProducts.length)} icon="🏷️" color="purple" />
+              <StatsCard label="Active Products" value={String(sellerProducts.length + sellerPendingProducts.length)} icon="🏷️" color="purple" />
               <StatsCard label="Avg. Rating" value="4.9 ★" icon="⭐" color="green" trend={{ value: '+0.1', positive: true }} />
             </div>
 
@@ -123,7 +170,7 @@ export default function SellerDashboard() {
         {activeTab === 'products' && (
           <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-black">Your Products ({sellerProducts.length})</h3>
+              <h3 className="text-lg font-black">Your Products ({sellerProducts.length + sellerPendingProducts.length})</h3>
               <button onClick={() => setActiveTab('add')} className="px-4 py-2 rounded-xl bg-gradient-to-br from-[#FF6A00] to-[#FF8C00] text-black font-bold text-xs">+ Add New</button>
             </div>
             <div className="overflow-x-auto">
@@ -138,6 +185,20 @@ export default function SellerDashboard() {
                   </tr>
                 </thead>
                 <tbody>
+                  {sellerPendingProducts.map(p => (
+                    <tr key={p.id} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors opacity-60">
+                      <td className="py-3 px-2">
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">{p.emoji}</span>
+                          <span className="font-bold">{p.name}</span>
+                        </div>
+                      </td>
+                      <td className="py-3 px-2 text-white/50 capitalize">{p.category}</td>
+                      <td className="py-3 px-2 text-right font-bold text-[#FF6A00]">{formatPrice(p.price)}</td>
+                      <td className="py-3 px-2 text-center">—</td>
+                      <td className="py-3 px-2 text-center"><Badge variant="warning">Pending Review ⏳</Badge></td>
+                    </tr>
+                  ))}
                   {sellerProducts.map(p => (
                     <tr key={p.id} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors">
                       <td className="py-3 px-2">
@@ -196,15 +257,15 @@ export default function SellerDashboard() {
           <div className="max-w-2xl">
             <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6">
               <h3 className="text-lg font-black mb-6 text-[#FF6A00]">Add New Product</h3>
-              <form onSubmit={(e) => { e.preventDefault(); setActiveTab('products'); }} className="space-y-4">
+              <form onSubmit={handleAddProduct} className="space-y-4">
                 <div>
                   <label className="block text-xs font-semibold text-white/50 mb-2">Product Name</label>
-                  <input className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-[#FF6A00]/50 transition-colors" placeholder="e.g., iPhone 17 Pro Max" />
+                  <input required value={name} onChange={e => setName(e.target.value)} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-[#FF6A00]/50 transition-colors" placeholder="e.g., iPhone 17 Pro Max" />
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-white/50 mb-2">Category</label>
-                    <select className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-[#FF6A00]/50 transition-colors [&>option]:bg-[#0a0b10]">
+                    <select value={category} onChange={e => setCategory(e.target.value)} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-[#FF6A00]/50 transition-colors [&>option]:bg-[#0a0b10]">
                       <option value="phones">Smartphones</option>
                       <option value="watches">Smartwatches</option>
                       <option value="audio">Audio</option>
@@ -213,12 +274,12 @@ export default function SellerDashboard() {
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-white/50 mb-2">Price (USD)</label>
-                    <input type="number" className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-[#FF6A00]/50 transition-colors" placeholder="999" />
+                    <input type="number" required value={price} onChange={e => setPrice(e.target.value)} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-[#FF6A00]/50 transition-colors" placeholder="999" />
                   </div>
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-white/50 mb-2">Description</label>
-                  <textarea rows={4} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-[#FF6A00]/50 transition-colors resize-none" placeholder="Describe your product in detail..." />
+                  <textarea rows={4} required value={description} onChange={e => setDescription(e.target.value)} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-[#FF6A00]/50 transition-colors resize-none" placeholder="Describe your product in detail..." />
                 </div>
                 <button type="submit" className="w-full py-4 rounded-xl bg-gradient-to-br from-[#FF6A00] to-[#FF8C00] text-black font-bold text-sm shadow-[0_0_20px_rgba(255,106,0,0.3)] hover:shadow-[0_0_35px_rgba(255,106,0,0.5)] transition-all">
                   Submit for Review 🚀

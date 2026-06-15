@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useCart } from '@/lib/store';
+import { useCart, useApp } from '@/lib/store';
 import { formatPrice } from '@/lib/utils';
+import { Order } from '@/data/orders';
 
 export default function CheckoutPage() {
   const { items, total, clearCart } = useCart();
+  const { dispatch } = useApp();
   const [step, setStep] = useState(1);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [form, setForm] = useState({
@@ -21,6 +23,23 @@ export default function CheckoutPage() {
   const grandTotal = total + shipping + tax;
 
   const handlePlaceOrder = () => {
+    const newOrder: Order = {
+      id: `ORD-2026-${Math.floor(Math.random() * 9000) + 1000}`,
+      userId: 'user-001',
+      items: items.map(item => ({
+        productId: item.product.id,
+        productName: item.product.name,
+        quantity: item.quantity,
+        price: item.product.price,
+      })),
+      total: grandTotal,
+      status: 'pending',
+      createdAt: new Date().toISOString().split('T')[0],
+      shippingAddress: `${form.address}, ${form.city}, ${form.state} ${form.zip}`,
+      paymentMethod: form.paymentMethod === 'credit' ? 'Credit Card' : form.paymentMethod === 'paypal' ? 'PayPal' : 'Crypto',
+    };
+
+    dispatch({ type: 'ADD_ORDER', order: newOrder });
     setOrderPlaced(true);
     clearCart();
   };
