@@ -27,4 +27,17 @@ export default defineConfig({
     },
   },
   assetsInclude: ['**/*.svg', '**/*.csv'],
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        settings: path.resolve(__dirname, 'settings.html'),
+        product: path.resolve(__dirname, 'product.html'),
+        admin: path.resolve(__dirname, 'admin.html'),
+        adminLogin: path.resolve(__dirname, 'admin-login.html'),
+        seller: path.resolve(__dirname, 'seller.html'),
+        comingSoon: path.resolve(__dirname, 'coming-soon.html')
+      }
+    }
+  }
 })
