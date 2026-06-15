@@ -125,7 +125,7 @@
         </div>
 
         <!-- Language Card -->
-        <div class="glass-card w-full p-6 md:p-8 rounded-3xl flex flex-col gap-6 bg-white/50 dark:bg-black/20 shadow-lg mt-6">
+        <div class="glass-card w-full p-6 md:p-8 rounded-3xl flex flex-col gap-6 bg-white/50 dark:bg-black/20 shadow-lg mt-6 relative z-20">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
                     <h2 class="text-xl font-semibold mb-2" data-i18n="language">اللغة (Language)</h2>
@@ -155,6 +155,43 @@
                         </button>
                         <button class="lang-option w-full flex items-center gap-3 px-4 py-3 hover:bg-black/5 dark:hover:bg-white/5 transition-colors" data-lang="Deutsch">
                             <span class="text-sm font-medium flex-1 text-left">Deutsch</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Currency Card -->
+        <div class="glass-card w-full p-6 md:p-8 rounded-3xl flex flex-col gap-6 bg-white/50 dark:bg-black/20 shadow-lg mt-6 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <h2 class="text-xl font-semibold mb-2" data-i18n="currency_title">العملة (Currency)</h2>
+                    <p class="text-sm text-gray-600 dark:text-gray-400" data-i18n="currency_desc">اختر عملتك المفضلة لعرض أسعار المنتجات.</p>
+                </div>
+                
+                <!-- Currency Selector -->
+                <div class="relative w-full md:w-auto">
+                    <button id="curr-toggle-btn" class="flex items-center justify-between w-full md:w-48 px-5 py-3 rounded-2xl bg-white dark:bg-black/40 border border-black/10 dark:border-white/10 shadow-sm transition-all duration-300">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="coins" class="w-5 h-5 text-gray-500 dark:text-gray-400"></i>
+                            <span id="current-curr-text" class="text-sm font-medium">دولار أمريكي (USD)</span>
+                        </div>
+                        <i data-lucide="chevron-down" id="curr-chevron" class="w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    
+                    <!-- Dropdown -->
+                    <div id="curr-dropdown" class="absolute top-full right-0 mt-2 w-full md:w-48 bg-white dark:bg-[#121212] border border-black/10 dark:border-white/10 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 opacity-0 pointer-events-none transform -translate-y-2 z-50">
+                        <button class="curr-option w-full flex items-center gap-3 px-4 py-3 hover:bg-black/5 dark:hover:bg-white/5 transition-colors" data-curr="USD">
+                            <span class="text-sm font-medium flex-1 text-left">دولار أمريكي (USD)</span>
+                        </button>
+                        <button class="curr-option w-full flex items-center gap-3 px-4 py-3 hover:bg-black/5 dark:hover:bg-white/5 transition-colors" data-curr="EUR">
+                            <span class="text-sm font-medium flex-1 text-left">يورو (EUR)</span>
+                        </button>
+                        <button class="curr-option w-full flex items-center gap-3 px-4 py-3 hover:bg-black/5 dark:hover:bg-white/5 transition-colors" data-curr="SYP">
+                            <span class="text-sm font-medium flex-1 text-left">ليرة سورية (SYP)</span>
+                        </button>
+                        <button class="curr-option w-full flex items-center gap-3 px-4 py-3 hover:bg-black/5 dark:hover:bg-white/5 transition-colors" data-curr="TRY">
+                            <span class="text-sm font-medium flex-1 text-left">ليرة تركية (TRY)</span>
                         </button>
                     </div>
                 </div>
@@ -258,6 +295,30 @@
             }
         });
 
+        // Currency Dropdown Logic
+        const currToggleBtn = document.getElementById('curr-toggle-btn');
+        const currDropdown = document.getElementById('curr-dropdown');
+        const currChevron = document.getElementById('curr-chevron');
+        const currentCurrText = document.getElementById('current-curr-text');
+        const currOptions = document.querySelectorAll('.curr-option');
+
+        let isCurrDropdownOpen = false;
+
+        currToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isCurrDropdownOpen = !isCurrDropdownOpen;
+            
+            if (isCurrDropdownOpen) {
+                currDropdown.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
+                currDropdown.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                currChevron.classList.add('rotate-180');
+            } else {
+                currDropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+                currDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                currChevron.classList.remove('rotate-180');
+            }
+        });
+
         // Close dropdown when clicking outside
         document.addEventListener('click', () => {
             if (isLangDropdownOpen) {
@@ -266,6 +327,35 @@
                 langDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
                 langChevron.classList.remove('rotate-180');
             }
+            if (isCurrDropdownOpen) {
+                isCurrDropdownOpen = false;
+                currDropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+                currDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                currChevron.classList.remove('rotate-180');
+            }
+        });
+
+        const currencyNames = {
+            'USD': 'دولار أمريكي (USD)',
+            'EUR': 'يورو (EUR)',
+            'SYP': 'ليرة سورية (SYP)',
+            'TRY': 'ليرة تركية (TRY)'
+        };
+
+        currOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const selectedCurr = option.getAttribute('data-curr');
+                currentCurrText.textContent = currencyNames[selectedCurr];
+                localStorage.setItem('currency', selectedCurr);
+                
+                // Close dropdown
+                if (isCurrDropdownOpen) {
+                    isCurrDropdownOpen = false;
+                    currDropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+                    currDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                    currChevron.classList.remove('rotate-180');
+                }
+            });
         });
 
         // Language Modal Logic
@@ -277,6 +367,15 @@
         function showLangModal(lang) {
             pendingLang = lang;
             pendingLangName.textContent = lang;
+            
+            // Translate modal contents to the target language
+            langModal.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            
             langModal.classList.remove('opacity-0', 'pointer-events-none');
             langModalContent.classList.remove('scale-95');
             langModalContent.classList.add('scale-100');
@@ -286,6 +385,16 @@
             langModal.classList.add('opacity-0', 'pointer-events-none');
             langModalContent.classList.remove('scale-100');
             langModalContent.classList.add('scale-95');
+            
+            // Restore modal contents to the currently active language
+            const currentLang = localStorage.getItem('language') || 'العربية';
+            langModal.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang] && translations[currentLang][key]) {
+                    el.textContent = translations[currentLang][key];
+                }
+            });
+            
             pendingLang = null;
         }
 
@@ -329,6 +438,8 @@
                 'dark': 'داكن',
                 'language': 'اللغة (Language)',
                 'language_desc': 'اختر لغتك المفضلة لتصفح الموقع.',
+                'currency_title': 'العملة (Currency)',
+                'currency_desc': 'اختر عملتك المفضلة لعرض أسعار المنتجات.',
                 'footer': '© 2026 lmixi. جميع الحقوق محفوظة.',
                 'modal_title': 'تأكيد تغيير اللغة',
                 'modal_desc': 'هل أنت متأكد أنك تريد تغيير لغة الموقع إلى',
@@ -344,6 +455,8 @@
                 'dark': 'Dark',
                 'language': 'Language',
                 'language_desc': 'Choose your preferred language for browsing.',
+                'currency_title': 'Currency',
+                'currency_desc': 'Choose your preferred currency to display product prices.',
                 'footer': '© 2026 lmixi. All rights reserved.',
                 'modal_title': 'Confirm Language Change',
                 'modal_desc': 'Are you sure you want to change the site language to',
@@ -359,6 +472,8 @@
                 'dark': 'Koyu',
                 'language': 'Dil',
                 'language_desc': 'Gezinmek için tercih ettiğiniz dili seçin.',
+                'currency_title': 'Para Birimi',
+                'currency_desc': 'Ürün fiyatlarını görüntülemek için tercih ettiğiniz para birimini seçin.',
                 'footer': '© 2026 lmixi. Tüm hakları saklıdır.',
                 'modal_title': 'Dil Değişikliğini Onayla',
                 'modal_desc': 'Site dilini değiştirmek istediğinizden emin misiniz:',
@@ -374,6 +489,8 @@
                 'dark': 'Dunkel',
                 'language': 'Sprache',
                 'language_desc': 'Wählen Sie Ihre bevorzugte Sprache.',
+                'currency_title': 'Währung',
+                'currency_desc': 'Wählen Sie Ihre bevorzugte Währung zur Anzeige der Produktpreise.',
                 'footer': '© 2026 lmixi. Alle Rechte vorbehalten.',
                 'modal_title': 'Sprachwechsel bestätigen',
                 'modal_desc': 'Sind Sie sicher, dass Sie die Sprache ändern möchten in',
@@ -398,6 +515,12 @@
         if (savedLang) {
             currentLangText.textContent = savedLang;
             updateLanguage(savedLang);
+        }
+
+        // Initialize currency on load
+        const savedCurr = localStorage.getItem('currency') || 'USD';
+        if (currentCurrText && currencyNames[savedCurr]) {
+            currentCurrText.textContent = currencyNames[savedCurr];
         }
     </script>
 </body>

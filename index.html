@@ -1448,7 +1448,7 @@
 
   <!-- Footer -->
   <footer class="w-full text-center py-6 mt-auto border-t border-black/5 dark:border-white/5 relative z-10">
-    <p class="text-sm text-gray-500 dark:text-gray-400 transition-colors">
+    <p class="text-sm text-gray-500 dark:text-gray-400 transition-colors" data-i18n="footer">
       © 2026 lmixi. جميع الحقوق محفوظة.
     </p>
   </footer>
@@ -1476,7 +1476,7 @@
         <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
           <i data-lucide="shopping-bag" class="w-5 h-5"></i>
         </div>
-        سلة المشتريات
+        <span data-i18n="cart_title">سلة المشتريات</span>
       </h2>
       <button onclick="toggleCartDrawer()"
         class="w-8 h-8 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center text-gray-500 hover:text-red-500 hover:bg-red-500/10 transition-colors">
@@ -1492,13 +1492,13 @@
     <!-- Footer / Checkout -->
     <div class="relative z-10 p-6 border-t border-black/5 dark:border-white/5 bg-black/5 dark:bg-white/5">
       <div class="flex items-center justify-between mb-4">
-        <span class="text-gray-600 dark:text-gray-400 font-medium">المجموع الإجمالي</span>
+        <span class="text-gray-600 dark:text-gray-400 font-medium" data-i18n="cart_total">المجموع الإجمالي</span>
         <span class="text-3xl font-black text-gray-900 dark:text-white"><span id="cartTotalPrice">6,900</span> <span
-            class="text-sm font-normal text-gray-500">ر.س</span></span>
+            class="text-sm font-normal text-gray-500" data-i18n="currency">ر.س</span></span>
       </div>
       <button
         class="liquid-button w-full py-4 rounded-2xl text-white font-bold flex items-center justify-center gap-2 text-lg shadow-lg hover:-translate-y-1 transition-all duration-300">
-        إتمام الطلب بأمان <i data-lucide="shield-check" class="w-5 h-5"></i>
+        <span data-i18n="cart_checkout">إتمام الطلب بأمان</span> <i data-lucide="shield-check" class="w-5 h-5"></i>
       </button>
     </div>
   </div>
@@ -1665,11 +1665,14 @@
       const badgeCount = document.getElementById('cartBadgeCount');
       const totalPriceEl = document.getElementById('cartTotalPrice');
 
+      const savedLang = localStorage.getItem('language') || 'العربية';
+      const t = (key) => (translations[savedLang] && translations[savedLang][key]) ? translations[savedLang][key] : (translations['العربية'][key] || key);
+
       let totalCount = 0;
       let totalPrice = 0;
 
       if (cartState.length === 0) {
-        drawerContent.innerHTML = '<div class="h-full flex flex-col items-center justify-center text-gray-400 gap-4"><i data-lucide="shopping-cart" class="w-16 h-16 opacity-50"></i><p>السلة فارغة</p></div>';
+        drawerContent.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-gray-400 gap-4"><i data-lucide="shopping-cart" class="w-16 h-16 opacity-50"></i><p>${t('cart_empty')}</p></div>`;
         badgeContainer.style.display = 'none';
         totalPriceEl.innerText = '0';
         if (window.lucide) lucide.createIcons();
@@ -1680,20 +1683,49 @@
       cartState.forEach((item, index) => {
         totalCount += item.quantity;
         totalPrice += (item.price * item.quantity);
+
+        let displayName = item.name;
+        const titleToIdMap = {
+          "iPhone 15 Pro Max": 1,
+          "Samsung Galaxy S24 Ultra": 2,
+          "Sony WH-1000XM5": 3,
+          "Apple AirPods Pro 2": 4,
+          "MacBook Pro M3": 5,
+          "iPad Pro 12.9\"": 6,
+          "Apple Watch Ultra 2": 7,
+          "PlayStation 5 Slim": 8,
+          "Xbox Series X": 9,
+          "Nintendo Switch OLED": 10,
+          "Dell XPS 15": 11,
+          "Asus ROG Ally": 12,
+          "Bose QuietComfort Ultra": 13,
+          "Galaxy Watch 6 Classic": 14,
+          "Google Pixel 8 Pro": 15,
+          "LG OLED evo C3 65\"": 16,
+          "DJI Mini 4 Pro": 17,
+          "GoPro Hero 12 Black": 18,
+          "Apple Magic Keyboard": 19,
+          "Logitech MX Master 3S": 20
+        };
+        const id = titleToIdMap[item.name];
+        if (id && savedLang !== 'العربية' && productTranslations[savedLang] && productTranslations[savedLang][id]) {
+          displayName = productTranslations[savedLang][id].name;
+        }
+
         html += `
                 <div class="relative group">
                     <div class="absolute -inset-1 bg-gradient-to-tr from-blue-500 to-cyan-400 rounded-2xl blur-md opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
                     <div class="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl p-3 rounded-2xl flex gap-3 border border-white/60 dark:border-white/10 shadow-xl overflow-hidden">
-                        <button class="absolute top-3 left-3 text-gray-400 hover:text-red-500 transition-colors z-20 bg-black/5 dark:bg-white/10 p-1.5 rounded-full" onclick="removeFromCart(${index})" title="حذف من السلة">
+                        <button class="absolute top-3 left-3 text-gray-400 hover:text-red-500 transition-colors z-20 bg-black/5 dark:bg-white/10 p-1.5 rounded-full" onclick="removeFromCart(${index})" title="${t('cart_remove')}">
                             <i data-lucide="x" class="w-3 h-3"></i>
                         </button>
                         <div class="w-16 h-16 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-500 dark:text-cyan-400 group-hover:scale-105 transition-transform duration-300 shrink-0">
                             <i data-lucide="${item.icon}" class="w-8 h-8"></i>
                         </div>
                         <div class="flex-1 flex flex-col justify-center">
-                            <h3 class="font-bold text-gray-800 dark:text-gray-100 text-sm leading-tight pl-8">${item.name}</h3>
+                            <h3 class="font-bold text-gray-800 dark:text-gray-100 text-sm leading-tight pl-8">${displayName}</h3>
                             <div class="flex items-center justify-between mt-2">
-                                <span class="font-black text-blue-600 dark:text-cyan-400 text-sm">${item.price.toLocaleString('en-US')} ر.س</span>
+                                <span class="font-black text-blue-600 dark:text-cyan-400 text-sm">${getFormattedPrice(item.price, savedLang).full}</span>
                                 <div class="flex items-center gap-1 bg-black/5 dark:bg-white/5 rounded-full px-1 py-1">
                                     <button class="w-6 h-6 rounded-full flex items-center justify-center text-gray-500 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors hover:bg-white dark:hover:bg-black/50 shadow-sm" onclick="updateQuantity(${index}, -1)"><i data-lucide="minus" class="w-3 h-3"></i></button>
                                     <span class="text-xs font-bold w-5 text-center">${item.quantity}</span>
@@ -1720,11 +1752,11 @@
                   <div class="flex items-center gap-2">
                       <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary shrink-0"><i data-lucide="headphones" class="w-4 h-4"></i></div>
                       <div class="text-right">
-                          <p class="font-bold text-gray-800 dark:text-white">أكمل تجربة هاتفك 🎧</p>
-                          <p class="text-gray-500 dark:text-gray-400">أضف سماعات AirPods Pro 2</p>
+                          <p class="font-bold text-gray-800 dark:text-white">${t('cart_upsell_phone_title')}</p>
+                          <p class="text-gray-500 dark:text-gray-400">${t('cart_upsell_phone_desc')}</p>
                       </div>
                   </div>
-                  <button class="px-3 py-1.5 rounded-lg bg-primary text-white font-bold hover:scale-105 transition-all text-[10px]" onclick="addToCart('Apple AirPods Pro 2', 900, 'headphones')">إضافة بـ 900 ر.س</button>
+                  <button class="px-3 py-1.5 rounded-lg bg-primary text-white font-bold hover:scale-105 transition-all text-[10px]" onclick="addToCart('Apple AirPods Pro 2', 900, 'headphones')">${t('cart_add_prefix')}${getFormattedPrice(900, savedLang).full}</button>
               </div>`;
         } else if (hasLaptop && !hasMouse) {
           cartUpsellHtml = `
@@ -1732,11 +1764,11 @@
                   <div class="flex items-center gap-2">
                       <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary shrink-0"><i data-lucide="mouse" class="w-4 h-4"></i></div>
                       <div class="text-right">
-                          <p class="font-bold text-gray-800 dark:text-white">أكمل محطة عملك 🖱️</p>
-                          <p class="text-gray-500 dark:text-gray-400">أضف ماوس Logitech MX Master 3S</p>
+                          <p class="font-bold text-gray-800 dark:text-white">${t('cart_upsell_laptop_title')}</p>
+                          <p class="text-gray-500 dark:text-gray-400">${t('cart_upsell_laptop_desc')}</p>
                       </div>
                   </div>
-                  <button class="px-3 py-1.5 rounded-lg bg-primary text-white font-bold hover:scale-105 transition-all text-[10px]" onclick="addToCart('Logitech MX Master 3S', 450, 'mouse')">إضافة بـ 450 ر.س</button>
+                  <button class="px-3 py-1.5 rounded-lg bg-primary text-white font-bold hover:scale-105 transition-all text-[10px]" onclick="addToCart('Logitech MX Master 3S', 450, 'mouse')">${t('cart_add_prefix')}${getFormattedPrice(450, savedLang).full}</button>
               </div>`;
         }
       }
@@ -1748,7 +1780,12 @@
       drawerContent.innerHTML = html;
       badgeContainer.style.display = 'flex';
       badgeCount.innerText = totalCount;
-      totalPriceEl.innerText = totalPrice.toLocaleString('en-US');
+      const formattedTotal = getFormattedPrice(totalPrice, savedLang);
+      totalPriceEl.innerText = formattedTotal.formatted;
+      const drawerCurrencyElements = document.querySelectorAll('#cartDrawer [data-i18n="currency"]');
+      drawerCurrencyElements.forEach(el => {
+        el.textContent = formattedTotal.symbol;
+      });
       if (window.lucide) lucide.createIcons();
     }
 
@@ -1778,19 +1815,25 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       // Bind Add to Cart buttons in catalog
-      const cards = document.querySelectorAll('.glass-card');
+      const cards = document.querySelectorAll('#productCatalog .glass-card');
       cards.forEach(card => {
         const buttons = card.querySelectorAll('button');
-        if (buttons.length < 2) return;
+        if (buttons.length < 1) return;
         const btn = buttons[buttons.length - 1]; // The 'add to cart' is the last button
 
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           e.preventDefault();
 
-          const name = card.querySelector('h3').innerText;
-          let priceText = card.querySelector('.text-2xl').innerText;
-          let price = parseInt(priceText.replace(/[^0-9]/g, ''));
+          // Get product ID assigned by translateProductCards
+          const id = card.getAttribute('data-product-id');
+          let product = null;
+          if (id) {
+            product = allProductsList.find(p => p.id == id);
+          }
+
+          const name = product ? product.name : card.querySelector('h3').innerText;
+          const basePrice = product ? product.price : parseInt(card.querySelector('.text-2xl').innerText.replace(/[^0-9]/g, ''));
 
           let itemIcon = 'smartphone'; // default
           const iconContainer = card.querySelector('.w-14');
@@ -1803,7 +1846,7 @@
             }
           }
 
-          addToCart(name, price, itemIcon);
+          addToCart(name, basePrice, itemIcon);
         });
       });
 
@@ -1839,6 +1882,7 @@
           const id = titleToIdMap[title];
           if (id) {
             card.setAttribute('onclick', `window.location.href='product.html?id=${id}'`);
+            card.setAttribute('data-product-id', id); // ensure it is set before translateProductCards runs
           }
         }
       });
@@ -2282,6 +2326,177 @@
     }, 500);
 
     // i18n Translation Logic for index.html
+    function getCurrencySymbol(lang) {
+      const savedCurr = localStorage.getItem('currency') || 'USD';
+      if (savedCurr === 'EUR') return '€';
+      if (savedCurr === 'TRY') return '₺';
+      if (savedCurr === 'SYP') return lang === 'العربية' ? 'ل.س' : 'SYP';
+      return '$'; // USD
+    }
+
+    function getFormattedPrice(basePrice, lang) {
+      const savedCurr = localStorage.getItem('currency') || 'USD';
+      let rate = 1.0;
+      const symbol = getCurrencySymbol(lang);
+
+      if (savedCurr === 'EUR') {
+        rate = 0.92;
+      } else if (savedCurr === 'TRY') {
+        rate = 33.0;
+      } else if (savedCurr === 'SYP') {
+        rate = 14500.0;
+      } else { // USD
+        rate = 1.0;
+      }
+
+      const converted = Math.round(basePrice * rate);
+      return {
+        value: converted,
+        formatted: converted.toLocaleString('en-US'),
+        symbol: symbol,
+        full: `${converted.toLocaleString('en-US')} ${symbol}`
+      };
+    }
+
+    const allProductsList = [
+      { id: 1, name: "iPhone 15 Pro Max", price: 4500, category: "الهواتف الذكية", catKey: "phones", desc: "سعة 256 جيجابايت، تيتانيوم طبيعي، شريحة A17 Pro." },
+      { id: 2, name: "Samsung Galaxy S24 Ultra", price: 4300, category: "الهواتف الذكية", catKey: "phones", desc: "شاشة مسطحة، ذكاء اصطناعي متقدم، كاميرا 200MP." },
+      { id: 3, name: "Sony WH-1000XM5", price: 1200, category: "صوتيات", catKey: "audio", desc: "عزل ضوضاء رائد، بطارية 30 ساعة، صوت فائق النقاء." },
+      { id: 4, name: "Apple AirPods Pro 2", price: 900, category: "صوتيات", catKey: "audio", desc: "سماعات لاسلكية مع عزل ضوضاء وشفافية صوت محسنة." },
+      { id: 5, name: "MacBook Pro M3", price: 8500, category: "لابتوب", catKey: "laptops", desc: "أداء استثنائي للمحترفين، شاشة Liquid Retina XDR." },
+      { id: 6, name: "iPad Pro 12.9\"", price: 3500, category: "أجهزة لوحية", catKey: "tablets", desc: "شريحة M2، شاشة Mini-LED مبهرة، دعم قلم آبل." },
+      { id: 7, name: "Apple Watch Ultra 2", price: 3200, category: "ساعات ذكية", catKey: "watches", desc: "تيتانيوم قوي جداً، نظام GPS ثنائي التردد." },
+      { id: 8, name: "PlayStation 5 Slim", price: 2200, category: "ألعاب", catKey: "games", desc: "أجهزة كونسول الجيل الجديد بتصميم أنحف وأخف." },
+      { id: 9, name: "Xbox Series X", price: 2100, category: "ألعاب", catKey: "games", desc: "أقوى كونسول في العالم، أداء 4K مع 120 إطار بالثانية." },
+      { id: 10, name: "Nintendo Switch OLED", price: 1400, category: "ألعاب", catKey: "games", desc: "شاشة OLED ساطعة بحجم 7 إنش لمتعة ألعاب لا مثيل لها." },
+      { id: 11, name: "Dell XPS 15", price: 7500, category: "لابتوب", catKey: "laptops", desc: "شاشة خالية من الحواف تقريباً مع أداء مخصص للمبدعين." },
+      { id: 12, name: "Asus ROG Ally", price: 2800, category: "ألعاب", catKey: "games", desc: "جهاز محمول بمعالج Z1 Extreme لتشغيل كل ألعاب الـ PC." },
+      { id: 13, name: "Bose QuietComfort Ultra", price: 1300, category: "صوتيات", catKey: "audio", desc: "أفضل عزل للصوت في العالم وتصميم فائق الراحة." },
+      { id: 14, name: "Galaxy Watch 6 Classic", price: 1100, category: "ساعات ذكية", catKey: "watches", desc: "تصميم كلاسيكي مع إطار دوار ومتابعة للصحة على مدار الساعة." },
+      { id: 15, name: "Google Pixel 8 Pro", price: 3800, category: "الهواتف الذكية", catKey: "phones", desc: "أذكى هاتف من جوجل بكاميرات معززة بالذكاء الاصطناعي." },
+      { id: 16, name: "LG OLED evo C3 65\"", price: 5500, category: "شاشات وتلفزيونات", catKey: "tvs", desc: "ألوان مذهلة وسواد عميق لمتعة سينمائية في منزلك." },
+      { id: 17, name: "DJI Mini 4 Pro", price: 3400, category: "كاميرات وتصوير", catKey: "cameras", desc: "طائرة مسيرة صغيرة بوزن خفيف وتصوير 4K رأسي." },
+      { id: 18, name: "GoPro Hero 12 Black", price: 1600, category: "كاميرات وتصوير", catKey: "cameras", desc: "كاميرا أكشن متينة، تثبيت فيديو محسن، وبطارية أطول." },
+      { id: 19, name: "Apple Magic Keyboard", price: 600, category: "ملحقات", catKey: "accessories", desc: "لوحة مفاتيح لاسلكية من آبل بتصميم مريح ونحيف جداً." },
+      { id: 20, name: "Logitech MX Master 3S", price: 450, category: "ملحقات", catKey: "accessories", desc: "ماوس احترافي، نقرات صامتة جداً وتمرير كهرومغناطيسي." }
+    ];
+
+    const categoryTranslations = {
+      'العربية': {
+        'phones': 'الهواتف الذكية',
+        'audio': 'صوتيات',
+        'laptops': 'لابتوب',
+        'tablets': 'أجهزة لوحية',
+        'watches': 'ساعات ذكية',
+        'games': 'ألعاب',
+        'tvs': 'شاشات وتلفزيونات',
+        'cameras': 'كاميرات وتصوير',
+        'accessories': 'ملحقات'
+      },
+      'English': {
+        'phones': 'Smartphones',
+        'audio': 'Audio',
+        'laptops': 'Laptops',
+        'tablets': 'Tablets',
+        'watches': 'Smartwatches',
+        'games': 'Gaming',
+        'tvs': 'TV & Screens',
+        'cameras': 'Cameras & Photography',
+        'accessories': 'Accessories'
+      },
+      'Türkçe': {
+        'phones': 'Akıllı Telefonlar',
+        'audio': 'Ses',
+        'laptops': 'Dizüstü Bilgisayarlar',
+        'tablets': 'Tabletler',
+        'watches': 'Akıllı Saatler',
+        'games': 'Oyun',
+        'tvs': 'TV ve Ekranlar',
+        'cameras': 'Kameralar',
+        'accessories': 'Aksesuarlar'
+      },
+      'Deutsch': {
+        'phones': 'Smartphones',
+        'audio': 'Audio',
+        'laptops': 'Laptops',
+        'tablets': 'Tablets',
+        'watches': 'Smartwatches',
+        'games': 'Gaming',
+        'tvs': 'TV & Bildschirme',
+        'cameras': 'Kameras',
+        'accessories': 'Zubehör'
+      }
+    };
+
+    const productTranslations = {
+      'English': {
+        1: { name: "iPhone 15 Pro Max", desc: "256GB, Natural Titanium, A17 Pro chip." },
+        2: { name: "Samsung Galaxy S24 Ultra", desc: "Flat screen, advanced AI, 200MP camera." },
+        3: { name: "Sony WH-1000XM5", desc: "Leading noise cancellation, 30-hour battery, ultra-pure sound." },
+        4: { name: "Apple AirPods Pro 2", desc: "Wireless earbuds with improved noise cancellation and transparency." },
+        5: { name: "MacBook Pro M3", desc: "Exceptional performance for pros, Liquid Retina XDR display." },
+        6: { name: "iPad Pro 12.9\"", desc: "M2 chip, brilliant Mini-LED display, Apple Pencil support." },
+        7: { name: "Apple Watch Ultra 2", desc: "Rugged titanium, dual-frequency GPS." },
+        8: { name: "PlayStation 5 Slim", desc: "Next-gen console in a slimmer and lighter design." },
+        9: { name: "Xbox Series X", desc: "Most powerful console, 4K performance at 120 fps." },
+        10: { name: "Nintendo Switch OLED", desc: "Bright 7-inch OLED screen for unparalleled gaming fun." },
+        11: { name: "Dell XPS 15", desc: "Near-borderless display with performance tailored for creators." },
+        12: { name: "Asus ROG Ally", desc: "Handheld console with Z1 Extreme processor to run all PC games." },
+        13: { name: "Bose QuietComfort Ultra", desc: "World-class noise cancellation and ultra-comfortable design." },
+        14: { name: "Galaxy Watch 6 Classic", desc: "Classic design with rotating bezel and 24/7 health tracking." },
+        15: { name: "Google Pixel 8 Pro", desc: "Smartest Google phone with AI-enhanced cameras." },
+        16: { name: "LG OLED evo C3 65\"", desc: "Stunning colors and deep blacks for a cinematic home experience." },
+        17: { name: "DJI Mini 4 Pro", desc: "Mini drone under 249g with 4K vertical shooting." },
+        18: { name: "GoPro Hero 12 Black", desc: "Rugged action camera, improved video stabilization, longer battery." },
+        19: { name: "Apple Magic Keyboard", desc: "Apple wireless keyboard with comfortable and ultra-slim design." },
+        20: { name: "Logitech MX Master 3S", desc: "Professional mouse, ultra-quiet clicks, electromagnetic scrolling." }
+      },
+      'Türkçe': {
+        1: { name: "iPhone 15 Pro Max", desc: "256GB, Doğal Titanyum, A17 Pro çip." },
+        2: { name: "Samsung Galaxy S24 Ultra", desc: "Düz ekran, gelişmiş yapay zeka, 200MP kamera." },
+        3: { name: "Sony WH-1000XM5", desc: "Gelişmiş gürültü engelleme, 30 saat pil ömrü, net ses." },
+        4: { name: "Apple AirPods Pro 2", desc: "Gelişmiş gürültü engelleme ve şeffaf modlu kablosuz kulaklık." },
+        5: { name: "MacBook Pro M3", desc: "Profesyoneller için üstün performans, Liquid Retina XDR ekran." },
+        6: { name: "iPad Pro 12.9\"", desc: "M2 çip, göz alıcı Mini-LED ekran, Apple Pencil desteği." },
+        7: { name: "Apple Watch Ultra 2", desc: "Güçlü titanyum kasa, çift frekanslı GPS." },
+        8: { name: "PlayStation 5 Slim", desc: "Yeni nesil konsol, daha ince ve hafif tasarım." },
+        9: { name: "Xbox Series X", desc: "En güçlü konsol, 120 fps'de 4K oyun performansı." },
+        10: { name: "Nintendo Switch OLED", desc: "Eşsiz oyun deneyimi için parlak 7 inç OLED ekran." },
+        11: { name: "Dell XPS 15", desc: "Tasarımcılar için özel performans, çerçevesiz ekran." },
+        12: { name: "Asus ROG Ally", desc: "Z1 Extreme işlemcili, tüm PC oyunlarını çalıştıran el konsolu." },
+        13: { name: "Bose QuietComfort Ultra", desc: "En iyi aktif gürültü engelleme ve ultra rahat tasarım." },
+        14: { name: "Galaxy Watch 6 Classic", desc: "Dönen çerçeveli klasik tasarım, 24 saat sağlık takibi." },
+        15: { name: "Google Pixel 8 Pro", desc: "Yapay zeka kameralı, Google'ın en akıllı telefonu." },
+        16: { name: "LG OLED evo C3 65\"", desc: "Evde sinema keyfi için harika renkler ve derin siyahlar." },
+        17: { name: "DJI Mini 4 Pro", desc: "Hafif gövde, dikey 4K çekim destekli mini drone." },
+        18: { name: "GoPro Hero 12 Black", desc: "Dayanıklı aksiyon kamerası, gelişmiş video sabitleme." },
+        19: { name: "Apple Magic Keyboard", desc: "Apple kablosuz klavye, konforlu ve ultra ince tasarım." },
+        20: { name: "Logitech MX Master 3S", desc: "Profesyonel mouse, sessiz tıklama, elektromanyetik kaydırma." }
+      },
+      'Deutsch': {
+        1: { name: "iPhone 15 Pro Max", desc: "256 GB, natürliches Titan, A17 Pro Chip." },
+        2: { name: "Samsung Galaxy S24 Ultra", desc: "Flacher Bildschirm, fortschrittliche KI, 200-MP-Kamera." },
+        3: { name: "Sony WH-1000XM5", desc: "Erstklassige Geräuschunterdrückung, 30h Akku, reiner Klang." },
+        4: { name: "Apple AirPods Pro 2", desc: "Kabellose Ohrhörer mit verbesserter Geräuschunterdrückung." },
+        5: { name: "MacBook Pro M3", desc: "Herausragende Leistung für Profis, Liquid Retina XDR Display." },
+        6: { name: "iPad Pro 12.9\"", desc: "M2 Chip, brillantes Mini-LED-Display, Apple Pencil Support." },
+        7: { name: "Apple Watch Ultra 2", desc: "Robustes Titan, Dual-Frequenz-GPS." },
+        8: { name: "PlayStation 5 Slim", desc: "Next-Gen-Konsole in schlankerem und leichterem Design." },
+        9: { name: "Xbox Series X", desc: "Leistungsstärkste Konsole, 4K-Leistung bei 120 fps." },
+        10: { name: "Nintendo Switch OLED", desc: "Helles 7-Zoll-OLED-Display für tollen Spielspaß." },
+        11: { name: "Dell XPS 15", desc: "Nahezu rahmenloses Display mit Leistung für Kreative." },
+        12: { name: "Asus ROG Ally", desc: "Handheld-Konsole mit Z1 Extreme Prozessor für alle PC-Spiele." },
+        13: { name: "Bose QuietComfort Ultra", desc: "Weltklasse-Geräuschunterdrückung, bequemes Design." },
+        14: { name: "Galaxy Watch 6 Classic", desc: "Klassisches Design mit drehbarer Lünette, 24/7 Tracking." },
+        15: { name: "Google Pixel 8 Pro", desc: "Intelligentestes Google-Telefon mit KI-Kameras." },
+        16: { name: "LG OLED evo C3 65\"", desc: "Atemberaubende Farben und tiefes Schwarz für Heimkino." },
+        17: { name: "DJI Mini 4 Pro", desc: "Mini-Drohne unter 249g mit vertikalem 4K-Filmen." },
+        18: { name: "GoPro Hero 12 Black", desc: "Robuste Action-Kamera, verbesserte Videostabilisierung." },
+        19: { name: "Apple Magic Keyboard", desc: "Kabellose Apple Tastatur, flaches und bequemes Design." },
+        20: { name: "Logitech MX Master 3S", desc: "Profi-Maus, leise Klicks, elektromagnetisches Scrollen." }
+      }
+    };
+
     const translations = {
       'العربية': {
         'nav_discover': 'اكتشف',
@@ -2307,7 +2522,24 @@
         'trust_3_desc': 'تحميل فوري وتحديثات مدى الحياة',
         'no_results': 'لا توجد نتائج',
         'no_results_desc1': 'عذراً، لم نتمكن من العثور على أي منتج يطابق بحثك عن',
-        'no_results_desc2': 'الرجاء التأكد من الكلمة والمحاولة مرة أخرى.'
+        'no_results_desc2': 'الرجاء التأكد من الكلمة والمحاولة مرة أخرى.',
+        'catalog_title': 'الكتالوج الحالي',
+        'filter_all': 'الكل',
+        'filter_phones': 'هواتف',
+        'filter_gaming': 'ألعاب',
+        'filter_audio': 'صوتيات',
+        'cart_title': 'سلة المشتريات',
+        'cart_total': 'المجموع الإجمالي',
+        'cart_checkout': 'إتمام الطلب بأمان',
+        'cart_empty': 'السلة فارغة',
+        'cart_remove': 'حذف من السلة',
+        'currency': 'ر.س',
+        'cart_upsell_phone_title': 'أكمل تجربة هاتفك 🎧',
+        'cart_upsell_phone_desc': 'أضف سماعات AirPods Pro 2',
+        'cart_upsell_laptop_title': 'أكمل محطة عملك 🖱️',
+        'cart_upsell_laptop_desc': 'أضف ماوس Logitech MX Master 3S',
+        'cart_add_prefix': 'إضافة بـ ',
+        'footer': '© 2026 lmixi. جميع الحقوق محفوظة.'
       },
       'English': {
         'nav_discover': 'Discover',
@@ -2333,7 +2565,24 @@
         'trust_3_desc': 'Instant download and lifetime updates',
         'no_results': 'No Results Found',
         'no_results_desc1': 'Sorry, we couldn\'t find any product matching your search for',
-        'no_results_desc2': 'Please check the word and try again.'
+        'no_results_desc2': 'Please check the word and try again.',
+        'catalog_title': 'Current Catalog',
+        'filter_all': 'All',
+        'filter_phones': 'Phones',
+        'filter_gaming': 'Gaming',
+        'filter_audio': 'Audio',
+        'cart_title': 'Shopping Cart',
+        'cart_total': 'Subtotal',
+        'cart_checkout': 'Secure Checkout',
+        'cart_empty': 'Cart is empty',
+        'cart_remove': 'Remove from cart',
+        'currency': '',
+        'cart_upsell_phone_title': 'Complete your phone experience 🎧',
+        'cart_upsell_phone_desc': 'Add AirPods Pro 2',
+        'cart_upsell_laptop_title': 'Complete your workstation 🖱️',
+        'cart_upsell_laptop_desc': 'Add Logitech MX Master 3S',
+        'cart_add_prefix': 'Add for ',
+        'footer': '© 2026 lmixi. All rights reserved.'
       },
       'Türkçe': {
         'nav_discover': 'Keşfet',
@@ -2359,7 +2608,24 @@
         'trust_3_desc': 'Anında indirme ve ömür boyu güncellemeler',
         'no_results': 'Sonuç Bulunamadı',
         'no_results_desc1': 'Üzgünüz, aramanızla eşleşen hiçbir ürün bulamadık',
-        'no_results_desc2': 'Lütfen kelimeyi kontrol edip tekrar deneyin.'
+        'no_results_desc2': 'Lütfen kelimeyi kontrol edip tekrar deneyin.',
+        'catalog_title': 'Güncel Katalog',
+        'filter_all': 'Hepsi',
+        'filter_phones': 'Telefonlar',
+        'filter_gaming': 'Oyunlar',
+        'filter_audio': 'Ses',
+        'cart_title': 'Alışveriş Sepeti',
+        'cart_total': 'Toplam Tutar',
+        'cart_checkout': 'Güvenli Ödeme',
+        'cart_empty': 'Sepetiniz boş',
+        'cart_remove': 'Sepetten çıkar',
+        'currency': 'TL',
+        'cart_upsell_phone_title': 'Telefon deneyiminizi tamamlayın 🎧',
+        'cart_upsell_phone_desc': 'AirPods Pro 2 ekleyin',
+        'cart_upsell_laptop_title': 'Çalışma alanınızı tamamlayın 🖱️',
+        'cart_upsell_laptop_desc': 'Logitech MX Master 3S ekleyin',
+        'cart_add_prefix': 'Ekle: ',
+        'footer': '© 2026 lmixi. Tüm hakları saklıdır.'
       },
       'Deutsch': {
         'nav_discover': 'Entdecken',
@@ -2385,13 +2651,129 @@
         'trust_3_desc': 'Sofortiger Download und lebenslange Updates',
         'no_results': 'Keine Ergebnisse gefunden',
         'no_results_desc1': 'Entschuldigung, wir konnten kein Produkt finden, das Ihrer Suche nach',
-        'no_results_desc2': 'entspricht. Bitte überprüfen Sie das Wort und versuchen Sie es erneut.'
+        'no_results_desc2': 'entspricht. Bitte überprüfen Sie das Wort und versuchen Sie es erneut.',
+        'catalog_title': 'Aktueller Katalog',
+        'filter_all': 'Alle',
+        'filter_phones': 'Telefone',
+        'filter_gaming': 'Spiele',
+        'filter_audio': 'Audio',
+        'cart_title': 'Einkaufswagen',
+        'cart_total': 'Zwischensumme',
+        'cart_checkout': 'Sicherer Checkout',
+        'cart_empty': 'Warenkorb ist leer',
+        'cart_remove': 'Entfernen',
+        'currency': '',
+        'cart_upsell_phone_title': 'Vervollständigen Sie Ihr Telefon-Erlebnis 🎧',
+        'cart_upsell_phone_desc': 'AirPods Pro 2 hinzufügen',
+        'cart_upsell_laptop_title': 'Vervollständigen Sie Ihren Arbeitsplatz 🖱️',
+        'cart_upsell_laptop_desc': 'Logitech MX Master 3S hinzufügen',
+        'cart_add_prefix': 'Hinzufügen für ',
+        'footer': '© 2026 lmixi. Alle Rechte vorbehalten.'
       }
     };
 
+    function translateProductCards(lang) {
+      const catalogCards = document.querySelectorAll('#productCatalog .glass-card');
+      const titleToIdMap = {
+        "iPhone 15 Pro Max": 1,
+        "Samsung Galaxy S24 Ultra": 2,
+        "Sony WH-1000XM5": 3,
+        "Apple AirPods Pro 2": 4,
+        "MacBook Pro M3": 5,
+        "iPad Pro 12.9\"": 6,
+        "Apple Watch Ultra 2": 7,
+        "PlayStation 5 Slim": 8,
+        "Xbox Series X": 9,
+        "Nintendo Switch OLED": 10,
+        "Dell XPS 15": 11,
+        "Asus ROG Ally": 12,
+        "Bose QuietComfort Ultra": 13,
+        "Galaxy Watch 6 Classic": 14,
+        "Google Pixel 8 Pro": 15,
+        "LG OLED evo C3 65\"": 16,
+        "DJI Mini 4 Pro": 17,
+        "GoPro Hero 12 Black": 18,
+        "Apple Magic Keyboard": 19,
+        "Logitech MX Master 3S": 20
+      };
+
+      catalogCards.forEach(card => {
+        const h3 = card.querySelector('h3');
+        if (!h3) return;
+
+        let id = card.getAttribute('data-product-id');
+        if (!id) {
+          const originalTitle = h3.textContent.trim();
+          id = titleToIdMap[originalTitle];
+          if (id) {
+            card.setAttribute('data-product-id', id);
+          }
+        }
+
+        if (id) {
+          const nameEl = card.querySelector('h3');
+          const descEl = card.querySelector('p.text-sm');
+          const catEl = card.querySelector('p.text-xs');
+          const priceSpan = card.querySelector('.text-2xl');
+
+          const originalProduct = allProductsList.find(p => p.id == id);
+          if (!originalProduct) return;
+
+          if (lang === 'العربية') {
+            if (nameEl) nameEl.textContent = originalProduct.name;
+            if (descEl) descEl.textContent = originalProduct.desc;
+            if (catEl) catEl.textContent = originalProduct.category;
+          } else if (productTranslations[lang] && productTranslations[lang][id]) {
+            const trans = productTranslations[lang][id];
+            if (nameEl) nameEl.textContent = trans.name;
+            if (descEl) descEl.textContent = trans.desc;
+            if (catEl && categoryTranslations[lang]) {
+              catEl.textContent = categoryTranslations[lang][originalProduct.catKey];
+            }
+          }
+
+          if (priceSpan) {
+            const priceObj = getFormattedPrice(originalProduct.price, lang);
+            priceSpan.innerHTML = `${priceObj.formatted}<span class="text-sm text-gray-500 font-normal ml-1">${priceObj.symbol}</span>`;
+          }
+        }
+      });
+
+      const radialCards = document.querySelectorAll('.product-radial-card');
+      radialCards.forEach(card => {
+        const id = card.getAttribute('data-id');
+        if (id) {
+          const nameEl = card.querySelector('h3');
+          const catEl = card.querySelector('span.text-xs');
+          const priceSpan = card.querySelector('p.text-2xl');
+
+          const originalProduct = allProductsList.find(p => p.id == id);
+          if (!originalProduct) return;
+
+          if (lang === 'العربية') {
+            if (nameEl) nameEl.textContent = originalProduct.name;
+            if (catEl) catEl.textContent = originalProduct.category;
+          } else if (productTranslations[lang] && productTranslations[lang][id]) {
+            const trans = productTranslations[lang][id];
+            if (nameEl) nameEl.textContent = trans.name;
+            if (catEl && categoryTranslations[lang]) {
+              catEl.textContent = categoryTranslations[lang][originalProduct.catKey];
+            }
+          }
+
+          if (priceSpan) {
+            const priceObj = getFormattedPrice(originalProduct.price, lang);
+            priceSpan.innerHTML = `${priceObj.formatted} <span class="text-xs text-gray-500 font-normal">${priceObj.symbol}</span>`;
+          }
+        }
+      });
+    }
+
     function applyLanguage() {
-      const savedLang = localStorage.getItem('language');
-      if (savedLang && translations[savedLang]) {
+      const savedLang = localStorage.getItem('language') || 'العربية';
+      const symbol = getCurrencySymbol(savedLang);
+      if (translations[savedLang]) {
+        translations[savedLang]['currency'] = symbol;
         document.querySelectorAll('[data-i18n]').forEach(el => {
           const key = el.getAttribute('data-i18n');
           if (translations[savedLang][key]) {
@@ -2404,6 +2786,8 @@
             el.setAttribute('placeholder', translations[savedLang][key]);
           }
         });
+        translateProductCards(savedLang);
+        updateCartUI();
       }
     }
 
