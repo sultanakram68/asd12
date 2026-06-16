@@ -234,7 +234,7 @@
             </nav>
             <div class="flex gap-4 items-center">
                 <!-- User Profile Dropdown -->
-                <div class="hidden relative group cursor-pointer py-2 -my-2">
+                <div class="relative group cursor-pointer py-2 -my-2">
                     <i data-lucide="user" class="w-5 h-5 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"></i>
                     
                     <div class="absolute right-0 top-full mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-[-10px] group-hover:translate-y-0 z-50">
@@ -242,6 +242,9 @@
                         <div class="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl rounded-2xl p-2 flex flex-col gap-1 border border-white/60 dark:border-white/10 shadow-xl">
                             <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
                                 <i data-lucide="user-circle" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="profile">الملف الشخصي</span>
+                            </a>
+                            <a href="#" onclick="toggleWishlistDrawer(); return false;" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-xl transition-all">
+                                <i data-lucide="heart" class="w-4 h-4 text-red-500 dark:text-rose-400"></i> <span data-i18n="wishlist_title">المفضلة</span>
                             </a>
                             <a href="settings.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
                                 <i data-lucide="settings" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="settings">الإعدادات</span>
@@ -289,6 +292,17 @@
                         </div>
                     </div>
                 </div>
+                <!-- Stylish Wishlist Button -->
+                <div class="relative cursor-pointer group" onclick="toggleWishlistDrawer()">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center glass-card border-white/10 dark:border-white/5 group-hover:border-red-500/50 transition-all duration-300 shadow-sm">
+                        <i data-lucide="heart" id="wishlistIconHeader" class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover:text-red-500 transition-colors"></i>
+                    </div>
+                    <!-- Badge -->
+                    <span id="wishlistBadgeContainer" class="absolute -top-1 -right-1 flex h-4 w-4" style="display: none;">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                        <span id="wishlistBadgeCount" class="relative inline-flex rounded-full h-4 w-4 bg-gradient-to-tr from-red-500 to-red-400 text-[10px] text-white items-center justify-center font-bold border-2 border-[#FAFAFA] dark:border-[#05060A] shadow-md">0</span>
+                    </span>
+                </div>
                 <!-- Stylish Cart Button -->
                 <div class="relative cursor-pointer group" onclick="toggleCartDrawer()">
                     <div class="w-10 h-10 rounded-full flex items-center justify-center glass-card border-white/10 dark:border-white/5 group-hover:border-primary/50 transition-all duration-300 shadow-sm">
@@ -311,6 +325,9 @@
                             </a>
                             <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all">
                                 <i data-lucide="compass" class="w-4 h-4 text-blue-500 dark:text-cyan-400"></i> <span data-i18n="nav_discover">اكتشف</span>
+                            </a>
+                            <a href="#" onclick="toggleWishlistDrawer(); return false;" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-red-500 hover:bg-red-500/10 rounded-xl transition-all">
+                                <i data-lucide="heart" class="w-4 h-4 text-red-500"></i> <span data-i18n="wishlist_title">المفضلة</span>
                             </a>
                         </div>
                     </div>
@@ -345,7 +362,7 @@
                 <div class="absolute top-6 right-6 bg-red-500/10 text-red-500 px-3 py-1 rounded-full text-xs font-bold border border-red-500/20 backdrop-blur-md" data-i18n="best_seller">
                     الأكثر مبيعاً
                 </div>
-                <button class="absolute top-6 left-6 text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-3 rounded-full backdrop-blur-md z-20">
+                <button class="absolute top-6 left-6 text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-3 rounded-full backdrop-blur-md z-20" onclick="toggleWishlist(productId)">
                     <i data-lucide="heart" class="w-6 h-6"></i>
                 </button>
             </div>
@@ -464,6 +481,36 @@
             <button class="liquid-button w-full py-4 rounded-2xl text-white font-bold flex items-center justify-center gap-2 text-lg shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <span data-i18n="cart_checkout">إتمام الطلب بأمان</span> <i data-lucide="shield-check" class="w-5 h-5"></i>
             </button>
+        </div>
+    </div>
+
+    <!-- Wishlist Drawer -->
+    <div id="wishlistDrawerOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleWishlistDrawer()"></div>
+
+    <div id="wishlistDrawer" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-2xl max-h-[85vh] bg-white/70 dark:bg-[#05060A]/70 backdrop-blur-3xl rounded-[2rem] border border-white/60 dark:border-white/10 z-[70] opacity-0 scale-95 pointer-events-none transition-all duration-500 ease-out flex flex-col shadow-[0_0_40px_rgba(239,68,68,0.25)] overflow-hidden">
+        
+        <!-- Ambient Liquid Background -->
+        <div class="absolute inset-0 z-0 pointer-events-none opacity-100">
+            <div class="absolute -translate-x-1/2 -translate-y-1/2 w-36 h-36 ai-blob-1 bg-gradient-to-tr from-red-500/80 via-pink-500/80 to-rose-400/80 dark:from-red-600/80 dark:via-rose-600/80 dark:to-orange-500/80 rounded-full blur-[30px]"></div>
+            <div class="absolute -translate-x-1/2 -translate-y-1/2 w-28 h-28 ai-blob-2 bg-gradient-to-tr from-rose-400/80 to-red-300/80 dark:from-orange-500/80 dark:to-red-600/80 rounded-full blur-[25px]"></div>
+        </div>
+
+        <!-- Header -->
+        <div class="relative z-10 p-6 border-b border-black/5 dark:border-white/5 flex items-center justify-between">
+            <h2 class="text-2xl font-black text-gray-900 dark:text-white flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500">
+                    <i data-lucide="heart" class="w-5 h-5 fill-current"></i>
+                </div>
+                <span data-i18n="wishlist_title">المفضلة</span>
+            </h2>
+            <button onclick="toggleWishlistDrawer()" class="w-8 h-8 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center text-gray-500 hover:text-red-500 hover:bg-red-500/10 transition-colors">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+        
+        <!-- Wishlist Items -->
+        <div class="relative z-10 flex-1 overflow-y-auto p-6 flex flex-col gap-4">
+            <!-- Items will be injected here by JavaScript -->
         </div>
     </div>
 
@@ -988,7 +1035,10 @@
                 'cart_upsell_laptop_desc': 'أضف ماوس Logitech MX Master 3S',
                 'cart_add_prefix': 'إضافة بـ ',
                 'tag_future_tech': 'تكنولوجيا المستقبل',
-                'tag_exceptional_quality': 'جودة استثنائية'
+                'tag_exceptional_quality': 'جودة استثنائية',
+                'wishlist_title': 'المفضلة',
+                'wishlist_empty': 'قائمة المفضلة فارغة',
+                'add_to_cart_short': 'إضافة للسلة'
             },
             'English': {
                 'nav_home': 'Home',
@@ -1019,7 +1069,10 @@
                 'cart_upsell_laptop_desc': 'Add Logitech MX Master 3S',
                 'cart_add_prefix': 'Add for ',
                 'tag_future_tech': 'Future Technology',
-                'tag_exceptional_quality': 'Exceptional Quality'
+                'tag_exceptional_quality': 'Exceptional Quality',
+                'wishlist_title': 'Wishlist',
+                'wishlist_empty': 'Wishlist is empty',
+                'add_to_cart_short': 'Add to Cart'
             },
             'Türkçe': {
                 'nav_home': 'Ana Sayfa',
@@ -1050,7 +1103,10 @@
                 'cart_upsell_laptop_desc': 'Logitech MX Master 3S ekleyin',
                 'cart_add_prefix': 'Ekle: ',
                 'tag_future_tech': 'Geleceğin Teknolojisi',
-                'tag_exceptional_quality': 'Olağanüstü Kalite'
+                'tag_exceptional_quality': 'Olağanüstü Kalite',
+                'wishlist_title': 'Favoriler',
+                'wishlist_empty': 'Favori listeniz boş',
+                'add_to_cart_short': 'Sepete Ekle'
             },
             'Deutsch': {
                 'nav_home': 'Startseite',
@@ -1081,7 +1137,10 @@
                 'cart_upsell_laptop_desc': 'Logitech MX Master 3S hinzufügen',
                 'cart_add_prefix': 'Hinzufügen für ',
                 'tag_future_tech': 'Zukunftstechnologie',
-                'tag_exceptional_quality': 'Außergewöhnliche Qualität'
+                'tag_exceptional_quality': 'Außergewöhnliche Qualität',
+                'wishlist_title': 'Wunschliste',
+                'wishlist_empty': 'Wunschliste ist leer',
+                'add_to_cart_short': 'In den Warenkorb'
             }
         };
 
@@ -1230,6 +1289,154 @@
         function removeFromCart(index) {
             cartState.splice(index, 1);
             updateCartUI();
+        }
+
+        // ==========================================
+        // Wishlist Logic
+        // ==========================================
+        let wishlistState = [];
+        try {
+            wishlistState = JSON.parse(localStorage.getItem('wishlist')) || [];
+        } catch (e) {
+            wishlistState = [];
+        }
+
+        function saveWishlist() {
+            localStorage.setItem('wishlist', JSON.stringify(wishlistState));
+        }
+
+        function toggleWishlist(productId) {
+            const id = parseInt(productId);
+            const index = wishlistState.indexOf(id);
+            if (index > -1) {
+                wishlistState.splice(index, 1);
+            } else {
+                wishlistState.push(id);
+            }
+            saveWishlist();
+            updateWishlistUI();
+            updateHeartIconsState();
+        }
+
+        let isWishlistOpen = false;
+        function toggleWishlistDrawer() {
+            const wishlistDrawer = document.getElementById('wishlistDrawer');
+            const wishlistOverlay = document.getElementById('wishlistDrawerOverlay');
+            isWishlistOpen = !isWishlistOpen;
+            if (isWishlistOpen) {
+                if (isCartOpen) toggleCartDrawer();
+                wishlistOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                wishlistOverlay.classList.add('opacity-100', 'pointer-events-auto');
+                wishlistDrawer.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+                wishlistDrawer.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
+                updateWishlistUI();
+            } else {
+                wishlistOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+                wishlistOverlay.classList.add('opacity-0', 'pointer-events-none');
+                wishlistDrawer.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
+                wishlistDrawer.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+            }
+        }
+
+        function updateWishlistUI() {
+            const drawerContent = document.querySelector('#wishlistDrawer .flex-1');
+            const badgeContainer = document.getElementById('wishlistBadgeContainer');
+            const badgeCount = document.getElementById('wishlistBadgeCount');
+
+            const savedLang = localStorage.getItem('language') || 'العربية';
+            const t = (key) => (translations[savedLang] && translations[savedLang][key]) ? translations[savedLang][key] : (translations['العربية'][key] || key);
+
+            if (wishlistState.length === 0) {
+                drawerContent.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-gray-400 gap-4"><i data-lucide="heart" class="w-16 h-16 opacity-50"></i><p>${t('wishlist_empty')}</p></div>`;
+                if (badgeContainer) badgeContainer.style.display = 'none';
+                if (window.lucide) lucide.createIcons();
+                return;
+            }
+
+            let html = '';
+            wishlistState.forEach((id) => {
+                const item = allProducts.find(p => p.id == id);
+                if (!item) return;
+
+                let displayName = item.name;
+                if (savedLang !== 'العربية' && productTranslations[savedLang] && productTranslations[savedLang][id]) {
+                    displayName = productTranslations[savedLang][id].name;
+                }
+
+                const priceObj = getFormattedPrice(item.price, savedLang);
+
+                html += `
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-tr from-red-500 to-pink-400 rounded-2xl blur-md opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
+                    <div class="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl p-3 rounded-2xl flex gap-3 border border-white/60 dark:border-white/10 shadow-xl overflow-hidden cursor-pointer" onclick="window.location.href='product.html?id=${id}'">
+                        <button class="absolute top-3 left-3 text-gray-400 hover:text-red-500 transition-colors z-20 bg-black/5 dark:bg-white/10 p-1.5 rounded-full" onclick="event.stopPropagation(); toggleWishlist(${id})" title="${t('cart_remove')}">
+                            <i data-lucide="x" class="w-3 h-3"></i>
+                        </button>
+                        <div class="w-16 h-16 rounded-xl bg-red-50 dark:bg-red-950/30 flex items-center justify-center text-red-500 dark:text-rose-400 group-hover:scale-105 transition-transform duration-300 shrink-0">
+                            <i data-lucide="${item.icon || 'smartphone'}" class="w-8 h-8"></i>
+                        </div>
+                        <div class="flex-1 flex flex-col justify-center">
+                            <h3 class="font-bold text-gray-800 dark:text-gray-100 text-sm leading-tight pl-8">${displayName}</h3>
+                            <div class="flex items-center justify-between mt-2">
+                                <span class="font-black text-red-600 dark:text-rose-400 text-sm">${priceObj.full}</span>
+                                <button class="px-3 py-1.5 rounded-lg bg-primary text-white font-bold hover:scale-105 transition-all text-[10px]" onclick="event.stopPropagation(); addToCart('${item.name}', ${item.price}, '${item.icon || 'smartphone'}')">${t('add_to_cart_short')}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            });
+
+            drawerContent.innerHTML = html;
+            if (badgeContainer) badgeContainer.style.display = 'flex';
+            if (badgeCount) badgeCount.innerText = wishlistState.length;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function updateHeartIconsState() {
+            // Main product image heart status
+            const mainHeartSvg = document.querySelector('.tilt-3d button svg');
+            if (mainHeartSvg) {
+                if (wishlistState.includes(parseInt(productId))) {
+                    mainHeartSvg.classList.add('fill-red-500', 'text-red-500');
+                    mainHeartSvg.classList.remove('text-gray-400');
+                } else {
+                    mainHeartSvg.classList.remove('fill-red-500', 'text-red-500');
+                    mainHeartSvg.classList.add('text-gray-400');
+                }
+            }
+
+            // Recommendations heart status
+            const recCards = document.querySelectorAll('#recommendations-grid .glass-card');
+            recCards.forEach(card => {
+                const clickAttr = card.getAttribute('onclick');
+                if (clickAttr) {
+                    const idMatch = clickAttr.match(/id=(\d+)/);
+                    if (idMatch) {
+                        const id = idMatch[1];
+                        const heartIcon = card.querySelector('button svg');
+                        if (heartIcon) {
+                            if (wishlistState.includes(parseInt(id))) {
+                                heartIcon.classList.add('fill-red-500', 'text-red-500');
+                                heartIcon.classList.remove('text-gray-400');
+                            } else {
+                                heartIcon.classList.remove('fill-red-500', 'text-red-500');
+                                heartIcon.classList.add('text-gray-400');
+                            }
+                        }
+                    }
+                }
+            });
+
+            const badgeContainer = document.getElementById('wishlistBadgeContainer');
+            const badgeCount = document.getElementById('wishlistBadgeCount');
+            if (badgeContainer && badgeCount) {
+                if (wishlistState.length > 0) {
+                    badgeContainer.style.display = 'flex';
+                    badgeCount.innerText = wishlistState.length;
+                } else {
+                    badgeContainer.style.display = 'none';
+                }
+            }
         }
 
         // Apply chosen language on product details and components
@@ -1382,7 +1589,7 @@
                         <div class="w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shadow-sm">
                             <i data-lucide="${prod.icon}" class="w-7 h-7"></i>
                         </div>
-                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm" onclick="event.stopPropagation();"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                        <button class="text-gray-400 hover:text-red-500 transition-colors bg-white/50 dark:bg-black/50 p-2 rounded-full backdrop-blur-sm" onclick="event.stopPropagation(); toggleWishlist(${prod.id});"><i data-lucide="heart" class="w-5 h-5"></i></button>
                     </div>
                     <div class="relative z-10 mt-2">
                         <p class="text-xs text-primary font-bold mb-2 tracking-wider uppercase">${displayCat}</p>
@@ -1401,11 +1608,13 @@
             });
             
             if (window.lucide) lucide.createIcons();
+            updateHeartIconsState();
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             // Apply language on load
             applyLanguage();
+            updateHeartIconsState();
         });
     </script>
 </body>
